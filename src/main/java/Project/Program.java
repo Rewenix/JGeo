@@ -39,6 +39,13 @@ public class Program extends Application {
         Group group = new Group(line, circle, touchingPoint);  //VBox psuje współrzędne.
 
         Scene scene = new Scene(group, 800, 600);
+
+        // Wciśnięcie myszy dodaje punkt na scenie.
+        scene.setOnMousePressed(event -> {
+            Circle point = new Circle(event.getX(), event.getY(), 3);
+            group.getChildren().add(point);
+        });
+
         stage.setScene(scene);
         stage.show();
     }
