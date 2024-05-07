@@ -1,5 +1,6 @@
 package Project;
 
+import Project.controller.Buttons;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -46,6 +47,8 @@ public class Program extends Application {
             group.getChildren().add(point);
         });
 
+
+        group.getChildren().add(new Buttons(scene));
         stage.setScene(scene);
         stage.show();
     }
