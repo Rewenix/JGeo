@@ -31,6 +31,6 @@ public class Point extends GeometricShape{
     public boolean hasPoint(double planeX, double planeY) {
         double dX = x - planeX;
         double dY = y - planeY;
-        return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= R;
+        return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= R * R;
     }
 }

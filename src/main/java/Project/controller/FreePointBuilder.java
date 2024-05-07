@@ -5,6 +5,7 @@ import Project.model.GeometricShapeUpdater;
 import Project.model.Plane2D;
 import Project.model.Point;
 import javafx.scene.Group;
+import javafx.scene.layout.Pane;
 
 public class FreePointBuilder implements GeometricShapeBuilder{
     @Override
@@ -23,7 +24,7 @@ public class FreePointBuilder implements GeometricShapeBuilder{
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Group viewGroup, double planeX, double planeY) {
+    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
         Point point = new Point("Punkt", plane, transformation, planeX, planeY);
         GeometricShapeUpdater updater = new GeometricShapeUpdater(){
 
@@ -33,7 +34,7 @@ public class FreePointBuilder implements GeometricShapeBuilder{
             }
         };
         point.setUpdater(updater);
-        viewGroup.getChildren().add(point.getDrawableShape());
+        viewPane.getChildren().add(point.getDrawableShape());
         plane.addGeometricShape(point);
     }
 }
