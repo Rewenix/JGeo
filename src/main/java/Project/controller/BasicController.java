@@ -56,6 +56,9 @@ public class BasicController {
         if(selectedActor == null) return;
         if(selectedActor instanceof Shifter selectedShifter){
             selectedShifter.shift(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+            double planeX = transformation.toPlaneX(screenX);
+            double planeY = transformation.toPlaneY(screenY);
+            selectedShifter.setOrigin(planeX, planeY);
             return;
         }
     }
