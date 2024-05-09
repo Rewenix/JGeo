@@ -6,10 +6,13 @@ import Project.controller.LineThroughPointsBuilder;
 import Project.controller.Shifter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 public class Buttons extends HBox {
     private final ToggleGroup group = new ToggleGroup();
@@ -25,23 +28,43 @@ public class Buttons extends HBox {
             if (newToggle == null) {
                 controller.changeBuilder(null); }});*/
         //Dodajemy przyciski
-        registerButton(event -> { System.out.println("'Point' button pressed"); controller.changeActor(new FreePointBuilder()); },
+        registerToggleButton(event -> { System.out.println("'Point' button pressed"); controller.changeActor(new FreePointBuilder()); },
                 "Point",
                 "Draws a point where selected. A point will be dragged to a shape if it is drawn near to it.");
-        registerButton(event -> { System.out.println("'Line' button pressed"); controller.changeActor(new LineThroughPointsBuilder()); },
+        registerToggleButton(event -> { System.out.println("'Line' button pressed"); controller.changeActor(new LineThroughPointsBuilder()); },
                 "Line",
                 "Draw a line through two selected points. Points need to be drawn first with another method.");
-        registerButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation())); },
+        registerToggleButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation())); },
                 "Shifter",
                 "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
+
+        // Zepchnięcie następujących przycisków na prawo.
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        getChildren().addAll(spacer);
+
+        registerButton(event -> { System.out.println("'Undo' button pressed"); controller.getPlane().removeLastShape(); },
+                "Undo",
+                "Removes the last drawn shape.");
+        registerButton(event -> { System.out.println("'Clear' button pressed"); controller.getPlane().clear(); },
+                "Clear",
+                "Clears the drawing pane.");
     }
 
-    private void registerButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {
+    private void registerToggleButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {
         ToggleButton button = new ToggleButton(buttonName);
         button.setOnAction(eventHandler);
         Tooltip tip = new Tooltip(description);
         Tooltip.install(button, tip);
         button.setToggleGroup(group);
+        getChildren().add(button);
+    }
+
+    private void registerButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {
+        Button button = new Button(buttonName);
+        button.setOnAction(eventHandler);
+        Tooltip tip = new Tooltip(description);
+        Tooltip.install(button, tip);
         getChildren().add(button);
     }
 }

@@ -67,6 +67,14 @@ public class BasicController {
         }
     }
 
+    public void removeLastShape() {
+        plane.removeLastShape();
+    }
+
+    public void clearShapes() {
+        plane.clear();
+    }
+
     //TODO to jest do wywalenia ale chcialem pokazac ze updatowanie zaleznosci dziala
     //w szczegolnosci to jest absurdalnie zabugowane i w losowych momentach powstaja losowe bledy, czasem sie nawet graf psuje
     public void demoAnimation(){

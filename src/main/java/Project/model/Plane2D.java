@@ -1,5 +1,8 @@
 package Project.model;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
+
 import java.util.ArrayList;
 
 public class Plane2D {
@@ -7,6 +10,20 @@ public class Plane2D {
 
     public void addGeometricShape(GeometricShape shape){
         shapes.add(shape);
+    }
+
+    public void removeLastShape(){
+        if(!shapes.isEmpty()) {
+            Shape shape = shapes.remove(shapes.size() - 1).getDrawableShape();
+            shape.setFill(Color.TRANSPARENT);
+            shape.setStroke(Color.TRANSPARENT);
+        }
+    }
+
+    public void clear() {
+        while(!shapes.isEmpty()) {
+            removeLastShape();
+        }
     }
 
     public void update(){
