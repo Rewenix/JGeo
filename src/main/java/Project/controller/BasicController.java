@@ -12,8 +12,7 @@ import java.util.ArrayList;
 public class BasicController {
     private Plane2D plane = new Plane2D();
     private Transformation transformation = new Transformation();
-    private ArrayList<GeometricShapeBuilder> builders = new ArrayList<>();
-    private int selectedBuilderId = 0;//nie jestem pewny czy to jest konieczne
+    protected ArrayList<GeometricShapeBuilder> builders = new ArrayList<>();
     private GeometricShapeBuilder selectedBuilder;
     private Pane viewPane;
 
@@ -22,14 +21,13 @@ public class BasicController {
         //tu jak na razie trzeba dodawac buildery. Mozna rozwazyc czy nie zrobic jakiejs wspolnej metody na dodawanie builderow razem z przyciskami
         builders.add(new FreePointBuilder());
         builders.add(new LineThroughPointsBuilder());
-        selectedBuilder = builders.get(selectedBuilderId);
+        selectedBuilder = builders.get(0);
     }
 
-    public void changeBuilder(int id){
-        System.out.println("Change builder with id=" + id);
+    public void changeBuilder(GeometricShapeBuilder builder){
+        System.out.println("Change builder");
         selectedBuilder.reset();
-        selectedBuilderId = id;
-        selectedBuilder = builders.get(id);
+        selectedBuilder = builder;
     }
 
     public void handleNormalClick(double screenX, double screenY){
@@ -38,7 +36,7 @@ public class BasicController {
         GeometricShape clickedShape = plane.getClickedShape(planeX, planeY);
         selectedBuilder.acceptArgument(clickedShape);
         if(selectedBuilder.isReady()){
-            System.out.println("Building shape with builderId=" + selectedBuilderId);
+            System.out.println("Building shape with builder");
             selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
             selectedBuilder.reset();
         }
