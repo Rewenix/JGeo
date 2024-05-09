@@ -10,10 +10,14 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 public class BasicController {
-    protected Plane2D plane = new Plane2D();
-    protected Transformation transformation = new Transformation();
-    private Actor selectedActor = null;
-    private Pane viewPane;
+    private final Plane2D plane = new Plane2D();
+    private final Transformation transformation = new Transformation();
+    private Actor selectedActor;
+    private final Pane viewPane;
+
+    public Plane2D getPlane() { return plane; }
+
+    public Transformation getTransformation() { return transformation; }
 
     public BasicController(Pane viewPane){
         this.viewPane = viewPane;

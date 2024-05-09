@@ -1,10 +1,11 @@
-package Project.controller;
+package Project.view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import Project.controller.BasicController;
+import Project.controller.FreePointBuilder;
+import Project.controller.LineThroughPointsBuilder;
+import Project.controller.Shifter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
@@ -30,7 +31,7 @@ public class Buttons extends HBox {
         registerButton(event -> { System.out.println("'Line' button pressed"); controller.changeActor(new LineThroughPointsBuilder()); },
                 "Line",
                 "Draw a line through two selected points. Points need to be drawn first with another method.");
-        registerButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.plane, controller.transformation)); },
+        registerButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation())); },
                 "Shifter",
                 "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
     }

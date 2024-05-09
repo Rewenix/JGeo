@@ -1,9 +1,6 @@
 package Project.view;
 
 import Project.controller.BasicController;
-import Project.controller.Buttons;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -11,8 +8,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 public class TestView extends GridPane {
-    public Buttons buttons = new Buttons();
-    public Pane drawingPane = new Pane();
+    private final Buttons buttons = new Buttons();
+    public final Pane drawingPane = new Pane();
 
     public TestView(){
         GridPane.setRowIndex(buttons, 0);
