@@ -74,6 +74,11 @@ public class TestView extends GridPane {
         drawingPane.setOnMousePressed(event ->{
             controller.handleNormalClick(event.getX(), event.getY());
         });
+
+        drawingPane.setOnMouseDragged(event -> {
+            controller.handleDragged(event.getX(), event.getY());
+        });
+
         buttons.registerController(controller);
     }
 }

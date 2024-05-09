@@ -11,49 +11,71 @@ import java.util.ArrayList;
 
 public class BasicController {
     private Plane2D plane = new Plane2D();
-    private Transformation transformation = new Transformation();
-    protected ArrayList<GeometricShapeBuilder> builders = new ArrayList<>();
-    private GeometricShapeBuilder selectedBuilder;
+    protected Transformation transformation = new Transformation();
+    private Actor selectedActor = null;
     private Pane viewPane;
 
     public BasicController(Pane viewPane){
         this.viewPane = viewPane;
-        //tu jak na razie trzeba dodawac buildery. Mozna rozwazyc czy nie zrobic jakiejs wspolnej metody na dodawanie builderow razem z przyciskami
-        builders.add(new FreePointBuilder());
-        builders.add(new LineThroughPointsBuilder());
-        selectedBuilder = builders.get(0);
+        selectedActor = null;
     }
 
-    public void changeBuilder(GeometricShapeBuilder builder){
-        System.out.println("Change builder");
-        selectedBuilder.reset();
-        selectedBuilder = builder;
+    public Plane2D getPlane() {
+        return plane;
+    }
+
+    public void changeActor(Actor actor){
+        System.out.println("Change actor");
+        selectedActor = actor;
     }
 
     public void handleNormalClick(double screenX, double screenY){
-        double planeX = transformation.toPlaneX(screenX);
-        double planeY = transformation.toPlaneY(screenY);
-        GeometricShape clickedShape = plane.getClickedShape(planeX, planeY);
-        selectedBuilder.acceptArgument(clickedShape);
-        if(selectedBuilder.isReady()){
-            System.out.println("Building shape with builder");
-            selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
-            selectedBuilder.reset();
+        if(selectedActor == null)return;
+        if(selectedActor instanceof GeometricShapeBuilder selectedBuilder){
+            double planeX = transformation.toPlaneX(screenX);
+            double planeY = transformation.toPlaneY(screenY);
+            GeometricShape clickedShape = plane.getClickedShape(planeX, planeY);
+            selectedBuilder.acceptArgument(clickedShape);
+            if(selectedBuilder.isReady()){
+                System.out.println("Building shape with builder");
+                selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
+                selectedBuilder.reset();
+            }
+            return;
+        }
+        if(selectedActor instanceof Shifter selectedShifter){
+            double planeX = transformation.toPlaneX(screenX);
+            double planeY = transformation.toPlaneY(screenY);
+            if(plane.getClickedShape(planeX, planeY) instanceof Point point && point != null){
+                selectedShifter.setPoint(point);
+                return;
+            }
+            selectedShifter.setVectorOrigin(planeX, planeY);
+            return;
+        }
+    }
+
+    public void handleDragged(double screenX, double screenY){
+        if(selectedActor == null) return;
+        if(selectedActor instanceof Shifter selectedShifter){
+            selectedShifter.shift(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+            return;
         }
     }
 
     //TODO to jest do wywalenia ale chcialem pokazac ze updatowanie zaleznosci dziala
     //w szczegolnosci to jest absurdalnie zabugowane i w losowych momentach powstaja losowe bledy, czasem sie nawet graf psuje
     public void demoAnimation(){
-        builders.get(0).build(plane, transformation, viewPane, 200, 200);
-        builders.get(0).build(plane, transformation, viewPane, 400, 200);
-        builders.get(0).build(plane, transformation, viewPane, 200, 400);
-        builders.get(0).build(plane, transformation, viewPane, 500, 500);
+        FreePointBuilder freePointBuilder = new FreePointBuilder();
+        freePointBuilder.build(plane, transformation, viewPane, 200, 200);
+        freePointBuilder.build(plane, transformation, viewPane, 400, 200);
+        freePointBuilder.build(plane, transformation, viewPane, 200, 400);
+        freePointBuilder.build(plane, transformation, viewPane, 500, 500);
         Point a = (Point)plane.getClickedShape(200, 200);
         Point b = (Point)plane.getClickedShape(400, 200);
         Point c = (Point)plane.getClickedShape(200, 400);
         Point d = (Point)plane.getClickedShape(500, 500);
-        GeometricShapeBuilder builder = builders.get(1);
+        GeometricShapeBuilder builder = new LineThroughPointsBuilder();
         builder.acceptArgument(d); builder.acceptArgument(a);
         builder.build(plane, transformation, viewPane, 0, 0);
         builder.reset();

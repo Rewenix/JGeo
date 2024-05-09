@@ -25,7 +25,7 @@ public class Program extends Application {
         stage.setScene(scene);
         stage.show();
         //wylacz to jak nie chcesz zeby sie punkty krecily
-        controller.demoAnimation();
+        //controller.demoAnimation();
     }
 
     public static void main(String[] args){launch(args);}
