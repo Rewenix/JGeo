@@ -15,6 +15,11 @@ public class Plane2D {
 
     public GeometricShape getClickedShape(double planeX, double planeY){
         for(GeometricShape shape : shapes){
+            if(shape instanceof Point point && point.hasPoint(planeX, planeY)){
+                return shape;
+            }
+        }
+        for(GeometricShape shape : shapes){
             if(shape.hasPoint(planeX, planeY)){
                 return shape;
             }
