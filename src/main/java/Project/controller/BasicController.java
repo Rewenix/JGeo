@@ -46,6 +46,7 @@ public class BasicController {
                 selectedShifter.setPoint(point);
                 return;
             }
+            selectedShifter.setPoint(null);
             selectedShifter.setOrigin(planeX, planeY);
             return;
         }
