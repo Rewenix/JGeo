@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 public class BasicController {
-    private Plane2D plane = new Plane2D();
+    protected Plane2D plane = new Plane2D();
     protected Transformation transformation = new Transformation();
     private Actor selectedActor = null;
     private Pane viewPane;
@@ -18,10 +18,6 @@ public class BasicController {
     public BasicController(Pane viewPane){
         this.viewPane = viewPane;
         selectedActor = null;
-    }
-
-    public Plane2D getPlane() {
-        return plane;
     }
 
     public void changeActor(Actor actor){
@@ -50,7 +46,7 @@ public class BasicController {
                 selectedShifter.setPoint(point);
                 return;
             }
-            selectedShifter.setVectorOrigin(planeX, planeY);
+            selectedShifter.setOrigin(planeX, planeY);
             return;
         }
     }

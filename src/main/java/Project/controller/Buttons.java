@@ -30,7 +30,7 @@ public class Buttons extends HBox {
         registerButton(event -> { System.out.println("'Line' button pressed"); controller.changeActor(new LineThroughPointsBuilder()); },
                 "Line",
                 "Draw a line through two selected points. Points need to be drawn first with another method.");
-        registerButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.getPlane())); },
+        registerButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.plane, controller.transformation)); },
                 "Shifter",
                 "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
     }
