@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 
 public interface GeometricShapeBuilder extends Actor {
+    Class<?> expectedClass();
     void acceptArgument(GeometricShape shape);
     boolean isReady();
     void reset();

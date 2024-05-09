@@ -8,6 +8,11 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder{
     private Point b = null;
 
     @Override
+    public Class<?> expectedClass() {
+        return Point.class;
+    }
+
+    @Override
     public void acceptArgument(GeometricShape shape) {
         if(shape instanceof Point p){
             if(a == null){

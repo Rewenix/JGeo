@@ -34,7 +34,7 @@ public class BasicController {
         if(selectedActor instanceof GeometricShapeBuilder selectedBuilder){
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
-            GeometricShape clickedShape = plane.getClickedShape(planeX, planeY);
+            GeometricShape clickedShape = plane.getClickedShape(planeX, planeY, selectedBuilder.expectedClass());
             selectedBuilder.acceptArgument(clickedShape);
             if(selectedBuilder.isReady()){
                 System.out.println("Building shape with builder");

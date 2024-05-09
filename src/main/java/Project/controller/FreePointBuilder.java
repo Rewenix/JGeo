@@ -9,6 +9,11 @@ import javafx.scene.layout.Pane;
 
 public class FreePointBuilder implements GeometricShapeBuilder{
     @Override
+    public Class<?> expectedClass() {
+        return Point.class;
+    }
+
+    @Override
     public void acceptArgument(GeometricShape shape) {
 
     }
