@@ -1,6 +1,7 @@
 package Project.view;
 
 import Project.controller.BasicController;
+import Project.controller.CircleThroughThreePointsBuilder;
 import Project.controller.CircleWithCenterAndPointBuilder;
 import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
@@ -48,9 +49,14 @@ public class Buttons extends HBox {
             System.out.println("'Circle' button pressed");
             controller.changeActor(new CircleWithCenterAndPointBuilder());
         },
-                "Circle",
+                "Circle(Center, Point)",
                 "Draws a circle with a center and a point. Points need to be drawn first with another method.");
-
+        registerToggleButton(event -> {
+            System.out.println("'Circle' button pressed");
+            controller.changeActor(new CircleThroughThreePointsBuilder());
+        },
+                "Circle(Point, Point, Point)",
+                "Draws a circle through three points. Points need to be drawn first with another method.");
         registerToggleButton(event -> {
             System.out.println("'Shifter' button pressed");
             controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
