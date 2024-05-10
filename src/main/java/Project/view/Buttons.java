@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.controller.AngleBisectorThreePointsBuilder;
 import Project.controller.BasicController;
 import Project.controller.CircleThroughThreePointsBuilder;
 import Project.controller.CircleWithCenterAndPointBuilder;
@@ -98,6 +99,12 @@ public class Buttons extends HBox {
         },
                 "Perpendicular Bisector",
                 "Draws a perpendicular bisector of two points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+            System.out.println("'Angle Bisector' button pressed");
+            controller.changeActor(new AngleBisectorThreePointsBuilder());
+        },
+                "Angle Bisector",
+                "Draws an angle bisector of three points. Points need to be drawn first with another method.");
         // Zepchnięcie następujących przycisków na prawo.
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);

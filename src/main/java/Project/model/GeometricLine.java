@@ -53,6 +53,18 @@ public class GeometricLine extends GeometricShape {
         return d / transformation.scale <= plane.hitbox;
     }
 
+    public void setEquation(double aX, double aY, double bX, double bY) { // line through two points
+        A = aY - bY;
+        B = bX - aX;
+        C = aX * bY - bX * aY;
+    }
+
+    public void setEquation(double a, double b, double c) { // Ax + By + C = 0
+        A = a;
+        B = b;
+        C = c;
+    }
+
     public void setEquation(double a, double b) { // y = ax + b -> Ax + By + C = 0
         A = -a;
         B = 1;
