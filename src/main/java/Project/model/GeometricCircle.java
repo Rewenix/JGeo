@@ -30,9 +30,8 @@ public class GeometricCircle extends GeometricShape {
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        double dX = centerX - planeX;
-        double dY = centerY - planeY;
-        return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= plane.hitbox * plane.hitbox;
+        double d = Math.sqrt((planeX - centerX) * (planeX - centerX) + (planeY - centerY) * (planeY - centerY));
+        return Math.abs(d - R) / transformation.scale <= plane.hitbox;
     }
 
 }

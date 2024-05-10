@@ -12,6 +12,7 @@ import Project.controller.PerpendicularBisectorBuilder;
 import Project.controller.PerpendicularLineBuilder;
 import Project.controller.SegmentThroughPointsBuilder;
 import Project.controller.Shifter;
+import Project.controller.TangentsFromPointBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -105,6 +106,12 @@ public class Buttons extends HBox {
         },
                 "Angle Bisector",
                 "Draws an angle bisector of three points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+            System.out.println("'Tangent' button pressed");
+            controller.changeActor(new TangentsFromPointBuilder());
+        },
+                "Tangents(Point, Circle)",
+                "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with another method.");
         // Zepchnięcie następujących przycisków na prawo.
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);

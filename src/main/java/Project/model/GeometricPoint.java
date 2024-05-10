@@ -16,6 +16,11 @@ public class GeometricPoint extends GeometricShape {
         drawableShape = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), R);
     }
 
+    public GeometricPoint(String name, Plane2D plane, Transformation transformation) {
+        super(name, plane, transformation);
+        drawableShape = new Circle(0, 0, R);
+    }
+
     @Override
     public void updateDrawable() {
         drawableShape.setCenterX(transformation.toScreenX(x));
