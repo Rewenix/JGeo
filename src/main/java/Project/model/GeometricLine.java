@@ -49,8 +49,7 @@ public class GeometricLine extends GeometricShape {
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        // TODO tu trzeba zaimplementowac klikanie. Może przydałoby się gdzieś
-        // zdefiniować funkcje matematyczne??
-        return false;
+        double d = Math.abs(A * planeX + B * planeY + C) / Math.sqrt(A * A + B * B);
+        return d / transformation.scale <= plane.hitbox;
     }
 }

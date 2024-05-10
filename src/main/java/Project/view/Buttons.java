@@ -5,6 +5,7 @@ import Project.controller.CircleThroughThreePointsBuilder;
 import Project.controller.CircleWithCenterAndPointBuilder;
 import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
+import Project.controller.PerpendicularLineBuilder;
 import Project.controller.Shifter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,6 +35,12 @@ public class Buttons extends HBox {
          */
         // Dodajemy przyciski
         registerToggleButton(event -> {
+            System.out.println("'Shifter' button pressed");
+            controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
+        },
+                "Shifter",
+                "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
+        registerToggleButton(event -> {
             System.out.println("'Point' button pressed");
             controller.changeActor(new FreePointBuilder());
         },
@@ -58,11 +65,11 @@ public class Buttons extends HBox {
                 "Circle(Point, Point, Point)",
                 "Draws a circle through three points. Points need to be drawn first with another method.");
         registerToggleButton(event -> {
-            System.out.println("'Shifter' button pressed");
-            controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
+            System.out.println("'Perpendicular' button pressed");
+            controller.changeActor(new PerpendicularLineBuilder());
         },
-                "Shifter",
-                "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
+                "Perpendicular Line(Line, Point)",
+                "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
 
         // Zepchnięcie następujących przycisków na prawo.
         Region spacer = new Region();
