@@ -4,8 +4,8 @@ import Project.model.*;
 import javafx.scene.layout.Pane;
 
 public class LineThroughPointsBuilder implements GeometricShapeBuilder {
-    private GeometricPoint a = null;
-    private GeometricPoint b = null;
+    protected GeometricPoint a = null;
+    protected GeometricPoint b = null;
 
     @Override
     public Class<?> expectedClass() {

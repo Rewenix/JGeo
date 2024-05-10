@@ -7,6 +7,7 @@ import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
 import Project.controller.ParallelLineBuilder;
 import Project.controller.PerpendicularLineBuilder;
+import Project.controller.SegmentThroughPointsBuilder;
 import Project.controller.Shifter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,6 +54,12 @@ public class Buttons extends HBox {
         },
                 "Line",
                 "Draw a line through two selected points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+            System.out.println("'Segment' button pressed");
+            controller.changeActor(new SegmentThroughPointsBuilder());
+        },
+                "Segment",
+                "Draw a segment through two selected points. Points need to be drawn first with another method.");
         registerToggleButton(event -> {
             System.out.println("'Circle' button pressed");
             controller.changeActor(new CircleWithCenterAndPointBuilder());
