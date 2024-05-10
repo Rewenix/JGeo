@@ -5,6 +5,7 @@ import Project.controller.CircleThroughThreePointsBuilder;
 import Project.controller.CircleWithCenterAndPointBuilder;
 import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
+import Project.controller.MidpointBuilder;
 import Project.controller.ParallelLineBuilder;
 import Project.controller.PerpendicularLineBuilder;
 import Project.controller.SegmentThroughPointsBuilder;
@@ -66,6 +67,12 @@ public class Buttons extends HBox {
         },
                 "Circle(Center, Point)",
                 "Draws a circle with a center and a point. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+            System.out.println("'Midpoint' button pressed");
+            controller.changeActor(new MidpointBuilder());
+        },
+                "Midpoint",
+                "Draws a point between two points. Points need to be drawn first with another method.");
         registerToggleButton(event -> {
             System.out.println("'Circle' button pressed");
             controller.changeActor(new CircleThroughThreePointsBuilder());
