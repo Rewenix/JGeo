@@ -5,6 +5,7 @@ import Project.controller.CircleThroughThreePointsBuilder;
 import Project.controller.CircleWithCenterAndPointBuilder;
 import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
+import Project.controller.ParallelLineBuilder;
 import Project.controller.PerpendicularLineBuilder;
 import Project.controller.Shifter;
 import javafx.event.ActionEvent;
@@ -70,6 +71,12 @@ public class Buttons extends HBox {
         },
                 "Perpendicular Line(Line, Point)",
                 "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
+        registerToggleButton(event -> {
+            System.out.println("'Parallel' button pressed");
+            controller.changeActor(new ParallelLineBuilder());
+        },
+                "Parallel Line(Line, Point)",
+                "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
 
         // Zepchnięcie następujących przycisków na prawo.
         Region spacer = new Region();
