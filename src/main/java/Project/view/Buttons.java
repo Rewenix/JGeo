@@ -1,6 +1,7 @@
 package Project.view;
 
 import Project.controller.BasicController;
+import Project.controller.CircleWithCenterAndPointBuilder;
 import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
 import Project.controller.Shifter;
@@ -21,20 +22,39 @@ public class Buttons extends HBox {
         setAlignment(javafx.geometry.Pos.CENTER_LEFT);
     }
 
-    public void registerController(BasicController controller){
+    public void registerController(BasicController controller) {
         // Jak nic nie jest włączone, to nic się nie dzieje.
         // Nie działa :(.
-        /*group.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
-            if (newToggle == null) {
-                controller.changeBuilder(null); }});*/
-        //Dodajemy przyciski
-        registerToggleButton(event -> { System.out.println("'Point' button pressed"); controller.changeActor(new FreePointBuilder()); },
+        /*
+         * group.selectedToggleProperty().addListener((observable, oldToggle, newToggle)
+         * -> {
+         * if (newToggle == null) {
+         * controller.changeBuilder(null); }});
+         */
+        // Dodajemy przyciski
+        registerToggleButton(event -> {
+            System.out.println("'Point' button pressed");
+            controller.changeActor(new FreePointBuilder());
+        },
                 "Point",
                 "Draws a point where selected. A point will be dragged to a shape if it is drawn near to it.");
-        registerToggleButton(event -> { System.out.println("'Line' button pressed"); controller.changeActor(new LineThroughPointsBuilder()); },
+        registerToggleButton(event -> {
+            System.out.println("'Line' button pressed");
+            controller.changeActor(new LineThroughPointsBuilder());
+        },
                 "Line",
                 "Draw a line through two selected points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> { System.out.println("'Shifter' button pressed"); controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation())); },
+        registerToggleButton(event -> {
+            System.out.println("'Circle' button pressed");
+            controller.changeActor(new CircleWithCenterAndPointBuilder());
+        },
+                "Circle",
+                "Draws a circle with a center and a point. Points need to be drawn first with another method.");
+
+        registerToggleButton(event -> {
+            System.out.println("'Shifter' button pressed");
+            controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
+        },
                 "Shifter",
                 "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
 
@@ -43,10 +63,16 @@ public class Buttons extends HBox {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         getChildren().addAll(spacer);
 
-        registerButton(event -> { System.out.println("'Undo' button pressed"); controller.getPlane().removeLastShape(); },
+        registerButton(event -> {
+            System.out.println("'Undo' button pressed");
+            controller.getPlane().removeLastShape();
+        },
                 "Undo",
                 "Removes the last drawn shape.");
-        registerButton(event -> { System.out.println("'Clear' button pressed"); controller.getPlane().clear(); },
+        registerButton(event -> {
+            System.out.println("'Clear' button pressed");
+            controller.getPlane().clear();
+        },
                 "Clear",
                 "Clears the drawing pane.");
     }

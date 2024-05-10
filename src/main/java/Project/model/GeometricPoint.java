@@ -4,12 +4,12 @@ import Project.controller.Transformation;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class Point extends GeometricShape{
-    private static final double R = 20;
+public class GeometricPoint extends GeometricShape {
+    private static final double R = 4;
     public double x, y;
     private Circle drawableShape;
 
-    public Point(String name, Plane2D plane, Transformation transformation, double planeX, double planeY){
+    public GeometricPoint(String name, Plane2D plane, Transformation transformation, double planeX, double planeY) {
         super(name, plane, transformation);
         x = planeX;
         y = planeY;
@@ -17,7 +17,7 @@ public class Point extends GeometricShape{
     }
 
     @Override
-    public void updateDrawable(){
+    public void updateDrawable() {
         drawableShape.setCenterX(transformation.toScreenX(x));
         drawableShape.setCenterY(transformation.toScreenY(y));
     }
@@ -31,6 +31,6 @@ public class Point extends GeometricShape{
     public boolean hasPoint(double planeX, double planeY) {
         double dX = x - planeX;
         double dY = y - planeY;
-        return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= R * R;
+        return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= plane.hitbox * plane.hitbox;
     }
 }

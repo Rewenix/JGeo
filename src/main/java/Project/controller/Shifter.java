@@ -1,25 +1,25 @@
 package Project.controller;
 
+import Project.model.GeometricPoint;
 import Project.model.Plane2D;
-import Project.model.Point;
 
-public class Shifter implements Actor{
+public class Shifter implements Actor {
     private final Plane2D plane;
     private final Transformation transformation;
-    protected Point point = null;
+    protected GeometricPoint point = null;
     double offsetXOnEntry, offsetYOnEntry;
-    double vectorOriginX, vectorOriginY;    // On Plane2D but it does not matter as long as it is consistent.
+    double vectorOriginX, vectorOriginY; // On Plane2D but it does not matter as long as it is consistent.
 
-    public Shifter(Plane2D plane, Transformation transformation){
+    public Shifter(Plane2D plane, Transformation transformation) {
         this.plane = plane;
         this.transformation = transformation;
     }
 
-    public void setPoint(Point point){
+    public void setPoint(GeometricPoint point) {
         this.point = point;
     }
 
-    public void setOrigin(double screenX, double screenY){
+    public void setOrigin(double screenX, double screenY) {
         vectorOriginX = screenX;
         vectorOriginY = screenY;
         offsetXOnEntry = transformation.offsetX;
@@ -27,10 +27,9 @@ public class Shifter implements Actor{
     }
 
     public void shift(double planeX, double planeY) {
-        if(point != null){
+        if (point != null) {
             shiftPoint(planeX, planeY);
-        }
-        else{
+        } else {
             shiftPlane(planeX, planeY);
         }
         plane.update();
