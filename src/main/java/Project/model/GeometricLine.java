@@ -52,4 +52,10 @@ public class GeometricLine extends GeometricShape {
         double d = Math.abs(A * planeX + B * planeY + C) / Math.sqrt(A * A + B * B);
         return d / transformation.scale <= plane.hitbox;
     }
+
+    public void setEquation(double a, double b) { // y = ax + b -> Ax + By + C = 0
+        A = -a;
+        B = 1;
+        C = -b;
+    }
 }

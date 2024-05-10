@@ -7,6 +7,7 @@ import Project.controller.FreePointBuilder;
 import Project.controller.LineThroughPointsBuilder;
 import Project.controller.MidpointBuilder;
 import Project.controller.ParallelLineBuilder;
+import Project.controller.PerpendicularBisectorBuilder;
 import Project.controller.PerpendicularLineBuilder;
 import Project.controller.SegmentThroughPointsBuilder;
 import Project.controller.Shifter;
@@ -91,7 +92,12 @@ public class Buttons extends HBox {
         },
                 "Parallel Line(Line, Point)",
                 "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
-
+        registerToggleButton(event -> {
+            System.out.println("'Perpendicular Bisector' button pressed");
+            controller.changeActor(new PerpendicularBisectorBuilder());
+        },
+                "Perpendicular Bisector",
+                "Draws a perpendicular bisector of two points. Points need to be drawn first with another method.");
         // Zepchnięcie następujących przycisków na prawo.
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);

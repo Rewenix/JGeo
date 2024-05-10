@@ -41,7 +41,7 @@ public class PerpendicularLineBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine perpendicularLine = new GeometricLine("Prosta", plane, transformation);
+        GeometricLine perpendicularLine = new GeometricLine("Prosta prostopadła", plane, transformation);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricPoint pPoint = point;
