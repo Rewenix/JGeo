@@ -45,21 +45,7 @@ public class GeometricPoint extends GeometricShape {
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        double dX = x - planeX;
-        double dY = y - planeY;
-        return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= plane.hitbox * plane.hitbox;
-    }
-
-    public static double distance(GeometricPoint p1, GeometricPoint p2) {
-        double dX = p1.x - p2.x;
-        double dY = p1.y - p2.y;
-        return Math.sqrt(dX * dX + dY * dY);
-    }
-
-    public static double distance(double x1, double y1, double x2, double y2) {
-        double dX = x1 - x2;
-        double dY = y1 - y2;
-        return Math.sqrt(dX * dX + dY * dY);
+        return distance(x, y, planeX, planeY) / transformation.scale <= plane.hitbox;
     }
 
     public void setOnClicked() {
@@ -72,5 +58,17 @@ public class GeometricPoint extends GeometricShape {
     public void unclick() {
         drawableHub.setFill(Color.TRANSPARENT);
         drawableHub.setStroke(Color.TRANSPARENT);
+    }
+
+    // Utility functions
+
+    public static double distance(double x1, double y1, double x2, double y2) {
+        double dX = x1 - x2;
+        double dY = y1 - y2;
+        return Math.sqrt(dX * dX + dY * dY);
+    }
+
+    public static double distance(GeometricPoint p1, GeometricPoint p2) {
+        return distance(p1.x, p1.y, p2.x, p2.y);
     }
 }
