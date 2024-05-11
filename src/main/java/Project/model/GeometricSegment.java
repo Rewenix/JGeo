@@ -1,9 +1,6 @@
 package Project.model;
 
 import Project.controller.Transformation;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 
 public class GeometricSegment extends GeometricLine {
     private double x1, y1, x2, y2;

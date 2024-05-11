@@ -2,9 +2,6 @@ package Project.view;
 
 import Project.controller.Controller;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 public class View extends GridPane {

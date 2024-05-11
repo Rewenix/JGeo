@@ -14,7 +14,7 @@ public class GeometricLine extends GeometricShape {
 
     public GeometricLine(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
-        drawableLine = new Line();// zeby sie wyróżniała na tle punktu
+        drawableLine = new Line();
         drawableHub = new Line();
         drawableHub.setStroke(Color.TRANSPARENT);
         drawableHub.setStrokeWidth(plane.hitbox / 2);
@@ -22,10 +22,6 @@ public class GeometricLine extends GeometricShape {
 
     @Override
     public void updateDrawable() {
-        // TODO rysowanie musi uwzgledniac transformacje aby nie dalo sie zobaczyc
-        // koncow prostej po zoomie/przesunieciu
-        // bedziemy chcieli dzielic przez wieksze z A/B bo to chyba daje lepsza
-        // dokladnosc(unikamy dzielenia przez cos bliskie zero)
         double X1, Y1, X2, Y2;
         if (Math.abs(A) > Math.abs(B)) {
             Y1 = transformation.toPlaneY(-D);
@@ -38,8 +34,6 @@ public class GeometricLine extends GeometricShape {
             Y1 = -(A / B) * X1 - C / B;
             Y2 = -(A / B) * X2 - C / B;
         }
-        // System.out.println("Obliczone wspolrzedne (X1, Y1)=" + X1 +" " + Y1 + " (X2,
-        // Y2)" + X2 + " " + Y2);
         drawableLine.setStartX(transformation.toScreenX(X1));
         drawableLine.setStartY(transformation.toScreenY(Y1));
         drawableLine.setEndX(transformation.toScreenX(X2));
