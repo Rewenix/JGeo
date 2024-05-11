@@ -16,10 +16,13 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
+                a.setOnClicked();
             } else if (b == null) {
                 b = p;
+                b.setOnClicked();
             } else if (c == null) {
                 c = p;
+                c.setOnClicked();
             }
         }
     }
@@ -31,8 +34,11 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void reset() {
+        a.unclick();
         a = null;
+        b.unclick();
         b = null;
+        c.unclick();
         c = null;
     }
 
