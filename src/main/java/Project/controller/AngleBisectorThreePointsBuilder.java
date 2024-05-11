@@ -34,11 +34,14 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void reset() {
-        a.unclick();
+        if(a != null)
+            a.unclick();
         a = null;
-        b.unclick();
+        if(b != null)
+            b.unclick();
         b = null;
-        c.unclick();
+        if(c != null)
+            c.unclick();
         c = null;
     }
 
