@@ -1,7 +1,7 @@
 package Project.view;
 
 import Project.controller.builders.AngleBisectorThreePointsBuilder;
-import Project.controller.BasicController;
+import Project.controller.Controller;
 import Project.controller.builders.CircleThroughThreePointsBuilder;
 import Project.controller.builders.CircleWithCenterAndPointBuilder;
 import Project.controller.builders.FreePointBuilder;
@@ -30,15 +30,7 @@ public class Buttons extends HBox {
         setAlignment(javafx.geometry.Pos.CENTER_LEFT);
     }
 
-    public void registerController(BasicController controller) {
-        // Jak nic nie jest włączone, to nic się nie dzieje.
-        // Nie działa :(.
-        /*
-         * group.selectedToggleProperty().addListener((observable, oldToggle, newToggle)
-         * -> {
-         * if (newToggle == null) {
-         * controller.changeBuilder(null); }});
-         */
+    public void registerController(Controller controller) {
         // Dodajemy przyciski
         registerToggleButton(event -> {
             System.out.println("'Shifter' button pressed");
@@ -112,6 +104,7 @@ public class Buttons extends HBox {
         },
                 "Tangents(Point, Circle)",
                 "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with another method.");
+
         // Zepchnięcie następujących przycisków na prawo.
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);

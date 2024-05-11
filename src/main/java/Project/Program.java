@@ -1,7 +1,7 @@
 package Project;
 
-import Project.controller.BasicController;
-import Project.view.TestView;
+import Project.controller.Controller;
+import Project.view.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,8 +12,8 @@ public class Program extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("JGeo");
 
-        TestView view = new TestView();
-        BasicController controller = new BasicController(view.drawingPane);
+        View view = new View();
+        Controller controller = new Controller(view.drawingPane);
         view.registerController(controller);
         Scene scene = new Scene(view, 1400, 900);
 

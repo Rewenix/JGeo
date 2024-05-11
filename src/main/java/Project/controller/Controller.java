@@ -8,7 +8,7 @@ import Project.model.Plane2D;
 import Project.model.GeometricPoint;
 import javafx.scene.layout.Pane;
 
-public class BasicController {
+public class Controller {
     private final Plane2D plane = new Plane2D();
     private final Transformation transformation = new Transformation();
     private Actor selectedActor;
@@ -22,7 +22,7 @@ public class BasicController {
         return transformation;
     }
 
-    public BasicController(Pane viewPane) {
+    public Controller(Pane viewPane) {
         this.viewPane = viewPane;
         selectedActor = null;
     }
