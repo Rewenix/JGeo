@@ -22,9 +22,9 @@ public class ViewTesting extends Application {
         ToggleButton toggleButton3 = new ToggleButton("Toggle Button 3");
 
         // add actions to toggle buttons
-        toggleButton1.setOnAction(event -> m.setText("Toggle Button 1"));
-        toggleButton2.setOnAction(event -> m.setText("Toggle Button 2"));
-        toggleButton3.setOnAction(event -> m.setText("Toggle Button 3"));
+        toggleButton1.setOnAction(event -> { m.hide(); m.setText("Toggle Button 1"); });
+        toggleButton2.setOnAction(event -> { m.hide(); m.setText("Toggle Button 2"); });
+        toggleButton3.setOnAction(event -> { m.hide(); m.setText("Toggle Button 3"); });
 
         // create custom menu items
         CustomMenuItem customMenuItem1 = new CustomMenuItem(toggleButton1);
