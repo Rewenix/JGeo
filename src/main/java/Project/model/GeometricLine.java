@@ -23,7 +23,7 @@ public class GeometricLine extends GeometricShape {
         // bedziemy chcieli dzielic przez wieksze z A/B bo to chyba daje lepsza
         // dokladnosc(unikamy dzielenia przez cos bliskie zero)
         double X1, Y1, X2, Y2;
-        if (A > B) {
+        if (Math.abs(A) > Math.abs(B)) {
             Y1 = transformation.toPlaneY(-D);
             Y2 = transformation.toPlaneY(D);
             X1 = -(B / A) * Y1 - C / A;
