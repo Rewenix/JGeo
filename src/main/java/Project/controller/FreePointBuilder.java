@@ -39,7 +39,8 @@ public class FreePointBuilder implements GeometricShapeBuilder {
             }
         };
         point.setUpdater(updater);
-        viewPane.getChildren().add(point.getDrawableShape());
+        viewPane.getChildren().addAll(point.getDrawableShape(), point.getDrawableHub());
+        point.getDrawableHub().toBack();
         plane.addGeometricShape(point);
     }
 }
