@@ -7,30 +7,30 @@ import javafx.scene.shape.Shape;
 
 public class GeometricCircle extends GeometricShape {
     public double R, centerX, centerY;
-    private Circle drawableShape;
+    private Circle drawableCircle;
 
     public GeometricCircle(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
-        drawableShape = new Circle();
+        drawableCircle = new Circle();
     }
 
     @Override
     public void updateDrawable() {
-        drawableShape.setFill(Color.TRANSPARENT);
-        drawableShape.setStroke(Color.BLACK);
-        drawableShape.setCenterX(transformation.toScreenX(centerX));
-        drawableShape.setCenterY(transformation.toScreenY(centerY));
-        drawableShape.setRadius(transformation.toScreenX(centerX + R) - transformation.toScreenX(centerX));
+        drawableCircle.setFill(Color.TRANSPARENT);
+        drawableCircle.setStroke(Color.BLACK);
+        drawableCircle.setCenterX(transformation.toScreenX(centerX));
+        drawableCircle.setCenterY(transformation.toScreenY(centerY));
+        drawableCircle.setRadius(transformation.toScreenX(centerX + R) - transformation.toScreenX(centerX));
     }
 
     @Override
     public Shape getDrawableShape() {
-        return drawableShape;
+        return drawableCircle;
     }
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        double d = Math.sqrt((planeX - centerX) * (planeX - centerX) + (planeY - centerY) * (planeY - centerY));
+        double d = GeometricPoint.distance(centerX, centerY, planeX, planeY);
         return Math.abs(d - R) / transformation.scale <= plane.hitbox;
     }
 

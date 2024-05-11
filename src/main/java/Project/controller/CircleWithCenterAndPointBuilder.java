@@ -47,8 +47,7 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
             public void update() {
                 circle.centerX = pCenter.x;
                 circle.centerY = pCenter.y;
-                circle.R = Math.sqrt((pPoint.x - pCenter.x) * (pPoint.x - pCenter.x)
-                        + (pPoint.y - pCenter.y) * (pPoint.y - pCenter.y));
+                circle.R = GeometricPoint.distance(pCenter, pPoint);
             }
         };
         circle.setUpdater(updater);

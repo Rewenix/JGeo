@@ -38,4 +38,16 @@ public class GeometricPoint extends GeometricShape {
         double dY = y - planeY;
         return (dX * dX + dY * dY) / (transformation.scale * transformation.scale) <= plane.hitbox * plane.hitbox;
     }
+
+    public static double distance(GeometricPoint p1, GeometricPoint p2) {
+        double dX = p1.x - p2.x;
+        double dY = p1.y - p2.y;
+        return Math.sqrt(dX * dX + dY * dY);
+    }
+
+    public static double distance(double x1, double y1, double x2, double y2) {
+        double dX = x1 - x2;
+        double dY = y1 - y2;
+        return Math.sqrt(dX * dX + dY * dY);
+    }
 }

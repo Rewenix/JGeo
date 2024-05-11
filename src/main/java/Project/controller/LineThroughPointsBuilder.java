@@ -45,7 +45,7 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                line.setEquation(pA.x, pA.y, pB.x, pB.y);
+                line.setEquation(pA, pB);
             }
         };
         line.setUpdater(updater);

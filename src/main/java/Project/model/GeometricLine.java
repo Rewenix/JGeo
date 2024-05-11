@@ -59,6 +59,10 @@ public class GeometricLine extends GeometricShape {
         C = aX * bY - bX * aY;
     }
 
+    public void setEquation(GeometricPoint a, GeometricPoint b) { // line through two points
+        setEquation(a.x, a.y, b.x, b.y);
+    }
+
     public void setEquation(double a, double b, double c) { // Ax + By + C = 0
         A = a;
         B = b;
