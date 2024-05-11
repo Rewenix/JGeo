@@ -46,14 +46,22 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                circle.centerX = pCenter.x;
-                circle.centerY = pCenter.y;
-                circle.R = GeometricPoint.distance(pCenter, pPoint);
+                setCircle(circle, pCenter, pPoint);
             }
         };
         circle.setUpdater(updater);
         circle.update();
         viewPane.getChildren().add(circle.getDrawableShape());
         plane.addGeometricShape(circle);
+    }
+
+    public static void setCircle(GeometricCircle circle, double centerX, double centerY, double pointX, double pointY) {
+        circle.centerX = centerX;
+        circle.centerY = centerY;
+        circle.R = GeometricPoint.distance(centerX, centerY, pointX, pointY);
+    }
+
+    public static void setCircle(GeometricCircle circle, GeometricPoint center, GeometricPoint point) {
+        setCircle(circle, center.x, center.y, point.x, point.y);
     }
 }

@@ -51,27 +51,30 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                double x1 = pA.x;
-                double y1 = pA.y;
-                double x2 = pB.x;
-                double y2 = pB.y;
-                double x3 = pC.x;
-                double y3 = pC.y;
-                double a = x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2;
-                double b = (x1 * x1 + y1 * y1) * (y3 - y2) + (x2 * x2 + y2 * y2) * (y1 - y3)
-                        + (x3 * x3 + y3 * y3) * (y2 - y1);
-                double c = (x1 * x1 + y1 * y1) * (x2 - x3) + (x2 * x2 + y2 * y2) * (x3 - x1)
-                        + (x3 * x3 + y3 * y3) * (x1 - x2);
-                double d = (x1 * x1 + y1 * y1) * (x3 * y2 - x2 * y3) + (x2 * x2 + y2 * y2) * (x1 * y3 - x3 * y1)
-                        + (x3 * x3 + y3 * y3) * (x2 * y1 - x1 * y2);
-                circle.centerX = -b / (2 * a);
-                circle.centerY = -c / (2 * a);
-                circle.R = Math.sqrt(b * b + c * c - 4 * a * d) / (2 * Math.abs(a));
+                setCircle(circle, pA, pB, pC);
             }
         };
         circle.setUpdater(updater);
         circle.update();
         viewPane.getChildren().add(circle.getDrawableShape());
         plane.addGeometricShape(circle);
+    }
+
+    public static void setCircle(GeometricCircle circle, double x1, double y1, double x2, double y2, double x3,
+            double y3) {
+        double a = x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2;
+        double b = (x1 * x1 + y1 * y1) * (y3 - y2) + (x2 * x2 + y2 * y2) * (y1 - y3)
+                + (x3 * x3 + y3 * y3) * (y2 - y1);
+        double c = (x1 * x1 + y1 * y1) * (x2 - x3) + (x2 * x2 + y2 * y2) * (x3 - x1)
+                + (x3 * x3 + y3 * y3) * (x1 - x2);
+        double d = (x1 * x1 + y1 * y1) * (x3 * y2 - x2 * y3) + (x2 * x2 + y2 * y2) * (x1 * y3 - x3 * y1)
+                + (x3 * x3 + y3 * y3) * (x2 * y1 - x1 * y2);
+        circle.centerX = -b / (2 * a);
+        circle.centerY = -c / (2 * a);
+        circle.R = Math.sqrt(b * b + c * c - 4 * a * d) / (2 * Math.abs(a));
+    }
+
+    public static void setCircle(GeometricCircle circle, GeometricPoint a, GeometricPoint b, GeometricPoint c) {
+        setCircle(circle, a.x, a.y, b.x, b.y, c.x, c.y);
     }
 }
