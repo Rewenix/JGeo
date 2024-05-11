@@ -1,5 +1,6 @@
 package Project.controller.builders;
 
+import Project.controller.GeometricShapeBuilder;
 import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
@@ -35,13 +36,13 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void reset() {
-        if(a != null)
+        if (a != null)
             a.unclick();
         a = null;
-        if(b != null)
+        if (b != null)
             b.unclick();
         b = null;
-        if(c != null)
+        if (c != null)
             c.unclick();
         c = null;
     }

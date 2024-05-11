@@ -1,7 +1,5 @@
-package Project.controller.builders;
+package Project.controller;
 
-import Project.controller.Actor;
-import Project.controller.Transformation;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import javafx.scene.layout.Pane;

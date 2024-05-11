@@ -5,6 +5,7 @@
 
 package Project.controller.builders;
 
+import Project.controller.GeometricShapeBuilder;
 import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
