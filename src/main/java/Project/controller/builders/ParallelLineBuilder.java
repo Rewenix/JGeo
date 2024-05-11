@@ -58,11 +58,13 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
         plane.addGeometricShape(parallelLine);
     }
 
+    public static void setLine(GeometricLine parallelLine, double lineA, double lineB, double pointX, double pointY) {
+        parallelLine.A = lineA;
+        parallelLine.B = lineB;
+        parallelLine.C = -(lineA * pointX + lineB * pointY);
+    }
+
     public static void setLine(GeometricLine parallelLine, GeometricLine line, GeometricPoint point) {
-        double x1 = point.x;
-        double y1 = point.y;
-        parallelLine.A = line.A;
-        parallelLine.B = line.B;
-        parallelLine.C = -(line.A * x1 + line.B * y1);
+        setLine(parallelLine, line.A, line.B, point.x, point.y);
     }
 }
