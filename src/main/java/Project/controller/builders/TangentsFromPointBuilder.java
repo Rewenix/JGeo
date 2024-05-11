@@ -66,6 +66,15 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         double a = circleX;
         double b = circleY; // (x-a)^2 + (y-b)^2 = r^2
 
+        if (GeometricPoint.distance(x1, y1, a, b) == r) {
+            double lineA, lineB; // line through (x1, y1) and (a, b)
+            lineA = y1 - b;
+            lineB = a - x1;
+            PerpendicularLineBuilder.setLine(line1, lineA, lineB, x1, y1);
+            PerpendicularLineBuilder.setLine(line2, lineA, lineB, x1, y1);
+            return;
+        }
+
         double x1_ = (r * r * (x1 - a)
                 + r * (y1 - b) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
                 / ((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b)) + a;
