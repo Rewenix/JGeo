@@ -18,9 +18,11 @@ public class MidpointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
+                a.setOnClicked();
                 System.out.println("Accepting point");
             } else if (p != a) {
                 b = p;
+                b.setOnClicked();
                 System.out.println("Accepting point");
             }
         }
@@ -52,7 +54,7 @@ public class MidpointBuilder implements GeometricShapeBuilder {
         };
         midpoint.setUpdater(updater);
         midpoint.update();
-        viewPane.getChildren().add(midpoint.getDrawableShape());
+        midpoint.setViewPane(viewPane);
         plane.addGeometricShape(midpoint);
     }
 }

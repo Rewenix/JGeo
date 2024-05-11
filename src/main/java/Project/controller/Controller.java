@@ -30,6 +30,7 @@ public class Controller {
     public void changeActor(Actor actor) {
         System.out.println("Change actor");
         selectedActor = actor;
+        plane.unclickAll();
     }
 
     public void handleNormalClick(double screenX, double screenY) {
@@ -44,10 +45,12 @@ public class Controller {
                 System.out.println("Building shape with builder");
                 selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
                 selectedBuilder.reset();
+                plane.unclickAll();
             }
             return;
         }
         if (selectedActor instanceof Shifter selectedShifter) {
+            plane.unclickAll();
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
             if (plane.getClickedShape(planeX, planeY) instanceof GeometricPoint point && point != null) {

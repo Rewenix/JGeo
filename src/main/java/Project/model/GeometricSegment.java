@@ -35,11 +35,6 @@ public class GeometricSegment extends GeometricLine {
     }
 
     @Override
-    public Shape getDrawableShape() {
-        return drawableLine;
-    }
-
-    @Override
     public boolean hasPoint(double planeX, double planeY) {
         double d = Math.abs(A * planeX + B * planeY + C) / Math.sqrt(A * A + B * B); // odleglosc punktu od prostej
         double d1 = Math.sqrt((planeX - x1) * (planeX - x1) + (planeY - y1) * (planeY - y1)); // odleglosc punktu od

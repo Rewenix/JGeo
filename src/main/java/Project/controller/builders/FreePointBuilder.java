@@ -35,12 +35,11 @@ public class FreePointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-
+                point.setOnClicked();
             }
         };
         point.setUpdater(updater);
-        viewPane.getChildren().addAll(point.getDrawableShape(), point.getDrawableHub());
-        point.getDrawableHub().toBack();
+        point.setViewPane(viewPane);
         plane.addGeometricShape(point);
     }
 }

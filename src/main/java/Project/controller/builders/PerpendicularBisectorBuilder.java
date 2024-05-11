@@ -17,9 +17,11 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
+                a.setOnClicked();
                 System.out.println("Accepting point");
             } else if (p != a) {
                 b = p;
+                b.setOnClicked();
                 System.out.println("Accepting point");
             }
         }
@@ -50,7 +52,7 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         };
         line.setUpdater(updater);
         line.update();
-        viewPane.getChildren().add(line.getDrawableShape());
+        line.setViewPane(viewPane);
         plane.addGeometricShape(line);
     }
 

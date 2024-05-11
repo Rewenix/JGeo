@@ -1,7 +1,6 @@
 package Project.model;
 
 import Project.controller.Transformation;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -39,6 +38,7 @@ public class GeometricPoint extends GeometricShape {
         return drawableShape;
     }
 
+    @Override
     public Shape getDrawableHub() {
         return drawableHub;
     }
@@ -48,16 +48,16 @@ public class GeometricPoint extends GeometricShape {
         return distance(x, y, planeX, planeY) / transformation.scale <= plane.hitbox;
     }
 
+    @Override
     public void setOnClicked() {
         drawableHub.setCenterX(transformation.toScreenX(x));
         drawableHub.setCenterY(transformation.toScreenY(y));
         drawableHub.setFill(javafx.scene.paint.Color.CYAN);
-        drawableHub.setStroke(javafx.scene.paint.Color.BLACK);
     }
 
+    @Override
     public void unclick() {
         drawableHub.setFill(Color.TRANSPARENT);
-        drawableHub.setStroke(Color.TRANSPARENT);
     }
 
     // Utility functions

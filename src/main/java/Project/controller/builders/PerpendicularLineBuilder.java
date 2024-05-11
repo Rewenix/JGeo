@@ -22,9 +22,11 @@ public class PerpendicularLineBuilder implements GeometricShapeBuilder {
     public void acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricLine l) {
             line = l;
+            line.setOnClicked();
             System.out.println("Accepting line");
         } else if (shape instanceof GeometricPoint p) {
             point = p;
+            point.setOnClicked();
             System.out.println("Accepting point");
         }
     }
@@ -54,7 +56,7 @@ public class PerpendicularLineBuilder implements GeometricShapeBuilder {
         };
         perpendicularLine.setUpdater(updater);
         perpendicularLine.update();
-        viewPane.getChildren().add(perpendicularLine.getDrawableShape());
+        perpendicularLine.setViewPane(viewPane);
         plane.addGeometricShape(perpendicularLine);
     }
 

@@ -19,7 +19,7 @@ public class SegmentThroughPointsBuilder extends LineThroughPointsBuilder {
         };
         segment.setUpdater(updater);
         segment.update();
-        viewPane.getChildren().add(segment.getDrawableShape());
+        segment.setViewPane(viewPane);
         plane.addGeometricShape(segment);
     }
 }

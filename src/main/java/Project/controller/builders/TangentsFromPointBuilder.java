@@ -17,9 +17,11 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     public void acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             point = p;
+            point.setOnClicked();
             System.out.println("Accepting point");
         } else if (shape instanceof GeometricCircle c) {
             circle = c;
+            circle.setOnClicked();
             System.out.println("Accepting circle");
         }
     }
@@ -37,8 +39,6 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint point1 = new GeometricPoint("TangentPoint", plane, transformation);
-        GeometricPoint point2 = new GeometricPoint("TangentPoint", plane, transformation);
         GeometricLine tangent1 = new GeometricLine("Tangent1", plane, transformation);
         GeometricLine tangent2 = new GeometricLine("Tangent2", plane, transformation);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
@@ -54,8 +54,8 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         tangent2.setUpdater(updater);
         tangent1.update();
         tangent2.update();
-        viewPane.getChildren().add(tangent1.getDrawableShape());
-        viewPane.getChildren().add(tangent2.getDrawableShape());
+        tangent1.setViewPane(viewPane);
+        tangent2.setViewPane(viewPane);
         plane.addGeometricShape(tangent1);
         plane.addGeometricShape(tangent2);
     }

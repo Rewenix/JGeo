@@ -67,7 +67,7 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
         };
         line.setUpdater(updater);
         line.update();
-        viewPane.getChildren().add(line.getDrawableShape());
+        line.setViewPane(viewPane);
         plane.addGeometricShape(line);
     }
 

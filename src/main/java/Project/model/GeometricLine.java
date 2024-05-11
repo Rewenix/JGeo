@@ -10,10 +10,14 @@ public class GeometricLine extends GeometricShape {
     public double A = 1, B = 1, C = 0; // wspolrzedne w postaci ogolnej (Ax + By + C = 0) zeby proste mogly byc tez
                                        // pionowe
     protected Line drawableLine;
+    protected Line drawableHub;
 
     public GeometricLine(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableLine = new Line();// zeby sie wyróżniała na tle punktu
+        drawableHub = new Line();
+        drawableHub.setStroke(Color.TRANSPARENT);
+        drawableHub.setStrokeWidth(2 * plane.hitbox);
     }
 
     @Override
@@ -45,6 +49,25 @@ public class GeometricLine extends GeometricShape {
     @Override
     public Shape getDrawableShape() {
         return drawableLine;
+    }
+
+    @Override
+    public Shape getDrawableHub() {
+        return drawableHub;
+    }
+
+    @Override
+    public void setOnClicked() {
+        drawableHub.setStartX(drawableLine.getStartX());
+        drawableHub.setStartY(drawableLine.getStartY());
+        drawableHub.setEndX(drawableLine.getEndX());
+        drawableHub.setEndY(drawableLine.getEndY());
+        drawableHub.setStroke(Color.CYAN);
+    }
+
+    @Override
+    public void unclick() {
+        drawableHub.setStroke(Color.TRANSPARENT);
     }
 
     @Override

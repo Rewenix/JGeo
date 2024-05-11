@@ -18,9 +18,11 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (center == null) {
                 center = p;
+                center.setOnClicked();
                 System.out.println("Accepting point");
             } else if (p != center) {
                 point = p;
+                point.setOnClicked();
                 System.out.println("Accepting point");
             }
         }
@@ -51,7 +53,7 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
         };
         circle.setUpdater(updater);
         circle.update();
-        viewPane.getChildren().add(circle.getDrawableShape());
+        circle.setViewPane(viewPane);
         plane.addGeometricShape(circle);
     }
 

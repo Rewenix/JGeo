@@ -8,10 +8,14 @@ import javafx.scene.shape.Shape;
 public class GeometricCircle extends GeometricShape {
     public double R, centerX, centerY;
     private Circle drawableCircle;
+    private Circle drawableHub;
 
     public GeometricCircle(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableCircle = new Circle();
+        drawableHub = new Circle();
+        drawableHub.setFill(Color.TRANSPARENT);
+        drawableHub.setStrokeWidth(2 * plane.hitbox);
     }
 
     @Override
@@ -26,6 +30,24 @@ public class GeometricCircle extends GeometricShape {
     @Override
     public Shape getDrawableShape() {
         return drawableCircle;
+    }
+
+    @Override
+    public Shape getDrawableHub() {
+        return drawableHub;
+    }
+
+    @Override
+    public void setOnClicked() {
+        drawableHub.setCenterX(transformation.toScreenX(centerX));
+        drawableHub.setCenterY(transformation.toScreenY(centerY));
+        drawableHub.setRadius(drawableCircle.getRadius());
+        drawableHub.setStroke(Color.CYAN);
+    }
+
+    @Override
+    public void unclick() {
+        drawableHub.setStroke(Color.TRANSPARENT);
     }
 
     @Override

@@ -18,12 +18,15 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
+                a.setOnClicked();
                 System.out.println("Accepting point");
             } else if (b == null) {
                 b = p;
+                b.setOnClicked();
                 System.out.println("Accepting point");
             } else if (c == null) {
                 c = p;
+                c.setOnClicked();
                 System.out.println("Accepting point");
             }
         }
@@ -56,7 +59,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
         };
         circle.setUpdater(updater);
         circle.update();
-        viewPane.getChildren().add(circle.getDrawableShape());
+        circle.setViewPane(viewPane);
         plane.addGeometricShape(circle);
     }
 

@@ -40,7 +40,7 @@ public class PointBuilder implements GeometricShapeBuilder {
             }
         };
         point.setUpdater(updater);
-        viewPane.getChildren().add(point.getDrawableShape());
+        point.setViewPane(viewPane);
         plane.addGeometricShape(point);
     }
 }
