@@ -45,18 +45,26 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                double midX = (pA.x + pB.x) / 2;
-                double midY = (pA.y + pB.y) / 2;
-
-                double a = pA.y - pB.y;
-                double b = pB.x - pA.x;
-
-                PerpendicularLineBuilder.setLine(line, a, b, midX, midY);
+                setLine(line, pA.x, pA.y, pB.x, pB.y);
             }
         };
         line.setUpdater(updater);
         line.update();
         viewPane.getChildren().add(line.getDrawableShape());
         plane.addGeometricShape(line);
+    }
+
+    public static void setLine(GeometricLine line, double point1X, double point1Y, double point2X, double point2Y) {
+        double midX = (point1X + point2X) / 2;
+        double midY = (point1Y + point2Y) / 2;
+
+        double a = point1Y - point2Y;
+        double b = point2X - point1X;
+
+        PerpendicularLineBuilder.setLine(line, a, b, midX, midY);
+    }
+
+    public static void setLine(GeometricLine line, GeometricPoint point1, GeometricPoint point2) {
+        setLine(line, point1.x, point1.y, point2.x, point2.y);
     }
 }

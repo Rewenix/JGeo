@@ -47,50 +47,47 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                double r = c.R;
-                double a = c.centerX;
-                double b = c.centerY; // (x-a)^2 + (y-b)^2 = r^2
-
-                double x1 = (r * r * (p.x - a)
-                        + r * (p.y - b) * Math.sqrt((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b) - r * r))
-                        / ((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b)) + a;
-
-                double y1 = (r * r * (p.y - b)
-                        - r * (p.x - a) * Math.sqrt((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b) - r * r))
-                        / ((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b)) + b;
-
-                double x2 = (r * r * (p.x - a)
-                        - r * (p.y - b) * Math.sqrt((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b) - r * r))
-                        / ((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b)) + a;
-
-                double y2 = (r * r * (p.y - b)
-                        + r * (p.x - a) * Math.sqrt((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b) - r * r))
-                        / ((p.x - a) * (p.x - a) + (p.y - b) * (p.y - b)) + b;
-
-                tangent1.setEquation(p.x, p.y, x1, y1);
-                tangent2.setEquation(p.x, p.y, x2, y2);
-                point1.x = x1;
-                point1.y = y1;
-                point2.x = x2;
-                point2.y = y2;
+                setLines(tangent1, tangent2, p.x, p.y, c.centerX, c.centerY, c.R);
             }
         };
-        point1.setUpdater(updater);
-        point2.setUpdater(updater);
         tangent1.setUpdater(updater);
         tangent2.setUpdater(updater);
-        point1.update();
-        point2.update();
         tangent1.update();
         tangent2.update();
-        viewPane.getChildren().add(point1.getDrawableShape());
-        viewPane.getChildren().add(point2.getDrawableShape());
         viewPane.getChildren().add(tangent1.getDrawableShape());
         viewPane.getChildren().add(tangent2.getDrawableShape());
-        plane.addGeometricShape(point1);
-        plane.addGeometricShape(point2);
         plane.addGeometricShape(tangent1);
         plane.addGeometricShape(tangent2);
     }
 
+    public static void setLines(GeometricLine line1, GeometricLine line2, double x1, double y1, double circleX,
+            double circleY, double circleR) {
+        double r = circleR;
+        double a = circleX;
+        double b = circleY; // (x-a)^2 + (y-b)^2 = r^2
+
+        double x1_ = (r * r * (x1 - a)
+                + r * (y1 - b) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
+                / ((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b)) + a;
+
+        double y1_ = (r * r * (y1 - b)
+                - r * (x1 - a) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
+                / ((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b)) + b;
+
+        double x2_ = (r * r * (x1 - a)
+                - r * (y1 - b) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
+                / ((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b)) + a;
+
+        double y2_ = (r * r * (y1 - b)
+                + r * (x1 - a) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
+                / ((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b)) + b;
+
+        LineThroughPointsBuilder.setLine(line1, x1, y1, x1_, y1_);
+        LineThroughPointsBuilder.setLine(line2, x1, y1, x2_, y2_);
+    }
+
+    public static void setLines(GeometricLine line1, GeometricLine line2, GeometricPoint point,
+            GeometricCircle circle) {
+        setLines(line1, line2, point.x, point.y, circle.centerX, circle.centerY, circle.R);
+    }
 }
