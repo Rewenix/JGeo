@@ -16,14 +16,14 @@ public class GeometricPoint extends GeometricShape {
         x = planeX;
         y = planeY;
         drawableShape = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), R);
-        drawableHub = new Circle(0, 0, plane.hitbox);
+        drawableHub = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), plane.hitbox);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
     public GeometricPoint(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableShape = new Circle(0, 0, R);
-        drawableHub = new Circle(0, 0, plane.hitbox);
+        drawableHub = new Circle(0, 0, 2 * plane.hitbox / 3);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
@@ -31,6 +31,8 @@ public class GeometricPoint extends GeometricShape {
     public void updateDrawable() {
         drawableShape.setCenterX(transformation.toScreenX(x));
         drawableShape.setCenterY(transformation.toScreenY(y));
+        drawableHub.setCenterX(transformation.toScreenX(x));
+        drawableHub.setCenterY(transformation.toScreenY(y));
     }
 
     @Override
@@ -50,9 +52,7 @@ public class GeometricPoint extends GeometricShape {
 
     @Override
     public void setOnClicked() {
-        drawableHub.setCenterX(transformation.toScreenX(x));
-        drawableHub.setCenterY(transformation.toScreenY(y));
-        drawableHub.setFill(javafx.scene.paint.Color.CYAN);
+        drawableHub.setFill(Color.CYAN);
     }
 
     @Override

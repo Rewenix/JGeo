@@ -35,7 +35,7 @@ public class FreePointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                point.setOnClicked();
+
             }
         };
         point.setUpdater(updater);

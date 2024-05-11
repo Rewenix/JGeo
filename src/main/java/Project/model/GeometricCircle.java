@@ -15,7 +15,7 @@ public class GeometricCircle extends GeometricShape {
         drawableCircle = new Circle();
         drawableHub = new Circle();
         drawableHub.setFill(Color.TRANSPARENT);
-        drawableHub.setStrokeWidth(2 * plane.hitbox);
+        drawableHub.setStrokeWidth(plane.hitbox / 2);
     }
 
     @Override

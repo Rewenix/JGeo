@@ -17,7 +17,7 @@ public class GeometricLine extends GeometricShape {
         drawableLine = new Line();// zeby sie wyróżniała na tle punktu
         drawableHub = new Line();
         drawableHub.setStroke(Color.TRANSPARENT);
-        drawableHub.setStrokeWidth(2 * plane.hitbox);
+        drawableHub.setStrokeWidth(plane.hitbox / 2);
     }
 
     @Override
