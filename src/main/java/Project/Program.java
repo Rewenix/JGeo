@@ -15,7 +15,7 @@ public class Program extends Application {
         TestView view = new TestView();
         BasicController controller = new BasicController(view.drawingPane);
         view.registerController(controller);
-        Scene scene = new Scene(view, 800, 600);
+        Scene scene = new Scene(view, 1400, 900);
 
         stage.setScene(scene);
         stage.show();

@@ -1,11 +1,12 @@
-package Project.controller;
+package Project.controller.builders;
 
+import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
-public class MidpointBuilder implements GeometricShapeBuilder {
-    private GeometricPoint a = null;
-    private GeometricPoint b = null;
+public class LineThroughPointsBuilder implements GeometricShapeBuilder {
+    protected GeometricPoint a = null;
+    protected GeometricPoint b = null;
 
     @Override
     public Class<?> expectedClass() {
@@ -38,20 +39,21 @@ public class MidpointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint midpoint = new GeometricPoint("Środek", plane, transformation, 0, 0);
+        GeometricLine line = new GeometricLine("Prosta", plane, transformation);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
 
             @Override
             public void update() {
-                midpoint.x = (pA.x + pB.x) / 2;
-                midpoint.y = (pA.y + pB.y) / 2;
+                line.setEquation(pA, pB);
             }
         };
-        midpoint.setUpdater(updater);
-        midpoint.update();
-        viewPane.getChildren().add(midpoint.getDrawableShape());
-        plane.addGeometricShape(midpoint);
+        line.setUpdater(updater);
+        line.update();
+        viewPane.getChildren().add(line.getDrawableShape());
+        plane.addGeometricShape(line);
+        // System.out.println("Stworzono prostą A" + line.A +" B=" + line.B + " C=" +
+        // line.C);
     }
 }

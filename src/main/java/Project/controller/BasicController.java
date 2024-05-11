@@ -1,13 +1,12 @@
 package Project.controller;
 
+import Project.controller.builders.FreePointBuilder;
+import Project.controller.builders.GeometricShapeBuilder;
+import Project.controller.builders.LineThroughPointsBuilder;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import Project.model.GeometricPoint;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
 
 public class BasicController {
     private final Plane2D plane = new Plane2D();

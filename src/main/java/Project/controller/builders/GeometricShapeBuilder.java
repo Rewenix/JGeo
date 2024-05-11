@@ -1,8 +1,9 @@
-package Project.controller;
+package Project.controller.builders;
 
+import Project.controller.Actor;
+import Project.controller.Transformation;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
-import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 
 public interface GeometricShapeBuilder extends Actor {

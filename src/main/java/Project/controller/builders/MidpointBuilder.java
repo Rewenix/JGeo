@@ -1,10 +1,12 @@
-package Project.controller;
+package Project.controller.builders;
 
+import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
-public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
-    private GeometricPoint a, b;
+public class MidpointBuilder implements GeometricShapeBuilder {
+    private GeometricPoint a = null;
+    private GeometricPoint b = null;
 
     @Override
     public Class<?> expectedClass() {
@@ -16,8 +18,10 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
+                System.out.println("Accepting point");
             } else if (p != a) {
                 b = p;
+                System.out.println("Accepting point");
             }
         }
     }
@@ -35,27 +39,20 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine line = new GeometricLine("Symetralna", plane, transformation);
+        GeometricPoint midpoint = new GeometricPoint("Środek", plane, transformation, 0, 0);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
 
             @Override
             public void update() {
-                double midX = (pA.x + pB.x) / 2;
-                double midY = (pA.y + pB.y) / 2;
-
-                double a = pA.y - pB.y;
-                double b = pB.x - pA.x;
-
-                line.A = b;
-                line.B = -a;
-                line.C = -line.A * midX - line.B * midY;
+                midpoint.x = (pA.x + pB.x) / 2;
+                midpoint.y = (pA.y + pB.y) / 2;
             }
         };
-        line.setUpdater(updater);
-        line.update();
-        viewPane.getChildren().add(line.getDrawableShape());
-        plane.addGeometricShape(line);
+        midpoint.setUpdater(updater);
+        midpoint.update();
+        viewPane.getChildren().add(midpoint.getDrawableShape());
+        plane.addGeometricShape(midpoint);
     }
 }

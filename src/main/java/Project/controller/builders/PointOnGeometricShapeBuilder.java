@@ -1,6 +1,4 @@
-package Project.controller;
-
-import Project.model.GeometricShape;
+package Project.controller.builders;
 
 // public class PointOnGeometricShapeBuilder implements GeometricShapeBuilder {
 // private GeometricShape shape;

@@ -1,10 +1,10 @@
-package Project.controller;
+package Project.controller.builders;
 
+import Project.controller.Transformation;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
 import Project.model.Plane2D;
-import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 
 public class FreePointBuilder implements GeometricShapeBuilder {

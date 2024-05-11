@@ -1,14 +1,15 @@
 /**
- * The ParallelLineBuilder class is responsible for building a parallel line
+ * The PerpendicularLineBuilder class is responsible for building a perpendicular line
  * based on a given line and point.
  */
 
-package Project.controller;
+package Project.controller.builders;
 
+import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
-public class ParallelLineBuilder implements GeometricShapeBuilder {
+public class PerpendicularLineBuilder implements GeometricShapeBuilder {
     private GeometricLine line;
     private GeometricPoint point;
 
@@ -41,7 +42,7 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine parallelLine = new GeometricLine("Prosta równoległa", plane, transformation);
+        GeometricLine perpendicularLine = new GeometricLine("Prosta prostopadła", plane, transformation);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricPoint pPoint = point;
@@ -50,14 +51,16 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
             public void update() {
                 double x1 = pPoint.x;
                 double y1 = pPoint.y;
-                parallelLine.A = pLine.A;
-                parallelLine.B = pLine.B;
-                parallelLine.C = -(pLine.A * x1 + pLine.B * y1);
+                double x2 = pLine.A;
+                double y2 = pLine.B;
+                perpendicularLine.A = y2;
+                perpendicularLine.B = -x2;
+                perpendicularLine.C = -perpendicularLine.A * x1 - perpendicularLine.B * y1;
             }
         };
-        parallelLine.setUpdater(updater);
-        parallelLine.update();
-        viewPane.getChildren().add(parallelLine.getDrawableShape());
-        plane.addGeometricShape(parallelLine);
+        perpendicularLine.setUpdater(updater);
+        perpendicularLine.update();
+        viewPane.getChildren().add(perpendicularLine.getDrawableShape());
+        plane.addGeometricShape(perpendicularLine);
     }
 }
