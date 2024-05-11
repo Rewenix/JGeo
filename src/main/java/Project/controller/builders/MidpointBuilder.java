@@ -39,7 +39,7 @@ public class MidpointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint midpoint = new GeometricPoint("Środek", plane, transformation, 0, 0);
+        GeometricPoint midpoint = new GeometricPoint("Środek", plane, transformation);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

@@ -53,7 +53,11 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
         line.update();
         viewPane.getChildren().add(line.getDrawableShape());
         plane.addGeometricShape(line);
-        // System.out.println("Stworzono prostą A" + line.A +" B=" + line.B + " C=" +
-        // line.C);
+    }
+
+    public static void setLine(GeometricLine line, GeometricPoint a, GeometricPoint b) {
+        line.A = a.y - b.y;
+        line.B = b.x - a.x;
+        line.C = a.x * b.y - b.x * a.y;
     }
 }

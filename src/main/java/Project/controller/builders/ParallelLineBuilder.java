@@ -49,16 +49,20 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                double x1 = pPoint.x;
-                double y1 = pPoint.y;
-                parallelLine.A = pLine.A;
-                parallelLine.B = pLine.B;
-                parallelLine.C = -(pLine.A * x1 + pLine.B * y1);
+                setLine(parallelLine, pLine, pPoint);
             }
         };
         parallelLine.setUpdater(updater);
         parallelLine.update();
         viewPane.getChildren().add(parallelLine.getDrawableShape());
         plane.addGeometricShape(parallelLine);
+    }
+
+    public static void setLine(GeometricLine parallelLine, GeometricLine line, GeometricPoint point) {
+        double x1 = point.x;
+        double y1 = point.y;
+        parallelLine.A = line.A;
+        parallelLine.B = line.B;
+        parallelLine.C = -(line.A * x1 + line.B * y1);
     }
 }

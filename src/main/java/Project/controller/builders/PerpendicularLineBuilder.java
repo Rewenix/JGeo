@@ -49,18 +49,27 @@ public class PerpendicularLineBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                double x1 = pPoint.x;
-                double y1 = pPoint.y;
-                double x2 = pLine.A;
-                double y2 = pLine.B;
-                perpendicularLine.A = y2;
-                perpendicularLine.B = -x2;
-                perpendicularLine.C = -perpendicularLine.A * x1 - perpendicularLine.B * y1;
+                setLine(perpendicularLine, pLine, pPoint);
             }
         };
         perpendicularLine.setUpdater(updater);
         perpendicularLine.update();
         viewPane.getChildren().add(perpendicularLine.getDrawableShape());
         plane.addGeometricShape(perpendicularLine);
+    }
+
+    public static void setLine(GeometricLine perpendicularLine, double lineA, double lineB, double pointX,
+            double pointY) {
+        perpendicularLine.A = lineB;
+        perpendicularLine.B = -lineA;
+        perpendicularLine.C = -perpendicularLine.A * pointX - perpendicularLine.B * pointY;
+    }
+
+    public static void setLine(GeometricLine perpendicularLine, GeometricLine line, GeometricPoint point) {
+        setLine(perpendicularLine, line.A, line.B, point.x, point.y);
+    }
+
+    public static void setLine(GeometricLine perpendicularLine, GeometricPoint point, GeometricLine line) {
+        setLine(perpendicularLine, line, point);
     }
 }

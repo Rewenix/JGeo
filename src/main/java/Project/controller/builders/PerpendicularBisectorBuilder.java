@@ -17,8 +17,10 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
+                System.out.println("Accepting point");
             } else if (p != a) {
                 b = p;
+                System.out.println("Accepting point");
             }
         }
     }
@@ -49,9 +51,7 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
                 double a = pA.y - pB.y;
                 double b = pB.x - pA.x;
 
-                line.A = b;
-                line.B = -a;
-                line.C = -line.A * midX - line.B * midY;
+                PerpendicularLineBuilder.setLine(line, a, b, midX, midY);
             }
         };
         line.setUpdater(updater);
