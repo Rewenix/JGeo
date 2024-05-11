@@ -54,4 +54,13 @@ public class Plane2D {
         }
         return null;
     }
+
+    public GeometricShape getClickedShapeNotPoint(double planeX, double planeY) {
+        for (GeometricShape shape : shapes) {
+            if (!(shape instanceof GeometricPoint) && shape.hasPoint(planeX, planeY)) {
+                return shape;
+            }
+        }
+        return null;
+    }
 }
