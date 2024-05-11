@@ -44,11 +44,13 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
             public void update() {
                 double midX = (pA.x + pB.x) / 2;
                 double midY = (pA.y + pB.y) / 2;
-                double dx = pB.x - pA.x;
-                double dy = pB.y - pA.y;
-                double slope = -dx / dy;
-                double intercept = midY - slope * midX;
-                line.setEquation(slope, intercept);
+
+                double a = pA.y - pB.y;
+                double b = pB.x - pA.x;
+
+                line.A = b;
+                line.B = -a;
+                line.C = -line.A * midX - line.B * midY;
             }
         };
         line.setUpdater(updater);
