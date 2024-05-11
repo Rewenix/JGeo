@@ -7,6 +7,7 @@ public class GeometricSegment extends GeometricLine {
 
     public GeometricSegment(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
+        drawableHub.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
     }
 
     public void setPoints(double x1, double y1, double x2, double y2) {

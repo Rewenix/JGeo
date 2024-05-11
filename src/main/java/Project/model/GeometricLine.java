@@ -9,15 +9,16 @@ public class GeometricLine extends GeometricShape {
     private static final double D = 5000;// jak daleko rysowane sa konce
     public double A = 1, B = 1, C = 0; // wspolrzedne w postaci ogolnej (Ax + By + C = 0) zeby proste mogly byc tez
                                        // pionowe
-    protected Line drawableLine;
-    protected Line drawableHub;
+    private static final double hub = 4;
+    protected final Line drawableLine;
+    protected final Line drawableHub;
 
     public GeometricLine(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableLine = new Line();
         drawableHub = new Line();
         drawableHub.setStroke(Color.TRANSPARENT);
-        drawableHub.setStrokeWidth(plane.hitbox / 2);
+        drawableHub.setStrokeWidth(hub);
     }
 
     @Override

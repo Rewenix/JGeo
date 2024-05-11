@@ -6,16 +6,17 @@ import Project.controller.Transformation;
 import javafx.scene.shape.Shape;
 
 public class GeometricCircle extends GeometricShape {
+    private static final double hub = 4;
     public double R, centerX, centerY;
-    private Circle drawableCircle;
-    private Circle drawableHub;
+    private final Circle drawableCircle;
+    private final Circle drawableHub;
 
     public GeometricCircle(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableCircle = new Circle();
         drawableHub = new Circle();
         drawableHub.setFill(Color.TRANSPARENT);
-        drawableHub.setStrokeWidth(plane.hitbox / 2);
+        drawableHub.setStrokeWidth(hub);
     }
 
     @Override

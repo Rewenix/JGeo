@@ -7,23 +7,24 @@ import javafx.scene.shape.Shape;
 
 public class GeometricPoint extends GeometricShape {
     private static final double R = 4;
+    private static final double hub = 2 * R;
     public double x, y;
-    private Circle drawableShape;
-    private Circle drawableHub;
+    private final Circle drawableShape;
+    private final Circle drawableHub;
 
     public GeometricPoint(String name, Plane2D plane, Transformation transformation, double planeX, double planeY) {
         super(name, plane, transformation);
         x = planeX;
         y = planeY;
         drawableShape = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), R);
-        drawableHub = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), plane.hitbox);
+        drawableHub = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), hub);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
     public GeometricPoint(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableShape = new Circle(0, 0, R);
-        drawableHub = new Circle(0, 0, 2 * plane.hitbox / 3);
+        drawableHub = new Circle(0, 0, hub);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
