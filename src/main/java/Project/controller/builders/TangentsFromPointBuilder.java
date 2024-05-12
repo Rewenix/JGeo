@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint point;
     private GeometricCircle circle;
+    private static double epsilon = 1e-9;
 
     @Override
     public Class<?> expectedClass() {
@@ -70,7 +71,7 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         double a = circleX;
         double b = circleY; // (x-a)^2 + (y-b)^2 = r^2
 
-        if (GeometricPoint.distance(x1, y1, a, b) == r) {
+        if (Math.abs(GeometricPoint.distance(x1, y1, a, b) - r) <= epsilon) {
             double lineA, lineB; // line through (x1, y1) and (a, b)
             lineA = y1 - b;
             lineB = a - x1;
