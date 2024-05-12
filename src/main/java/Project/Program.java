@@ -18,7 +18,7 @@ public class Program extends Application {
         Scene scene = new Scene(view, 1400, 900);
 
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        // stage.setFullScreen(true);
         stage.show();
     }
 

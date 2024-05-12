@@ -4,17 +4,14 @@ import Project.controller.Controller;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 
-public class View extends GridPane {
+public class View extends BorderPane {
     private final Buttons buttons = new Buttons();
     public final Pane drawingPane = new Pane();
 
     public View() {
-        GridPane.setRowIndex(buttons, 0);
-        GridPane.setColumnIndex(buttons, 0);
-        GridPane.setRowIndex(drawingPane, 1);
-        GridPane.setColumnIndex(drawingPane, 0);
         drawingPane.setStyle("-fx-background-color: white;");
         this.setStyle("-fx-background-color: cyan;");
+        buttons.setStyle("-fx-border-color: black; -fx-border-width: 0 1 0 0;");
 
         Rectangle rect = new Rectangle(drawingPane.widthProperty().get(), drawingPane.heightProperty().get());
         drawingPane.setClip(rect);
@@ -25,17 +22,8 @@ public class View extends GridPane {
             rect.setHeight((Double) newVal);
         });
 
-        this.getChildren().addAll(buttons, drawingPane);
-        ColumnConstraints column = new ColumnConstraints();
-        column.setPercentWidth(100);
-        this.getColumnConstraints().add(column);
-        RowConstraints row1 = new RowConstraints();
-        row1.setMinHeight(50);
-        RowConstraints row2 = new RowConstraints();
-        row2.setMinHeight(200);
-        row2.setVgrow(Priority.ALWAYS);
-        this.getRowConstraints().addAll(row1, row2);
-        this.setGridLinesVisible(true);
+        this.setLeft(buttons);
+        this.setCenter(drawingPane);
     }
 
     public void registerController(Controller controller) {

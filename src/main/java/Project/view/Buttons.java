@@ -1,127 +1,133 @@
 package Project.view;
 
-import Project.controller.builders.AngleBisectorThreePointsBuilder;
 import Project.controller.Controller;
-import Project.controller.builders.CircleThroughThreePointsBuilder;
-import Project.controller.builders.CircleWithCenterAndPointBuilder;
-import Project.controller.builders.FreePointBuilder;
-import Project.controller.builders.LineThroughPointsBuilder;
-import Project.controller.builders.MidpointBuilder;
-import Project.controller.builders.ParallelLineBuilder;
-import Project.controller.builders.PerpendicularBisectorBuilder;
-import Project.controller.builders.PerpendicularLineBuilder;
-import Project.controller.builders.SegmentThroughPointsBuilder;
 import Project.controller.Shifter;
-import Project.controller.builders.TangentsFromPointBuilder;
+import Project.controller.builders.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.VBox;
 
-public class Buttons extends HBox {
+import java.util.HashMap;
+
+public class Buttons extends VBox {
+    private final ScrollPane scrollPane = new ScrollPane();
     private final ToggleGroup group = new ToggleGroup();
+    private final VBox buttonsBox = new VBox();
+    private final HashMap<String, ButtonBase> buttonMap = new HashMap<>();
 
     public Buttons() {
-        setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        setAlignment(Pos.TOP_LEFT); // Ustawienie przycisków w lewym górnym rogu.
+        scrollPane.setContent(buttonsBox);
+        scrollPane.setPannable(true);   // Możliwość przewijania myszką.
+        scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);    // Wyłączenie pasków przewijania
+        scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+
+        scrollPane.setStyle("-fx-background-color: cyan; -fx-border-color: black; -fx-border-width: 1 0 1 0px;");   // Jak nie dawałem cyan, w którymś to się robiło szare całe albo na brzegach.
+        buttonsBox.setStyle("-fx-background-color: cyan;");
+
+        scrollPane.addEventFilter(ScrollEvent.ANY, event -> {
+            double deltaY = event.getDeltaY() * 1.5; // Szybkość scrollowania - większy współczynnik tym szybciej.
+            double height = scrollPane.getContent().getBoundsInLocal().getHeight();
+            double vvalue = scrollPane.getVvalue();
+            scrollPane.setVvalue(vvalue - deltaY / height);
+            event.consume();
+        });
     }
 
     public void registerController(Controller controller) {
         // Dodajemy przyciski
-        registerToggleButton(event -> {
-            System.out.println("'Shifter' button pressed");
-            controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
-        },
-                "Shifter",
-                "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
-        registerToggleButton(event -> {
-            System.out.println("'Point' button pressed");
-            controller.changeActor(new FreePointBuilder());
-        },
-                "Point",
-                "Draws a point where selected. A point will be dragged to a shape if it is drawn near to it.");
-        registerToggleButton(event -> {
-            System.out.println("'Line' button pressed");
-            controller.changeActor(new LineThroughPointsBuilder());
-        },
-                "Line",
-                "Draw a line through two selected points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Segment' button pressed");
-            controller.changeActor(new SegmentThroughPointsBuilder());
-        },
-                "Segment",
-                "Draw a segment through two selected points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Circle' button pressed");
-            controller.changeActor(new CircleWithCenterAndPointBuilder());
-        },
-                "Circle(Center, Point)",
-                "Draws a circle with a center and a point. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Midpoint' button pressed");
-            controller.changeActor(new MidpointBuilder());
-        },
-                "Midpoint",
-                "Draws a point between two points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Circle' button pressed");
-            controller.changeActor(new CircleThroughThreePointsBuilder());
-        },
-                "Circle(Point, Point, Point)",
-                "Draws a circle through three points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Perpendicular' button pressed");
-            controller.changeActor(new PerpendicularLineBuilder());
-        },
-                "Perpendicular Line(Line, Point)",
-                "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Parallel' button pressed");
-            controller.changeActor(new ParallelLineBuilder());
-        },
-                "Parallel Line(Line, Point)",
-                "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Perpendicular Bisector' button pressed");
-            controller.changeActor(new PerpendicularBisectorBuilder());
-        },
-                "Perpendicular Bisector",
-                "Draws a perpendicular bisector of two points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Angle Bisector' button pressed");
-            controller.changeActor(new AngleBisectorThreePointsBuilder());
-        },
-                "Angle Bisector",
-                "Draws an angle bisector of three points. Points need to be drawn first with another method.");
-        registerToggleButton(event -> {
-            System.out.println("'Tangent' button pressed");
-            controller.changeActor(new TangentsFromPointBuilder());
-        },
-                "Tangents(Point, Circle)",
-                "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with another method.");
-
-        // Zepchnięcie następujących przycisków na prawo.
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        getChildren().addAll(spacer);
-
         registerButton(event -> {
-            System.out.println("'Undo' button pressed");
-            controller.getPlane().removeLastShape();
-        },
+                    System.out.println("'Undo' button pressed");
+                    controller.getPlane().removeLastShape();
+                },
                 "Undo",
                 "Removes the last drawn shape.");
         registerButton(event -> {
-            System.out.println("'Clear' button pressed");
-            controller.getPlane().clear();
-        },
+                    System.out.println("'Clear' button pressed");
+                    controller.getPlane().clear();
+                },
                 "Clear",
                 "Clears the drawing pane.");
+
+        registerToggleButton(event -> {
+                    System.out.println("'Shifter' button pressed");
+                    controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
+                },
+                "Shifter",
+                "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
+        registerToggleButton(event -> {
+                    System.out.println("'Point' button pressed");
+                    controller.changeActor(new FreePointBuilder());
+                },
+                "Point",
+                "Draws a point where selected. A point will be dragged to a shape if it is drawn near to it.");
+        registerToggleButton(event -> {
+                    System.out.println("'Line' button pressed");
+                    controller.changeActor(new LineThroughPointsBuilder());
+                },
+                "Line",
+                "Draw a line through two selected points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Segment' button pressed");
+                    controller.changeActor(new SegmentThroughPointsBuilder());
+                },
+                "Segment",
+                "Draw a segment through two selected points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Circle' button pressed");
+                    controller.changeActor(new CircleWithCenterAndPointBuilder());
+                },
+                "Circle(Center, Point)",
+                "Draws a circle with a center and a point. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Midpoint' button pressed");
+                    controller.changeActor(new MidpointBuilder());
+                },
+                "Midpoint",
+                "Draws a point between two points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Circle' button pressed");
+                    controller.changeActor(new CircleThroughThreePointsBuilder());
+                },
+                "Circle(Point, Point, Point)",
+                "Draws a circle through three points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Perpendicular' button pressed");
+                    controller.changeActor(new PerpendicularLineBuilder());
+                },
+                "Perpendicular Line(Line, Point)",
+                "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Parallel' button pressed");
+                    controller.changeActor(new ParallelLineBuilder());
+                },
+                "Parallel Line(Line, Point)",
+                "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Perpendicular Bisector' button pressed");
+                    controller.changeActor(new PerpendicularBisectorBuilder());
+                },
+                "Perpendicular Bisector",
+                "Draws a perpendicular bisector of two points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Angle Bisector' button pressed");
+                    controller.changeActor(new AngleBisectorThreePointsBuilder());
+                },
+                "Angle Bisector",
+                "Draws an angle bisector of three points. Points need to be drawn first with another method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Tangent' button pressed");
+                    controller.changeActor(new TangentsFromPointBuilder());
+                },
+                "Tangents(Point, Circle)",
+                "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with another method.");
+
+        registerLayout();
     }
 
     private void registerToggleButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {
@@ -130,7 +136,7 @@ public class Buttons extends HBox {
         Tooltip tip = new Tooltip(description);
         Tooltip.install(button, tip);
         button.setToggleGroup(group);
-        getChildren().add(button);
+        buttonMap.put(buttonName, button);
     }
 
     private void registerButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {
@@ -138,6 +144,34 @@ public class Buttons extends HBox {
         button.setOnAction(eventHandler);
         Tooltip tip = new Tooltip(description);
         Tooltip.install(button, tip);
-        getChildren().add(button);
+        buttonMap.put(buttonName, button);
+    }
+
+    // Wybór podziału na grupy
+    private void registerLayout() {
+        getChildren().addAll(buttonMap.get("Undo"), buttonMap.get("Clear"));
+
+        // Miejsce przerwy między przyciskami
+        VBox.setMargin(scrollPane, new Insets(20, 0, 0, 0));
+
+        getChildren().add(scrollPane);
+
+        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Midpoint", "Circle(Point, Point, Point)");
+
+        createButtonGroup("Advanced", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)");
+
+    }
+
+    private void createButtonGroup(String groupName, String ... buttonNames) {
+        VBox groupVbox = new VBox();
+
+        Label groupLabel = new Label(groupName);
+        groupVbox.getChildren().add(groupLabel);
+
+        for (String buttonName : buttonNames) {
+            groupVbox.getChildren().add(buttonMap.get(buttonName));
+        }
+
+        buttonsBox.getChildren().add(groupVbox);
     }
 }
