@@ -11,7 +11,7 @@ public class View extends BorderPane {
     public View() {
         drawingPane.setStyle("-fx-background-color: white;");
         this.setStyle("-fx-background-color: cyan;");
-        buttons.setStyle("-fx-border-color: black; -fx-border-width: 0 1 0 0;");
+        buttons.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 0 1 0 0;");
 
         Rectangle rect = new Rectangle(drawingPane.widthProperty().get(), drawingPane.heightProperty().get());
         drawingPane.setClip(rect);

@@ -15,7 +15,8 @@ public class Program extends Application {
         View view = new View();
         Controller controller = new Controller(view.drawingPane);
         view.registerController(controller);
-        Scene scene = new Scene(view, 1400, 900);
+        Scene scene = new Scene(view, 800, 600);
+        scene.getStylesheets().add("style.css");
 
         stage.setScene(scene);
         // stage.setFullScreen(true);

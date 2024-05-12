@@ -27,8 +27,8 @@ public class Buttons extends VBox {
         scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);    // Wyłączenie pasków przewijania
         scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 
-        scrollPane.setStyle("-fx-background-color: cyan; -fx-border-color: black; -fx-border-width: 1 0 1 0px;");   // Jak nie dawałem cyan, w którymś to się robiło szare całe albo na brzegach.
-        buttonsBox.setStyle("-fx-background-color: cyan;");
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1 0 1 0px;");   // Jak nie dawałem cyan, w którymś to się robiło szare całe albo na brzegach.
+        buttonsBox.setStyle("-fx-background-color: transparent;");
 
         scrollPane.addEventFilter(ScrollEvent.ANY, event -> {
             double deltaY = event.getDeltaY() * 1.5; // Szybkość scrollowania - większy współczynnik tym szybciej.
@@ -167,6 +167,7 @@ public class Buttons extends VBox {
 
         Label groupLabel = new Label(groupName);
         groupVbox.getChildren().add(groupLabel);
+        groupVbox.setStyle("-fx-background-color: transparent;");
 
         for (String buttonName : buttonNames) {
             groupVbox.getChildren().add(buttonMap.get(buttonName));
