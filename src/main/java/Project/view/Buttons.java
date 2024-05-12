@@ -44,13 +44,13 @@ public class Buttons extends VBox {
         // Dodajemy przyciski
         registerButton(event -> {
                     System.out.println("'Undo' button pressed");
-                    controller.getPlane().removeLastShape();
+                    controller.removeLastShape();
                 },
                 "Undo",
                 "Removes the last drawn shape.");
         registerButton(event -> {
                     System.out.println("'Clear' button pressed");
-                    controller.getPlane().clear();
+                    controller.clearShapes();
                 },
                 "Clear",
                 "Clears the drawing pane.");
