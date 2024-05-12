@@ -14,19 +14,23 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void acceptArgument(GeometricShape shape) {
+    public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
                 a.setOnClicked();
+                return true;
             } else if (b == null) {
                 b = p;
                 b.setOnClicked();
+                return true;
             } else if (c == null) {
                 c = p;
                 c.setOnClicked();
+                return true;
             }
         }
+        return false;
     }
 
     @Override

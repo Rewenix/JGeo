@@ -15,16 +15,19 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void acceptArgument(GeometricShape shape) {
-        if (shape instanceof GeometricPoint p) {
+    public boolean acceptArgument(GeometricShape shape) {
+        if (point == null && shape instanceof GeometricPoint p) {
             point = p;
             point.setOnClicked();
             System.out.println("Accepting point");
-        } else if (shape instanceof GeometricCircle c) {
+            return true;
+        } else if (circle == null && shape instanceof GeometricCircle c) {
             circle = c;
             circle.setOnClicked();
             System.out.println("Accepting circle");
+            return true;
         }
+        return false;
     }
 
     @Override

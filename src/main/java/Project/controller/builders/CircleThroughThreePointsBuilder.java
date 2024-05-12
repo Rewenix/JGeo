@@ -15,22 +15,26 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void acceptArgument(GeometricShape shape) {
+    public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
                 a.setOnClicked();
                 System.out.println("Accepting point");
+                return true;
             } else if (b == null) {
                 b = p;
                 b.setOnClicked();
                 System.out.println("Accepting point");
+                return true;
             } else if (c == null) {
                 c = p;
                 c.setOnClicked();
                 System.out.println("Accepting point");
+                return true;
             }
         }
+        return false;
     }
 
     @Override

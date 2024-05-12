@@ -15,18 +15,21 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void acceptArgument(GeometricShape shape) {
+    public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             if (center == null) {
                 center = p;
                 center.setOnClicked();
                 System.out.println("Accepting point");
+                return true;
             } else if (p != center) {
                 point = p;
                 point.setOnClicked();
                 System.out.println("Accepting point");
+                return true;
             }
         }
+        return false;
     }
 
     @Override

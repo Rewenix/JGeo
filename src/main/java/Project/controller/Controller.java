@@ -5,6 +5,8 @@ import Project.model.Plane2D;
 import Project.model.GeometricPoint;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
 public class Controller {
     private final Plane2D plane = new Plane2D();
     private final Transformation transformation = new Transformation();
@@ -36,8 +38,10 @@ public class Controller {
         if (selectedActor instanceof GeometricShapeBuilder selectedBuilder) {
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
-            GeometricShape clickedShape = plane.getClickedShape(planeX, planeY, selectedBuilder.expectedClass());
-            selectedBuilder.acceptArgument(clickedShape);
+            ArrayList<GeometricShape> clickedShapesList = plane.getClickedShapesList(planeX, planeY);
+            for(GeometricShape clickedShape : clickedShapesList)
+                if(selectedBuilder.acceptArgument(clickedShape))
+                    break;
             if (selectedBuilder.isReady()) {
                 System.out.println("Building shape with builder");
                 selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);

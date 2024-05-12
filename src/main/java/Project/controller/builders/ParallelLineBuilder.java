@@ -20,16 +20,19 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void acceptArgument(GeometricShape shape) {
-        if (shape instanceof GeometricLine l) {
+    public boolean acceptArgument(GeometricShape shape) {
+        if (line == null && shape instanceof GeometricLine l) {
             line = l;
             line.setOnClicked();
             System.out.println("Accepting line");
-        } else if (shape instanceof GeometricPoint p) {
+            return true;
+        } else if (point == null && shape instanceof GeometricPoint p) {
             point = p;
             point.setOnClicked();
             System.out.println("Accepting point");
+            return true;
         }
+        return false;
     }
 
     @Override

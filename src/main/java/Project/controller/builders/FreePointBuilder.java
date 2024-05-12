@@ -15,8 +15,8 @@ public class FreePointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void acceptArgument(GeometricShape shape) {
-
+    public boolean acceptArgument(GeometricShape shape) {
+        return true;
     }
 
     @Override
