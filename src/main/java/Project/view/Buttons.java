@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.util.HashMap;
 
@@ -134,6 +135,7 @@ public class Buttons extends VBox {
         ToggleButton button = new ToggleButton(buttonName);
         button.setOnAction(eventHandler);
         Tooltip tip = new Tooltip(description);
+        tip.setShowDelay(Duration.millis(100));
         Tooltip.install(button, tip);
         button.setToggleGroup(group);
         buttonMap.put(buttonName, button);
@@ -143,6 +145,7 @@ public class Buttons extends VBox {
         Button button = new Button(buttonName);
         button.setOnAction(eventHandler);
         Tooltip tip = new Tooltip(description);
+        tip.setShowDelay(Duration.millis(100));
         Tooltip.install(button, tip);
         buttonMap.put(buttonName, button);
     }
