@@ -10,11 +10,6 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;
 
     @Override
-    public Class<?> expectedClass() {
-        return GeometricPoint.class;
-    }
-
-    @Override
     public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             if (center == null) {

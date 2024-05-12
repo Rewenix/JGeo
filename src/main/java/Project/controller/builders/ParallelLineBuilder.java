@@ -15,11 +15,6 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
     private GeometricPoint point;
 
     @Override
-    public Class<?> expectedClass() {
-        return line == null ? GeometricLine.class : GeometricPoint.class;
-    }
-
-    @Override
     public boolean acceptArgument(GeometricShape shape) {
         if (line == null && shape instanceof GeometricLine l) {
             line = l;

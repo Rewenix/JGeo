@@ -9,10 +9,6 @@ import Project.model.Plane2D;
 import javafx.scene.layout.Pane;
 
 public class FreePointBuilder implements GeometricShapeBuilder {
-    @Override
-    public Class<?> expectedClass() {
-        return GeometricPoint.class;
-    }
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {

@@ -10,11 +10,6 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
     protected GeometricPoint b = null;
 
     @Override
-    public Class<?> expectedClass() {
-        return GeometricPoint.class;
-    }
-
-    @Override
     public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {

@@ -11,11 +11,6 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     private static double epsilon = 1e-9;
 
     @Override
-    public Class<?> expectedClass() {
-        return point == null ? GeometricPoint.class : GeometricCircle.class;
-    }
-
-    @Override
     public boolean acceptArgument(GeometricShape shape) {
         if (point == null && shape instanceof GeometricPoint p) {
             point = p;

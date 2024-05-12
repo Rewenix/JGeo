@@ -9,11 +9,6 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
     private GeometricPoint a, b, c;
 
     @Override
-    public Class<?> expectedClass() {
-        return GeometricPoint.class;
-    }
-
-    @Override
     public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {

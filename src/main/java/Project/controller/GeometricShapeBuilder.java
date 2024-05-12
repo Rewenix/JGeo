@@ -5,7 +5,6 @@ import Project.model.Plane2D;
 import javafx.scene.layout.Pane;
 
 public interface GeometricShapeBuilder extends Actor {
-    Class<?> expectedClass();
 
     boolean acceptArgument(GeometricShape shape);
 
