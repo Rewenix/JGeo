@@ -5,6 +5,10 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for creating a circle with a center point and another point
+ * on the circumference.
+ */
 public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint center = null;
     private GeometricPoint point = null;
@@ -56,12 +60,29 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
         plane.addGeometricShape(circle);
     }
 
+    /**
+     * Sets the properties of the given circle based on the provided coordinates.
+     *
+     * @param circle  The circle to set the properties for.
+     * @param centerX The x-coordinate of the center point.
+     * @param centerY The y-coordinate of the center point.
+     * @param pointX  The x-coordinate of the point on the circumference.
+     * @param pointY  The y-coordinate of the point on the circumference.
+     */
     public static void setCircle(GeometricCircle circle, double centerX, double centerY, double pointX, double pointY) {
         circle.centerX = centerX;
         circle.centerY = centerY;
         circle.R = GeometricPoint.distance(centerX, centerY, pointX, pointY);
     }
 
+    /**
+     * Sets the properties of the given circle based on the provided center and
+     * point.
+     *
+     * @param circle The circle to set the properties for.
+     * @param center The center point of the circle.
+     * @param point  The point on the circumference of the circle.
+     */
     public static void setCircle(GeometricCircle circle, GeometricPoint center, GeometricPoint point) {
         setCircle(circle, center.x, center.y, point.x, point.y);
     }

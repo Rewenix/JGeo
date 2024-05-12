@@ -1,3 +1,6 @@
+/**
+ * A builder class for creating an angle bisector geometric shape using three points.
+ */
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;

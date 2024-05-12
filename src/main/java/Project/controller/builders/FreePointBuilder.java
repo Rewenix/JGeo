@@ -8,6 +8,9 @@ import Project.model.GeometricShapeUpdater;
 import Project.model.Plane2D;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for creating a free point.
+ */
 public class FreePointBuilder implements GeometricShapeBuilder {
 
     @Override

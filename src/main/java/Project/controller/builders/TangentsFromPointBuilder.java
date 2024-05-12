@@ -5,6 +5,9 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for constructing tangent lines from a point to a circle.
+ */
 public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint point;
     private GeometricCircle circle;
@@ -60,6 +63,17 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         plane.addGeometricShape(tangent2);
     }
 
+    /**
+     * Sets the lines representing the tangents from a point to a circle.
+     *
+     * @param line1   The first tangent line.
+     * @param line2   The second tangent line.
+     * @param x1      The x-coordinate of the point.
+     * @param y1      The y-coordinate of the point.
+     * @param circleX The x-coordinate of the circle's center.
+     * @param circleY The y-coordinate of the circle's center.
+     * @param circleR The radius of the circle.
+     */
     public static void setLines(GeometricLine line1, GeometricLine line2, double x1, double y1, double circleX,
             double circleY, double circleR) {
         double r = circleR;
@@ -95,6 +109,14 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         LineThroughPointsBuilder.setLine(line2, x1, y1, x2_, y2_);
     }
 
+    /**
+     * Sets the lines representing the tangents from a point to a circle.
+     *
+     * @param line1  The first tangent line.
+     * @param line2  The second tangent line.
+     * @param point  The point.
+     * @param circle The circle.
+     */
     public static void setLines(GeometricLine line1, GeometricLine line2, GeometricPoint point,
             GeometricCircle circle) {
         setLines(line1, line2, point.x, point.y, circle.centerX, circle.centerY, circle.R);

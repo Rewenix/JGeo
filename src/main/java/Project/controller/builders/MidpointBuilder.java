@@ -5,6 +5,9 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for creating a midpoint between two points.
+ */
 public class MidpointBuilder implements GeometricShapeBuilder {
     private GeometricPoint a = null;
     private GeometricPoint b = null;

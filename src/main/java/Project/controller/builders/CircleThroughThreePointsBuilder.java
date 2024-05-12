@@ -6,6 +6,9 @@ import Project.model.*;
 import javafx.scene.layout.Pane;
 import Project.model.GeometricPoint;
 
+/**
+ * A builder class for creating a circle through three points.
+ */
 public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     private GeometricPoint a, b, c;
 
@@ -63,6 +66,17 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
         plane.addGeometricShape(circle);
     }
 
+    /**
+     * Sets the properties of the circle based on the given coordinates.
+     *
+     * @param circle The circle to set the properties for.
+     * @param x1     The x-coordinate of the first point.
+     * @param y1     The y-coordinate of the first point.
+     * @param x2     The x-coordinate of the second point.
+     * @param y2     The y-coordinate of the second point.
+     * @param x3     The x-coordinate of the third point.
+     * @param y3     The y-coordinate of the third point.
+     */
     public static void setCircle(GeometricCircle circle, double x1, double y1, double x2, double y2, double x3,
             double y3) {
         double a = x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2;
@@ -77,6 +91,14 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
         circle.R = Math.sqrt(b * b + c * c - 4 * a * d) / (2 * Math.abs(a));
     }
 
+    /**
+     * Sets the properties of the circle based on the given points.
+     *
+     * @param circle The circle to set the properties for.
+     * @param a      The first point.
+     * @param b      The second point.
+     * @param c      The third point.
+     */
     public static void setCircle(GeometricCircle circle, GeometricPoint a, GeometricPoint b, GeometricPoint c) {
         setCircle(circle, a.x, a.y, b.x, b.y, c.x, c.y);
     }

@@ -4,6 +4,9 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for creating a segment through two points.
+ */
 public class SegmentThroughPointsBuilder extends LineThroughPointsBuilder {
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {

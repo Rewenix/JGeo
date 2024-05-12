@@ -5,6 +5,9 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for creating perpendicular bisector geometric shapes.
+ */
 public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
     private GeometricPoint a, b;
 
@@ -55,6 +58,15 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         plane.addGeometricShape(line);
     }
 
+    /**
+     * Sets the line's properties based on the given coordinates.
+     *
+     * @param line    the geometric line to set
+     * @param point1X the x-coordinate of the first point
+     * @param point1Y the y-coordinate of the first point
+     * @param point2X the x-coordinate of the second point
+     * @param point2Y the y-coordinate of the second point
+     */
     public static void setLine(GeometricLine line, double point1X, double point1Y, double point2X, double point2Y) {
         double midX = (point1X + point2X) / 2;
         double midY = (point1Y + point2Y) / 2;
@@ -65,6 +77,13 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         PerpendicularLineBuilder.setLine(line, a, b, midX, midY);
     }
 
+    /**
+     * Sets the line's properties based on the given points.
+     *
+     * @param line   the geometric line to set
+     * @param point1 the first point
+     * @param point2 the second point
+     */
     public static void setLine(GeometricLine line, GeometricPoint point1, GeometricPoint point2) {
         setLine(line, point1.x, point1.y, point2.x, point2.y);
     }

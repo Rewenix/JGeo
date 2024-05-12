@@ -1,8 +1,3 @@
-/**
- * The ParallelLineBuilder class is responsible for building a parallel line
- * based on a given line and point.
- */
-
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
@@ -10,6 +5,9 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * A builder class for creating parallel lines in a 2D plane.
+ */
 public class ParallelLineBuilder implements GeometricShapeBuilder {
     private GeometricLine line;
     private GeometricPoint point;
@@ -59,12 +57,30 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
         plane.addGeometricShape(parallelLine);
     }
 
+    /**
+     * Sets the coefficients of the given parallel line based on the provided
+     * values.
+     *
+     * @param parallelLine The parallel line to set the coefficients for.
+     * @param lineA        The coefficient A of the original line.
+     * @param lineB        The coefficient B of the original line.
+     * @param pointX       The x-coordinate of the point on the parallel line.
+     * @param pointY       The y-coordinate of the point on the parallel line.
+     */
     public static void setLine(GeometricLine parallelLine, double lineA, double lineB, double pointX, double pointY) {
         parallelLine.A = lineA;
         parallelLine.B = lineB;
         parallelLine.C = -(lineA * pointX + lineB * pointY);
     }
 
+    /**
+     * Sets the coefficients of the given parallel line based on the coefficients of
+     * the original line and the coordinates of a point on it.
+     *
+     * @param parallelLine The parallel line to set the coefficients for.
+     * @param line         The original line.
+     * @param point        The point on the parallel line.
+     */
     public static void setLine(GeometricLine parallelLine, GeometricLine line, GeometricPoint point) {
         setLine(parallelLine, line.A, line.B, point.x, point.y);
     }
