@@ -1,5 +1,6 @@
 package Project.controller;
 
+import Project.model.GeometricSegment;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import Project.model.GeometricPoint;
@@ -39,9 +40,24 @@ public class Controller {
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
             ArrayList<GeometricShape> clickedShapesList = plane.getClickedShapesList(planeX, planeY);
+            boolean foundArgument = false;
             for(GeometricShape clickedShape : clickedShapesList)
-                if(selectedBuilder.acceptArgument(clickedShape))
+                if(clickedShape instanceof GeometricPoint && selectedBuilder.acceptArgument(clickedShape)) {
+                    foundArgument = true;
                     break;
+                }
+            if (!foundArgument) {
+                for(GeometricShape clickedShape : clickedShapesList)
+                    if(clickedShape instanceof GeometricSegment && selectedBuilder.acceptArgument(clickedShape)) {
+                        foundArgument = true;
+                        break;
+                    }
+            }
+            if (!foundArgument) {
+                for(GeometricShape clickedShape : clickedShapesList)
+                    if(selectedBuilder.acceptArgument(clickedShape))
+                        break;
+            }
             if (selectedBuilder.isReady()) {
                 System.out.println("Building shape with builder");
                 selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
