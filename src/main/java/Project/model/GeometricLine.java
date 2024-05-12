@@ -70,26 +70,4 @@ public class GeometricLine extends GeometricShape {
         double d = Math.abs(A * planeX + B * planeY + C) / Math.sqrt(A * A + B * B);
         return d / transformation.scale <= plane.hitbox;
     }
-
-    public void setEquation(double aX, double aY, double bX, double bY) { // line through two points
-        A = aY - bY;
-        B = bX - aX;
-        C = aX * bY - bX * aY;
-    }
-
-    public void setEquation(GeometricPoint a, GeometricPoint b) { // line through two points
-        setEquation(a.x, a.y, b.x, b.y);
-    }
-
-    public void setEquation(double a, double b, double c) { // Ax + By + C = 0
-        A = a;
-        B = b;
-        C = c;
-    }
-
-    public void setEquation(double a, double b) { // y = ax + b -> Ax + By + C = 0
-        A = -a;
-        B = 1;
-        C = -b;
-    }
 }

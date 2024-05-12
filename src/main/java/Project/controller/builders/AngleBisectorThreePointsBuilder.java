@@ -65,7 +65,7 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
                 double x = (BC * pA.x + AB * pC.x) / (AB + BC);
                 double y = (BC * pA.y + AB * pC.y) / (AB + BC);
 
-                line.setEquation(pB.x, pB.y, x, y);
+                LineThroughPointsBuilder.setLine(line, pB.x, pB.y, x, y);
             }
         };
         line.setUpdater(updater);
