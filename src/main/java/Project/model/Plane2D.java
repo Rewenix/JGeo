@@ -51,13 +51,25 @@ public class Plane2D {
     }
 
     public ArrayList<GeometricShape> getClickedShapesList(double planeX, double planeY) {
+        ArrayList<GeometricShape> clickedPoints = new ArrayList<>();
+        ArrayList<GeometricShape> clickedSegments = new ArrayList<>();
         ArrayList<GeometricShape> clickedShapes = new ArrayList<>();
         for (GeometricShape shape : shapes) {
             if (shape.hasPoint(planeX, planeY)) {
-                clickedShapes.add(shape);
+                if(shape instanceof GeometricPoint)
+                    clickedPoints.add(shape);
+                else if(shape instanceof GeometricSegment)
+                    clickedSegments.add(shape);
+                else
+                    clickedShapes.add(shape);
             }
         }
-        return clickedShapes;
+
+        ArrayList<GeometricShape> mergedList = new ArrayList<>();
+        mergedList.addAll(clickedPoints);
+        mergedList.addAll(clickedSegments);
+        mergedList.addAll(clickedShapes);
+        return mergedList;
     }
 
     public GeometricShape getClickedShape(double planeX, double planeY, Class<?> expectedClass) {
