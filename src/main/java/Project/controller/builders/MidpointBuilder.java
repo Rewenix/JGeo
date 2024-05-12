@@ -50,13 +50,38 @@ public class MidpointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                midpoint.x = (pA.x + pB.x) / 2;
-                midpoint.y = (pA.y + pB.y) / 2;
+                setPoint(midpoint, pA, pB);
             }
         };
         midpoint.setUpdater(updater);
         midpoint.update();
         midpoint.setViewPane(viewPane);
         plane.addGeometricShape(midpoint);
+    }
+
+    /**
+     * Sets the coordinates of the given point to the midpoint between two points.
+     *
+     * @param point The point to set the coordinates for.
+     * @param x1    The x-coordinate of the first point.
+     * @param y1    The y-coordinate of the first point.
+     * @param x2    The x-coordinate of the second point.
+     * @param y2    The y-coordinate of the second point.
+     */
+    public static void setPoint(GeometricPoint point, double x1, double y1, double x2, double y2) {
+        point.x = (x1 + x2) / 2;
+        point.y = (y1 + y2) / 2;
+    }
+
+    /**
+     * Sets the coordinates of the given point to the midpoint between two other
+     * points.
+     *
+     * @param point The point to set the coordinates for.
+     * @param p1    The first point.
+     * @param p2    The second point.
+     */
+    public static void setPoint(GeometricPoint point, GeometricPoint p1, GeometricPoint p2) {
+        setPoint(point, p1.x, p1.y, p2.x, p2.y);
     }
 }

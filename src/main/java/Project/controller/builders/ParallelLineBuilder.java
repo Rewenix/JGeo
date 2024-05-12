@@ -6,7 +6,7 @@ import Project.model.*;
 import javafx.scene.layout.Pane;
 
 /**
- * A builder class for creating parallel lines in a 2D plane.
+ * A builder class for creating a parallel lines.
  */
 public class ParallelLineBuilder implements GeometricShapeBuilder {
     private GeometricLine line;

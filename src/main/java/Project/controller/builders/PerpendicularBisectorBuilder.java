@@ -6,7 +6,7 @@ import Project.model.*;
 import javafx.scene.layout.Pane;
 
 /**
- * A builder class for creating perpendicular bisector geometric shapes.
+ * A builder class for creating a perpendicular bisector of two points.
  */
 public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
     private GeometricPoint a, b;

@@ -63,16 +63,16 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
     /**
      * Sets the equation of a geometric line using the coordinates of two points.
      *
-     * @param line    the geometric line to set the equation for
-     * @param point1X the x-coordinate of the first point
-     * @param point1Y the y-coordinate of the first point
-     * @param point2X the x-coordinate of the second point
-     * @param point2Y the y-coordinate of the second point
+     * @param line the geometric line to set the equation for
+     * @param x1   the x-coordinate of the first point
+     * @param y1   the y-coordinate of the first point
+     * @param x2   the x-coordinate of the second point
+     * @param y2   the y-coordinate of the second point
      */
-    public static void setLine(GeometricLine line, double point1X, double point1Y, double point2X, double point2Y) {
-        line.A = point1Y - point2Y;
-        line.B = point2X - point1X;
-        line.C = point1X * point2Y - point2X * point1Y;
+    public static void setLine(GeometricLine line, double x1, double y1, double x2, double y2) {
+        line.A = y1 - y2;
+        line.B = x2 - x1;
+        line.C = x1 * y2 - x2 * y1;
     }
 
     /**

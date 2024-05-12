@@ -6,7 +6,7 @@ import Project.model.*;
 import javafx.scene.layout.Pane;
 
 /**
- * A builder class for creating perpendicular lines in a geometric plane.
+ * A builder class for creating perpendicular lines.
  */
 public class PerpendicularLineBuilder implements GeometricShapeBuilder {
     private GeometricLine line;
