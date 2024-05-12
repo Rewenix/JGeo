@@ -60,73 +60,73 @@ public class Buttons extends VBox {
                     controller.changeActor(new Shifter(controller.getPlane(), controller.getTransformation()));
                 },
                 "Shifter",
-                "Shifts a point or a line. If a point is selected, it will be moved to the selected place.");
+                "Shifts a point or the plane. If a point is selected, it will be moved to the selected place.");
         registerToggleButton(event -> {
                     System.out.println("'Point' button pressed");
                     controller.changeActor(new FreePointBuilder());
                 },
                 "Point",
-                "Draws a point where selected. A point will be dragged to a shape if it is drawn near to it.");
+                "Draws a point where selected.");
         registerToggleButton(event -> {
                     System.out.println("'Line' button pressed");
                     controller.changeActor(new LineThroughPointsBuilder());
                 },
                 "Line",
-                "Draw a line through two selected points. Points need to be drawn first with another method.");
+                "Draw a line through two selected points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Segment' button pressed");
                     controller.changeActor(new SegmentThroughPointsBuilder());
                 },
                 "Segment",
-                "Draw a segment through two selected points. Points need to be drawn first with another method.");
+                "Draw a segment through two selected points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Circle' button pressed");
                     controller.changeActor(new CircleWithCenterAndPointBuilder());
                 },
                 "Circle(Center, Point)",
-                "Draws a circle with a center and a point. Points need to be drawn first with another method.");
+                "Draws a circle with a center and a point. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Midpoint' button pressed");
                     controller.changeActor(new MidpointBuilder());
                 },
                 "Midpoint",
-                "Draws a point between two points. Points need to be drawn first with another method.");
+                "Draws a point between two points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Circle' button pressed");
                     controller.changeActor(new CircleThroughThreePointsBuilder());
                 },
                 "Circle(Point, Point, Point)",
-                "Draws a circle through three points. Points need to be drawn first with another method.");
+                "Draws a circle through three points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Perpendicular' button pressed");
                     controller.changeActor(new PerpendicularLineBuilder());
                 },
                 "Perpendicular Line(Line, Point)",
-                "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
+                "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Parallel' button pressed");
                     controller.changeActor(new ParallelLineBuilder());
                 },
                 "Parallel Line(Line, Point)",
-                "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with another method.");
+                "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Perpendicular Bisector' button pressed");
                     controller.changeActor(new PerpendicularBisectorBuilder());
                 },
                 "Perpendicular Bisector",
-                "Draws a perpendicular bisector of two points. Points need to be drawn first with another method.");
+                "Draws a perpendicular bisector of two points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Angle Bisector' button pressed");
                     controller.changeActor(new AngleBisectorThreePointsBuilder());
                 },
                 "Angle Bisector",
-                "Draws an angle bisector of three points. Points need to be drawn first with another method.");
+                "Draws an angle bisector of three points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Tangent' button pressed");
                     controller.changeActor(new TangentsFromPointBuilder());
                 },
                 "Tangents(Point, Circle)",
-                "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with another method.");
+                "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with 'Point' method.");
 
         registerLayout();
     }
