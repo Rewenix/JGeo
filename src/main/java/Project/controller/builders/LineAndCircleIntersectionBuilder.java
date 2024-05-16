@@ -93,6 +93,15 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
             i2.x = i2.y;
             i2.y = tmp;
         }
+
+        if(B < 0) {
+            double tmp = i1.x;
+            i1.x = i2.x;
+            i2.x = tmp;
+            tmp = i1.y;
+            i1.y = i2.y;
+            i2.y = tmp;
+        }
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, GeometricLine l, GeometricCircle c) {
