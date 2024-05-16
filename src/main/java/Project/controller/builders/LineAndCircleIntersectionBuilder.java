@@ -65,14 +65,34 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, double lA, double lB, double lC, double centerX, double centerY, double R) {
-        double a = lA * lA + lB * lB;
-        double b = 2 * (lA * lC + lA * lB * centerY - lB * lB * centerX);
-        double c = lC * lC + 2 * lB * lC * centerY - lB * lB * (R * R - centerX * centerX - centerY * centerY);
+        double A = lA;
+        double B = lB;
+        double x0 = centerX;
+        double y0 = centerY;
+        if (Math.abs(lB) <= 1e-9) {
+            A = lB;
+            B = lA;
+            x0 = centerY;
+            y0 = centerX;
+        }
+
+        double a = A * A + B * B;
+        double b = 2 * (A * lC + A * B * y0 - B * B * x0);
+        double c = lC * lC + 2 * B * lC * y0 - B * B * (R * R - x0 * x0 - y0 * y0);
         double delta = b * b - 4 * a * c;
         i1.x = (-b + Math.sqrt(delta)) / (2 * a);
-        i1.y = (-lA * i1.x - lC) / lB;
+        i1.y = (-A * i1.x - lC) / B;
         i2.x = (-b - Math.sqrt(delta)) / (2 * a);
-        i2.y = (-lA * i2.x - lC) / lB;
+        i2.y = (-A * i2.x - lC) / B;
+
+        if (Math.abs(lB) <= 1e-9) {
+            double tmp = i1.x;
+            i1.x = i1.y;
+            i1.y = tmp;
+            tmp = i2.x;
+            i2.x = i2.y;
+            i2.y = tmp;
+        }
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, GeometricLine l, GeometricCircle c) {
