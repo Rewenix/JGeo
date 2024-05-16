@@ -87,10 +87,10 @@ public class Buttons extends VBox {
                 "Draws a circle with a center and a point. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     System.out.println("'Midpoint' button pressed");
-                    controller.changeActor(new MidpointBuilder());
+                    controller.changeActor(new CenterOrMidpointBuilder());
                 },
-                "Midpoint",
-                "Draws a point between two points. Points need to be drawn first with 'Point' method.");
+                "Midpoint or Center",
+                "Draws a midpoint of two points or a circle center. Points and circle need to be drawn first with 'Point' or 'Circle' method.");
         registerToggleButton(event -> {
                     System.out.println("'Circle' button pressed");
                     controller.changeActor(new CircleThroughThreePointsBuilder());
@@ -159,7 +159,7 @@ public class Buttons extends VBox {
 
         getChildren().add(scrollPane);
 
-        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Midpoint", "Circle(Point, Point, Point)");
+        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Midpoint or Center", "Circle(Point, Point, Point)");
 
         createButtonGroup("Advanced", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)");
 
