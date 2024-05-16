@@ -11,10 +11,7 @@ public class CenterOrMidpointBuilder implements GeometricShapeBuilder {
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
-        if (circleCenterBuilder.acceptArgument(shape)) {
-            return true;
-        }
-        return midpointBuilder.acceptArgument(shape);
+        return circleCenterBuilder.acceptArgument(shape) || midpointBuilder.acceptArgument(shape);
     }
 
     @Override

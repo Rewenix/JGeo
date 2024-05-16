@@ -127,6 +127,12 @@ public class Buttons extends VBox {
                 },
                 "Tangents(Point, Circle)",
                 "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with 'Point' method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Intersection' button pressed");
+                    controller.changeActor(new IntersectionBuilder());
+                },
+                "Intersection",
+                "Draws an intersection of two shapes. shapes need to be drawn first with their method.");
 
         registerLayout();
     }
@@ -159,7 +165,7 @@ public class Buttons extends VBox {
 
         getChildren().add(scrollPane);
 
-        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Midpoint or Center", "Circle(Point, Point, Point)");
+        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Midpoint or Center", "Circle(Point, Point, Point)", "Intersection");
 
         createButtonGroup("Advanced", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)");
 
