@@ -69,7 +69,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         double B = lB;
         double x0 = centerX;
         double y0 = centerY;
-        if (Math.abs(lB) <= 1e-9) {
+        if (Math.abs(lB) <= BuilderUtils.EPSILON) {
             A = lB;
             B = lA;
             x0 = centerY;
@@ -85,7 +85,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         i2.x = (-b - Math.sqrt(delta)) / (2 * a);
         i2.y = (-A * i2.x - lC) / B;
 
-        if (Math.abs(lB) <= 1e-9) {
+        if (Math.abs(lB) <= BuilderUtils.EPSILON) {
             double tmp = i1.x;
             i1.x = i1.y;
             i1.y = tmp;
@@ -94,7 +94,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
             i2.y = tmp;
         }
 
-        if(B < 0) {
+        if (B < 0) {
             double tmp = i1.x;
             i1.x = i2.x;
             i2.x = tmp;

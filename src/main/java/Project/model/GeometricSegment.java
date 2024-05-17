@@ -3,7 +3,7 @@ package Project.model;
 import Project.controller.Transformation;
 
 public class GeometricSegment extends GeometricLine {
-    private double x1, y1, x2, y2;
+    public double x1, y1, x2, y2;
 
     public GeometricSegment(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
@@ -36,11 +36,11 @@ public class GeometricSegment extends GeometricLine {
     public boolean hasPoint(double planeX, double planeY) {
         double d = Math.abs(A * planeX + B * planeY + C) / Math.sqrt(A * A + B * B); // odleglosc punktu od prostej
         double d1 = Math.sqrt((planeX - x1) * (planeX - x1) + (planeY - y1) * (planeY - y1)); // odleglosc punktu od
-                                                                                              // poczatku odcinka
+        // poczatku odcinka
         double d2 = Math.sqrt((planeX - x2) * (planeX - x2) + (planeY - y2) * (planeY - y2)); // odleglosc punktu od
-                                                                                              // konca odcinka
+        // konca odcinka
         double d3 = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)); // dlugosc odcinka
         return d / transformation.scale <= plane.hitbox && d1 + d2 <= d3 + 2 * plane.hitbox; // punkt lezy na prostej i
-                                                                                             // wewnatrz odcinka
+        // wewnatrz odcinka
     }
 }

@@ -1,12 +1,11 @@
 package Project.controller;
 
-import Project.model.GeometricSegment;
+import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
-import Project.model.GeometricPoint;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     private final Plane2D plane = new Plane2D();
@@ -34,15 +33,13 @@ public class Controller {
     }
 
     public void handleNormalClick(double screenX, double screenY) {
-        if (selectedActor == null)
-            return;
+        if (selectedActor == null) return;
         if (selectedActor instanceof GeometricShapeBuilder selectedBuilder) {
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
-            ArrayList<GeometricShape> clickedShapesList = plane.getClickedShapesList(planeX, planeY);
-            for(GeometricShape clickedShape : clickedShapesList)
-                if(selectedBuilder.acceptArgument(clickedShape))
-                    break;
+            List<GeometricShape> clickedShapesList = plane.getClickedShapesList(planeX, planeY);
+            for (GeometricShape clickedShape : clickedShapesList)
+                if (selectedBuilder.acceptArgument(clickedShape)) break;
             if (selectedBuilder.isReady()) {
                 System.out.println("Building shape with builder");
                 selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
@@ -55,7 +52,7 @@ public class Controller {
             plane.unclickAll();
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
-            if (plane.getClickedShape(planeX, planeY) instanceof GeometricPoint point && point != null) {
+            if (plane.getClickedShape(planeX, planeY) instanceof GeometricPoint point) {
                 selectedShifter.setPoint(point);
                 return;
             }
@@ -66,8 +63,7 @@ public class Controller {
     }
 
     public void handleDragged(double screenX, double screenY) {
-        if (selectedActor == null)
-            return;
+        if (selectedActor == null) return;
         if (selectedActor instanceof Shifter selectedShifter) {
             selectedShifter.shift(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
             double planeX = transformation.toPlaneX(screenX);

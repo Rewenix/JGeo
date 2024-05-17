@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint point;
     private GeometricCircle circle;
-    private static double epsilon = 1e-9;
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
@@ -20,7 +19,8 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
             point.setOnClicked();
             System.out.println("Accepting point");
             return true;
-        } else if (circle == null && shape instanceof GeometricCircle c) {
+        }
+        else if (circle == null && shape instanceof GeometricCircle c) {
             circle = c;
             circle.setOnClicked();
             System.out.println("Accepting circle");
@@ -75,12 +75,12 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
      * @param circleR The radius of the circle.
      */
     public static void setLines(GeometricLine line1, GeometricLine line2, double x1, double y1, double circleX,
-            double circleY, double circleR) {
+                                double circleY, double circleR) {
         double r = circleR;
         double a = circleX;
         double b = circleY; // (x-a)^2 + (y-b)^2 = r^2
 
-        if (Math.abs(GeometricPoint.distance(x1, y1, a, b) - r) <= epsilon) {
+        if (Math.abs(GeometricPoint.distance(x1, y1, a, b) - r) <= BuilderUtils.EPSILON) {
             double lineA, lineB; // line through (x1, y1) and (a, b)
             lineA = y1 - b;
             lineB = a - x1;
@@ -118,7 +118,7 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
      * @param circle The circle.
      */
     public static void setLines(GeometricLine line1, GeometricLine line2, GeometricPoint point,
-            GeometricCircle circle) {
+                                GeometricCircle circle) {
         setLines(line1, line2, point.x, point.y, circle.centerX, circle.centerY, circle.R);
     }
 }
