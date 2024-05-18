@@ -8,7 +8,7 @@ import javafx.scene.shape.Shape;
 public class GeometricPoint extends GeometricShape {
     private static final double R = 4;
     private static final double hub = 2 * R;
-    public BasicPoint point = new BasicPoint();
+    public BasicPoint point;
     private final Circle drawableShape;
     private final Circle drawableHub;
 
@@ -21,10 +21,7 @@ public class GeometricPoint extends GeometricShape {
     }
 
     public GeometricPoint(String name, Plane2D plane, Transformation transformation) {
-        super(name, plane, transformation);
-        drawableShape = new Circle(0, 0, R);
-        drawableHub = new Circle(0, 0, hub);
-        drawableHub.setFill(Color.TRANSPARENT);
+        this(name, plane, transformation, 0, 0);
     }
 
     public void setCoordinates(BasicPoint point) {
