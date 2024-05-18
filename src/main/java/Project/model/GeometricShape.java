@@ -12,8 +12,7 @@ public abstract class GeometricShape {
     protected Transformation transformation;
     protected Pane viewPane;
     protected GeometricShapeUpdater updater;
-    protected static int priority;
-
+    
     public GeometricShape(String name, Plane2D plane, Transformation transformation) {
         this.name = name;
         this.plane = plane;
