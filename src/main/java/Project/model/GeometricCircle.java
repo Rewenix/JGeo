@@ -11,6 +11,10 @@ public class GeometricCircle extends GeometricShape {
     private final Circle drawableCircle;
     private final Circle drawableHub;
 
+    static {
+        priority = 2;
+    }
+
     public GeometricCircle(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableCircle = new Circle();

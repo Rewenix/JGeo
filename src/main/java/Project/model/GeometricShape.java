@@ -12,6 +12,7 @@ public abstract class GeometricShape {
     protected Transformation transformation;
     protected Pane viewPane;
     protected GeometricShapeUpdater updater;
+    protected static int priority;
 
     public GeometricShape(String name, Plane2D plane, Transformation transformation) {
         this.name = name;
@@ -46,23 +47,11 @@ public abstract class GeometricShape {
 
     public abstract boolean hasPoint(double planeX, double planeY);
 
+    public int getPriority() {
+        return priority;
+    }
+
     public static Comparator<GeometricShape> getPriorityComparator() {
-        return (shape1, shape2) -> {
-            if (shape1 instanceof GeometricPoint && shape2 instanceof GeometricPoint) {
-                return 0;
-            } else if (shape1 instanceof GeometricPoint) {
-                return -1;
-            } else if (shape2 instanceof GeometricPoint) {
-                return 1;
-            } else if (shape1 instanceof GeometricSegment && shape2 instanceof GeometricSegment) {
-                return 0;
-            } else if (shape1 instanceof GeometricSegment) {
-                return -1;
-            } else if (shape2 instanceof GeometricSegment) {
-                return 1;
-            } else {
-                return 0;
-            }
-        };
+        return Comparator.comparingInt(GeometricShape::getPriority);
     }
 }

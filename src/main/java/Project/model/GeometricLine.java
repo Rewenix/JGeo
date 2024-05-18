@@ -12,6 +12,10 @@ public class GeometricLine extends GeometricShape {
     protected final Line drawableLine;
     protected final Line drawableHub;
 
+    static {
+        priority = 2;
+    }
+
     public GeometricLine(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
         drawableLine = new Line();

@@ -3,6 +3,10 @@ package Project.model;
 import Project.controller.Transformation;
 
 public class GeometricSegment extends GeometricLine {
+    static {
+        priority = 1;
+    }
+
     public BasicSegment segment = new BasicSegment();
 
     public GeometricSegment(String name, Plane2D plane, Transformation transformation) {
