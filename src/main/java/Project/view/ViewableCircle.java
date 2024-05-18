@@ -11,10 +11,6 @@ public class ViewableCircle extends ViewableShape{
     private final Circle drawableHub;
     private final BasicCircle circle;
 
-    static {
-        hub = 4;
-    }
-
     public ViewableCircle(String name, Transformation transformation, BasicCircle circle) {
         super(name, transformation);
         this.circle = circle;
@@ -23,6 +19,11 @@ public class ViewableCircle extends ViewableShape{
         drawableShape.setStroke(Color.BLACK);
         drawableHub = new Circle();
         drawableHub.setFill(Color.TRANSPARENT);
+    }
+
+    @Override
+    public double getHub() {
+        return 4;
     }
 
     @Override

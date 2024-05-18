@@ -12,16 +12,17 @@ public class ViewablePoint extends ViewableShape{
     private final Circle drawableHub;
     private final BasicPoint point;
 
-    static {
-        hub = 6;
-    }
-
     public ViewablePoint(String name, Transformation transformation, BasicPoint point) {
         super(name, transformation);
         this.point = point;
         drawableShape = new Circle(transformation.toScreenX(point.x), transformation.toScreenY(point.y), R);
         drawableHub = new Circle(transformation.toScreenX(point.x), transformation.toScreenY(point.y), R);
         drawableHub.setFill(Color.TRANSPARENT);
+    }
+
+    @Override
+    public double getHub() {
+        return 8;
     }
 
     @Override

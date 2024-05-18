@@ -11,15 +11,16 @@ public class ViewableLine extends ViewableShape{
     protected final BasicLine line;
     private static final double D = 5000;// jak daleko wyznaczane są końce na Plane2D
 
-    static {
-        hub = 4;
-    }
-
     public ViewableLine(String name, Transformation transformation, BasicLine line) {
         super(name, transformation);
         this.line = line;
         drawableShape = new Line();
         drawableHub = new Line();
+    }
+
+    @Override
+    public double getHub() {
+        return 4;
     }
 
     @Override

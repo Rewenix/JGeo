@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 public abstract class ViewableShape {
-    protected static double hub;
     public final String name;
     private Pane viewPane;
     protected final Transformation transformation;
@@ -16,6 +15,8 @@ public abstract class ViewableShape {
         this.transformation = transformation;
     }
 
+    public abstract double getHub();
+
     public abstract Shape getDrawableShape();
 
     public abstract Shape getDrawableHub();
@@ -23,7 +24,7 @@ public abstract class ViewableShape {
     public void setViewPane(Pane viewPane) {
         this.viewPane = viewPane;
         getDrawableHub().setStroke(Color.TRANSPARENT);
-        getDrawableHub().setStrokeWidth(hub);
+        getDrawableHub().setStrokeWidth(getHub());
         viewPane.getChildren().addAll(getDrawableShape(), getDrawableHub());
         getDrawableHub().toBack();
     }
