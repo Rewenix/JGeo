@@ -2,10 +2,7 @@ package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.Transformation;
-import Project.model.GeometricPoint;
-import Project.model.GeometricShape;
-import Project.model.GeometricShapeUpdater;
-import Project.model.Plane2D;
+import Project.model.*;
 import javafx.scene.layout.Pane;
 
 public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
@@ -54,18 +51,18 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
                 setPoint(reflectedPoint, pPoint, pReflectionPoint);
             }
         };
-        reflectedPoint.setUpdater(updater);
-        reflectedPoint.update();
-        reflectedPoint.setViewPane(viewPane);
-        plane.addGeometricShape(reflectedPoint);
+        BuilderUtils.setUpdaterAndAdd(reflectedPoint, updater, viewPane, plane);
     }
 
-    public static void setPoint(GeometricPoint point, double x, double y, double reflectionX, double reflectionY) {
-        point.x = 2 * reflectionX - x;
-        point.y = 2 * reflectionY - y;
+    public static void setPoint(GeometricPoint point, BasicPoint pPoint, BasicPoint pReflectionPoint) {
+        point.setCoordinates(getPoint(pPoint, pReflectionPoint));
     }
 
     public static void setPoint(GeometricPoint point, GeometricPoint pPoint, GeometricPoint pReflectionPoint) {
-        setPoint(point, pPoint.x, pPoint.y, pReflectionPoint.x, pReflectionPoint.y);
+        setPoint(point, pPoint.point, pReflectionPoint.point);
+    }
+
+    public static BasicPoint getPoint(BasicPoint point, BasicPoint reflectionPoint) {
+        return new BasicPoint(2 * reflectionPoint.x - point.x, 2 * reflectionPoint.y - point.y);
     }
 }

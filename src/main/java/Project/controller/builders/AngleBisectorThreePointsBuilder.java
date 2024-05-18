@@ -18,11 +18,13 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
                 a = p;
                 a.setOnClicked();
                 return true;
-            } else if (b == null) {
+            }
+            else if (b == null) {
                 b = p;
                 b.setOnClicked();
                 return true;
-            } else if (c == null) {
+            }
+            else if (c == null) {
                 c = p;
                 c.setOnClicked();
                 return true;
@@ -62,31 +64,17 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
                 setLine(line, pA, pB, pC);
             }
         };
-        line.setUpdater(updater);
-        line.update();
-        line.setViewPane(viewPane);
-        plane.addGeometricShape(line);
+        BuilderUtils.setUpdaterAndAdd(line, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the line of the angle bisector based on three points.
-     *
-     * @param line the line representing the angle bisector
-     * @param aX   the x-coordinate of the first point
-     * @param aY   the y-coordinate of the first point
-     * @param bX   the x-coordinate of the second point
-     * @param bY   the y-coordinate of the second point
-     * @param cX   the x-coordinate of the third point
-     * @param cY   the y-coordinate of the third point
-     */
-    public static void setLine(GeometricLine line, double aX, double aY, double bX, double bY, double cX, double cY) {
-        double AB = GeometricPoint.distance(aX, aY, bX, bY);
-        double BC = GeometricPoint.distance(bX, bY, cX, cY);
+    public static void setLine(GeometricLine line, BasicPoint a, BasicPoint b, BasicPoint c) {
+        double AB = BasicPoint.distance(a, b);
+        double BC = BasicPoint.distance(b, c);
 
-        double x = (BC * aX + AB * cX) / (AB + BC);
-        double y = (BC * aY + AB * cY) / (AB + BC);
+        double x = (BC * a.x + AB * c.x) / (AB + BC);
+        double y = (BC * a.y + AB * c.y) / (AB + BC);
 
-        LineThroughPointsBuilder.setLine(line, bX, bY, x, y);
+        LineThroughPointsBuilder.setLine(line, b, new BasicPoint(x, y));
     }
 
     /**
@@ -98,7 +86,7 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
      * @param c    the third point
      */
     public static void setLine(GeometricLine line, GeometricPoint a, GeometricPoint b, GeometricPoint c) {
-        setLine(line, a.x, a.y, b.x, b.y, c.x, c.y);
+        setLine(line, a.point, b.point, c.point);
     }
 
 }

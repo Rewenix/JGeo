@@ -7,8 +7,7 @@ import javafx.scene.shape.Shape;
 
 public class GeometricLine extends GeometricShape {
     private static final double D = 5000;// jak daleko rysowane sa konce
-    public double A = 1, B = 1, C = 0; // wspolrzedne w postaci ogolnej (Ax + By + C = 0) zeby proste mogly byc tez
-                                       // pionowe
+    public BasicLine line = new BasicLine();
     private static final double hub = 4;
     protected final Line drawableLine;
     protected final Line drawableHub;
@@ -21,19 +20,24 @@ public class GeometricLine extends GeometricShape {
         drawableHub.setStrokeWidth(hub);
     }
 
+    public void setCoordinates(BasicLine line) {
+        this.line = line;
+    }
+
     @Override
     public void updateDrawable() {
         double X1, Y1, X2, Y2;
-        if (Math.abs(A) > Math.abs(B)) {
+        if (Math.abs(line.A) > Math.abs(line.B)) {
             Y1 = transformation.toPlaneY(-D);
             Y2 = transformation.toPlaneY(D);
-            X1 = -(B / A) * Y1 - C / A;
-            X2 = -(B / A) * Y2 - C / A;
-        } else {
+            X1 = -(line.B / line.A) * Y1 - line.C / line.A;
+            X2 = -(line.B / line.A) * Y2 - line.C / line.A;
+        }
+        else {
             X1 = transformation.toPlaneX(-D);
             X2 = transformation.toPlaneX(D);
-            Y1 = -(A / B) * X1 - C / B;
-            Y2 = -(A / B) * X2 - C / B;
+            Y1 = -(line.A / line.B) * X1 - line.C / line.B;
+            Y2 = -(line.A / line.B) * X2 - line.C / line.B;
         }
         drawableLine.setStartX(transformation.toScreenX(X1));
         drawableLine.setStartY(transformation.toScreenY(Y1));
@@ -67,7 +71,11 @@ public class GeometricLine extends GeometricShape {
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        double d = Math.abs(A * planeX + B * planeY + C) / Math.sqrt(A * A + B * B);
+        double d = BasicLine.distance(new BasicPoint(planeX, planeY), line);
         return d / transformation.scale <= plane.hitbox;
+    }
+
+    public static double distance(GeometricPoint p, GeometricLine l) {
+        return BasicLine.distance(p.point, l.line);
     }
 }

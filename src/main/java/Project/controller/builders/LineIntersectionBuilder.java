@@ -17,7 +17,8 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
                 a.setOnClicked();
                 System.out.println("Accepting line");
                 return true;
-            } else if (l != a) {
+            }
+            else if (l != a) {
                 b = l;
                 b.setOnClicked();
                 System.out.println("Accepting line");
@@ -50,18 +51,19 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
                 setPoint(intersection, lA, lB);
             }
         };
-        intersection.setUpdater(updater);
-        intersection.update();
-        intersection.setViewPane(viewPane);
-        plane.addGeometricShape(intersection);
+        BuilderUtils.setUpdaterAndAdd(intersection, updater, viewPane, plane);
     }
 
-    public static void setPoint(GeometricPoint point, double a1, double b1, double c1, double a2, double b2, double c2) {
-        point.x = (b1 * c2 - b2 * c1) / (a1 * b2 - a2 * b1);
-        point.y = (c1 * a2 - c2 * a1) / (a1 * b2 - a2 * b1);
+    public static void setPoint(GeometricPoint point, BasicLine lA, BasicLine lB) {
+        point.setCoordinates(getPoint(lA, lB));
     }
 
     public static void setPoint(GeometricPoint point, GeometricLine lA, GeometricLine lB) {
-        setPoint(point, lA.A, lA.B, lA.C, lB.A, lB.B, lB.C);
+        setPoint(point, lA.line, lB.line);
+    }
+
+    public static BasicPoint getPoint(BasicLine lA, BasicLine lB) {
+        return new BasicPoint((lA.B * lB.C - lB.B * lA.C) / (lA.A * lB.B - lB.A * lA.B),
+                (lA.C * lB.A - lB.C * lA.A) / (lA.A * lB.B - lB.A * lA.B));
     }
 }

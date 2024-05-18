@@ -53,23 +53,23 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
                 setCircle(reflectedCircle, pCircle, pReflectionPoint);
             }
         };
-        reflectedCircle.setUpdater(updater);
-        reflectedCircle.update();
-        reflectedCircle.setViewPane(viewPane);
-        plane.addGeometricShape(reflectedCircle);
+        BuilderUtils.setUpdaterAndAdd(reflectedCircle, updater, viewPane, plane);
     }
 
-    public static void setCircle(GeometricCircle circle, double centerX, double centerY, double r, double reflectionX, double reflectionY) {
-        circle.centerX = 2 * reflectionX - centerX;
-        circle.centerY = 2 * reflectionY - centerY;
-        circle.R = r;
+    public static void setCircle(GeometricCircle circle, BasicCircle pCircle, BasicPoint pReflectionPoint) {
+        circle.setCoordinates(getCircle(pCircle, pReflectionPoint));
     }
 
     public static void setCircle(GeometricCircle circle, GeometricCircle pCircle, GeometricPoint pReflectionPoint) {
-        setCircle(circle, pCircle.centerX, pCircle.centerY, pCircle.R, pReflectionPoint.x, pReflectionPoint.y);
+        setCircle(circle, pCircle.circle, pReflectionPoint.point);
     }
 
     public static void setCircle(GeometricCircle circle, GeometricPoint pReflectionPoint, GeometricCircle pCircle) {
-        setCircle(circle, pCircle.centerX, pCircle.centerY, pCircle.R, pReflectionPoint.x, pReflectionPoint.y);
+        setCircle(circle, pCircle.circle, pReflectionPoint.point);
+    }
+
+    public static BasicCircle getCircle(BasicCircle circle, BasicPoint reflectionPoint) {
+        BasicPoint center = PointReflectionAboutPointBuilder.getPoint(circle.center, reflectionPoint);
+        return new BasicCircle(center, circle.radius);
     }
 }

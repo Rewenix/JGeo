@@ -139,6 +139,12 @@ public class Buttons extends VBox {
                 },
                 "Reflection about Point",
                 "Reflects a shape about a selected point. Shape and point need to be drawn first with their method.");
+//        registerToggleButton(event -> {
+//                    System.out.println("'Reflection about Line' button pressed");
+//                    controller.changeActor(new ReflectionAboutLineBuilder());
+//                },
+//                "Reflection about Line",
+//                "Reflects a shape about a selected line. Shape and line need to be drawn first with their method.");
 
         registerLayout();
     }

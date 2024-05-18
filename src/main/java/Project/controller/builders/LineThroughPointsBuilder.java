@@ -1,4 +1,3 @@
-
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
@@ -21,7 +20,8 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
                 a.setOnClicked();
                 System.out.println("Accepting point");
                 return true;
-            } else if (p != a) {
+            }
+            else if (p != a) {
                 b = p;
                 b.setOnClicked();
                 System.out.println("Accepting point");
@@ -54,25 +54,18 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
                 setLine(line, pA, pB);
             }
         };
-        line.setUpdater(updater);
-        line.update();
-        line.setViewPane(viewPane);
-        plane.addGeometricShape(line);
+        BuilderUtils.setUpdaterAndAdd(line, updater, viewPane, plane);
     }
 
     /**
      * Sets the equation of a geometric line using the coordinates of two points.
      *
      * @param line the geometric line to set the equation for
-     * @param x1   the x-coordinate of the first point
-     * @param y1   the y-coordinate of the first point
-     * @param x2   the x-coordinate of the second point
-     * @param y2   the y-coordinate of the second point
+     * @param p1   the first point
+     * @param p2   the second point
      */
-    public static void setLine(GeometricLine line, double x1, double y1, double x2, double y2) {
-        line.A = y1 - y2;
-        line.B = x2 - x1;
-        line.C = x1 * y2 - x2 * y1;
+    public static void setLine(GeometricLine line, BasicPoint p1, BasicPoint p2) {
+        line.setCoordinates(getLine(p1, p2));
     }
 
     /**
@@ -83,6 +76,13 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
      * @param b    the second geometric point
      */
     public static void setLine(GeometricLine line, GeometricPoint a, GeometricPoint b) {
-        setLine(line, a.x, a.y, b.x, b.y);
+        setLine(line, a.point, b.point);
+    }
+
+    public static BasicLine getLine(BasicPoint p1, BasicPoint p2) {
+        double a = p1.y - p2.y;
+        double b = p2.x - p1.x;
+        double c = p1.x * p2.y - p2.x * p1.y;
+        return new BasicLine(a, b, c);
     }
 }

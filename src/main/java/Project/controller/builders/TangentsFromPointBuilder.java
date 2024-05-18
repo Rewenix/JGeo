@@ -50,44 +50,27 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                setLines(tangent1, tangent2, p.x, p.y, c.centerX, c.centerY, c.R);
+                setLines(tangent1, tangent2, p, c);
             }
         };
-        tangent1.setUpdater(updater);
-        tangent2.setUpdater(updater);
-        tangent1.update();
-        tangent2.update();
-        tangent1.setViewPane(viewPane);
-        tangent2.setViewPane(viewPane);
-        plane.addGeometricShape(tangent1);
-        plane.addGeometricShape(tangent2);
+        BuilderUtils.setUpdaterAndAdd(tangent1, updater, viewPane, plane);
+        BuilderUtils.setUpdaterAndAdd(tangent2, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the lines representing the tangents from a point to a circle.
-     *
-     * @param line1   The first tangent line.
-     * @param line2   The second tangent line.
-     * @param x1      The x-coordinate of the point.
-     * @param y1      The y-coordinate of the point.
-     * @param circleX The x-coordinate of the circle's center.
-     * @param circleY The y-coordinate of the circle's center.
-     * @param circleR The radius of the circle.
-     */
-    public static void setLines(GeometricLine line1, GeometricLine line2, double x1, double y1, double circleX,
-                                double circleY, double circleR) {
-        double r = circleR;
-        double a = circleX;
-        double b = circleY; // (x-a)^2 + (y-b)^2 = r^2
+    public static void setLines(GeometricLine line1, GeometricLine line2, BasicPoint point, BasicCircle circle) {
+        double r = circle.radius;
+        double a = circle.center.x;
+        double b = circle.center.y; // (x-a)^2 + (y-b)^2 = r^2
 
-        if (Math.abs(GeometricPoint.distance(x1, y1, a, b) - r) <= BuilderUtils.EPSILON) {
-            double lineA, lineB; // line through (x1, y1) and (a, b)
-            lineA = y1 - b;
-            lineB = a - x1;
-            PerpendicularLineBuilder.setLine(line1, lineA, lineB, x1, y1);
-            PerpendicularLineBuilder.setLine(line2, lineA, lineB, x1, y1);
+        if (Math.abs(BasicPoint.distance(point, circle.center) - r) <= BuilderUtils.EPSILON) {
+            BasicLine line = LineThroughPointsBuilder.getLine(point, circle.center);
+            PerpendicularLineBuilder.setLine(line1, line, point);
+            PerpendicularLineBuilder.setLine(line2, line, point);
             return;
         }
+
+        double x1 = point.x;
+        double y1 = point.y;
 
         double x1_ = (r * r * (x1 - a)
                 + r * (y1 - b) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
@@ -105,8 +88,8 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
                 + r * (x1 - a) * Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b) - r * r))
                 / ((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b)) + b;
 
-        LineThroughPointsBuilder.setLine(line1, x1, y1, x1_, y1_);
-        LineThroughPointsBuilder.setLine(line2, x1, y1, x2_, y2_);
+        LineThroughPointsBuilder.setLine(line1, point, new BasicPoint(x1_, y1_));
+        LineThroughPointsBuilder.setLine(line2, point, new BasicPoint(x2_, y2_));
     }
 
     /**
@@ -117,8 +100,7 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
      * @param point  The point.
      * @param circle The circle.
      */
-    public static void setLines(GeometricLine line1, GeometricLine line2, GeometricPoint point,
-                                GeometricCircle circle) {
-        setLines(line1, line2, point.x, point.y, circle.centerX, circle.centerY, circle.R);
+    public static void setLines(GeometricLine line1, GeometricLine line2, GeometricPoint point, GeometricCircle circle) {
+        setLines(line1, line2, point.point, circle.circle);
     }
 }

@@ -19,7 +19,8 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
                 a.setOnClicked();
                 System.out.println("Accepting point");
                 return true;
-            } else if (p != a) {
+            }
+            else if (p != a) {
                 b = p;
                 b.setOnClicked();
                 System.out.println("Accepting point");
@@ -49,42 +50,23 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                setLine(line, pA.x, pA.y, pB.x, pB.y);
+                setLine(line, pA, pB);
             }
         };
-        line.setUpdater(updater);
-        line.update();
-        line.setViewPane(viewPane);
-        plane.addGeometricShape(line);
+        BuilderUtils.setUpdaterAndAdd(line, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the line's properties based on the given coordinates.
-     *
-     * @param line    the geometric line to set
-     * @param point1X the x-coordinate of the first point
-     * @param point1Y the y-coordinate of the first point
-     * @param point2X the x-coordinate of the second point
-     * @param point2Y the y-coordinate of the second point
-     */
-    public static void setLine(GeometricLine line, double point1X, double point1Y, double point2X, double point2Y) {
-        double midX = (point1X + point2X) / 2;
-        double midY = (point1Y + point2Y) / 2;
-
-        double a = point1Y - point2Y;
-        double b = point2X - point1X;
-
-        PerpendicularLineBuilder.setLine(line, a, b, midX, midY);
+    public static void setLine(GeometricLine line, BasicPoint p1, BasicPoint p2) {
+        line.setCoordinates(getLine(p1, p2));
     }
 
-    /**
-     * Sets the line's properties based on the given points.
-     *
-     * @param line   the geometric line to set
-     * @param point1 the first point
-     * @param point2 the second point
-     */
-    public static void setLine(GeometricLine line, GeometricPoint point1, GeometricPoint point2) {
-        setLine(line, point1.x, point1.y, point2.x, point2.y);
+    public static void setLine(GeometricLine line, GeometricPoint p1, GeometricPoint p2) {
+        setLine(line, p1.point, p2.point);
+    }
+
+    public static BasicLine getLine(BasicPoint p1, BasicPoint p2) {
+        BasicPoint mid = MidpointBuilder.getPoint(p1, p2);
+        BasicLine line1 = LineThroughPointsBuilder.getLine(p1, p2);
+        return PerpendicularLineBuilder.getLine(line1, mid);
     }
 }

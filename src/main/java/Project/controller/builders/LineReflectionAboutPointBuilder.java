@@ -53,23 +53,22 @@ public class LineReflectionAboutPointBuilder implements GeometricShapeBuilder {
                 setLine(reflectedLine, pLine, pReflectionPoint);
             }
         };
-        reflectedLine.setUpdater(updater);
-        reflectedLine.update();
-        reflectedLine.setViewPane(viewPane);
-        plane.addGeometricShape(reflectedLine);
+        BuilderUtils.setUpdaterAndAdd(reflectedLine, updater, viewPane, plane);
     }
 
-    public static void setLine(GeometricLine line, double a, double b, double c, double reflectionX, double reflectionY) {
-        line.A = a;
-        line.B = b;
-        line.C = -(2 * a * reflectionX + 2 * b * reflectionY + c);
+    public static void setLine(GeometricLine line, BasicLine pLine, BasicPoint pReflectionPoint) {
+        line.setCoordinates(getLine(pLine, pReflectionPoint));
     }
 
     public static void setLine(GeometricLine line, GeometricLine pLine, GeometricPoint pReflectionPoint) {
-        setLine(line, pLine.A, pLine.B, pLine.C, pReflectionPoint.x, pReflectionPoint.y);
+        setLine(line, pLine.line, pReflectionPoint.point);
     }
 
     public static void setLine(GeometricLine line, GeometricPoint pReflectionPoint, GeometricLine pLine) {
-        setLine(line, pLine.A, pLine.B, pLine.C, pReflectionPoint.x, pReflectionPoint.y);
+        setLine(line, pLine.line, pReflectionPoint.point);
+    }
+
+    public static BasicLine getLine(BasicLine line, BasicPoint reflectionPoint) {
+        return new BasicLine(line.A, line.B, -(2 * line.A * reflectionPoint.x + 2 * line.B * reflectionPoint.y + line.C));
     }
 }

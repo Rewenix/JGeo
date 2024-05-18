@@ -53,24 +53,24 @@ public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder
                 setSegment(reflectedSegment, pSegment, pReflectionPoint);
             }
         };
-        reflectedSegment.setUpdater(updater);
-        reflectedSegment.update();
-        reflectedSegment.setViewPane(viewPane);
-        plane.addGeometricShape(reflectedSegment);
+        BuilderUtils.setUpdaterAndAdd(reflectedSegment, updater, viewPane, plane);
     }
 
-    public static void setSegment(GeometricSegment segment, double x1, double y1, double x2, double y2, double reflectionX, double reflectionY) {
-        segment.x1 = 2 * reflectionX - x1;
-        segment.y1 = 2 * reflectionY - y1;
-        segment.x2 = 2 * reflectionX - x2;
-        segment.y2 = 2 * reflectionY - y2;
+    public static void setSegment(GeometricSegment segment, BasicSegment pSegment, BasicPoint pReflectionPoint) {
+        segment.setCoordinates(getSegment(pSegment, pReflectionPoint));
     }
 
     public static void setSegment(GeometricSegment segment, GeometricSegment pSegment, GeometricPoint pReflectionPoint) {
-        setSegment(segment, pSegment.x1, pSegment.y1, pSegment.x2, pSegment.y2, pReflectionPoint.x, pReflectionPoint.y);
+        setSegment(segment, pSegment.segment, pReflectionPoint.point);
     }
 
     public static void setSegment(GeometricSegment segment, GeometricPoint pReflectionPoint, GeometricSegment pSegment) {
-        setSegment(segment, pSegment.x1, pSegment.y1, pSegment.x2, pSegment.y2, pReflectionPoint.x, pReflectionPoint.y);
+        setSegment(segment, pSegment, pReflectionPoint);
+    }
+
+    public static BasicSegment getSegment(BasicSegment segment, BasicPoint reflectionPoint) {
+        BasicPoint p1 = PointReflectionAboutPointBuilder.getPoint(segment.p1, reflectionPoint);
+        BasicPoint p2 = PointReflectionAboutPointBuilder.getPoint(segment.p2, reflectionPoint);
+        return new BasicSegment(p1, p2);
     }
 }

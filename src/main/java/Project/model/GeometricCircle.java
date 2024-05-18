@@ -1,13 +1,13 @@
 package Project.model;
 
+import Project.controller.Transformation;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import Project.controller.Transformation;
 import javafx.scene.shape.Shape;
 
 public class GeometricCircle extends GeometricShape {
     private static final double hub = 4;
-    public double R, centerX, centerY;
+    public BasicCircle circle = new BasicCircle();
     private final Circle drawableCircle;
     private final Circle drawableHub;
 
@@ -23,9 +23,13 @@ public class GeometricCircle extends GeometricShape {
     public void updateDrawable() {
         drawableCircle.setFill(Color.TRANSPARENT);
         drawableCircle.setStroke(Color.BLACK);
-        drawableCircle.setCenterX(transformation.toScreenX(centerX));
-        drawableCircle.setCenterY(transformation.toScreenY(centerY));
-        drawableCircle.setRadius(transformation.toScreenX(centerX + R) - transformation.toScreenX(centerX));
+        drawableCircle.setCenterX(transformation.toScreenX(circle.center.x));
+        drawableCircle.setCenterY(transformation.toScreenY(circle.center.y));
+        drawableCircle.setRadius(transformation.toScreenX(circle.center.x + circle.radius) - transformation.toScreenX(circle.center.x));
+    }
+
+    public void setCoordinates(BasicCircle circle) {
+        this.circle = circle;
     }
 
     @Override
@@ -40,8 +44,8 @@ public class GeometricCircle extends GeometricShape {
 
     @Override
     public void setOnClicked() {
-        drawableHub.setCenterX(transformation.toScreenX(centerX));
-        drawableHub.setCenterY(transformation.toScreenY(centerY));
+        drawableHub.setCenterX(transformation.toScreenX(circle.center.x));
+        drawableHub.setCenterY(transformation.toScreenY(circle.center.y));
         drawableHub.setRadius(drawableCircle.getRadius());
         drawableHub.setStroke(Color.CYAN);
     }
@@ -53,8 +57,8 @@ public class GeometricCircle extends GeometricShape {
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        double d = GeometricPoint.distance(centerX, centerY, planeX, planeY);
-        return Math.abs(d - R) / transformation.scale <= plane.hitbox;
+        double d = circle.center.distance(new BasicPoint(planeX, planeY));
+        return Math.abs(d - circle.radius) / transformation.scale <= plane.hitbox;
     }
 
 }

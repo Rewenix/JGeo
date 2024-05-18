@@ -8,16 +8,15 @@ import javafx.scene.shape.Shape;
 public class GeometricPoint extends GeometricShape {
     private static final double R = 4;
     private static final double hub = 2 * R;
-    public double x, y;
+    public BasicPoint point = new BasicPoint();
     private final Circle drawableShape;
     private final Circle drawableHub;
 
     public GeometricPoint(String name, Plane2D plane, Transformation transformation, double planeX, double planeY) {
         super(name, plane, transformation);
-        x = planeX;
-        y = planeY;
-        drawableShape = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), R);
-        drawableHub = new Circle(transformation.toScreenX(x), transformation.toScreenY(y), hub);
+        point = new BasicPoint(planeX, planeY);
+        drawableShape = new Circle(transformation.toScreenX(point.x), transformation.toScreenY(point.y), R);
+        drawableHub = new Circle(transformation.toScreenX(point.x), transformation.toScreenY(point.y), hub);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
@@ -28,12 +27,16 @@ public class GeometricPoint extends GeometricShape {
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
+    public void setCoordinates(BasicPoint point) {
+        this.point = point;
+    }
+
     @Override
     public void updateDrawable() {
-        drawableShape.setCenterX(transformation.toScreenX(x));
-        drawableShape.setCenterY(transformation.toScreenY(y));
-        drawableHub.setCenterX(transformation.toScreenX(x));
-        drawableHub.setCenterY(transformation.toScreenY(y));
+        drawableShape.setCenterX(transformation.toScreenX(point.x));
+        drawableShape.setCenterY(transformation.toScreenY(point.y));
+        drawableHub.setCenterX(transformation.toScreenX(point.x));
+        drawableHub.setCenterY(transformation.toScreenY(point.y));
     }
 
     @Override
@@ -48,7 +51,7 @@ public class GeometricPoint extends GeometricShape {
 
     @Override
     public boolean hasPoint(double planeX, double planeY) {
-        return distance(x, y, planeX, planeY) / transformation.scale <= plane.hitbox;
+        return BasicPoint.distance(point, new BasicPoint(planeX, planeY)) / transformation.scale <= plane.hitbox;
     }
 
     @Override
@@ -63,13 +66,7 @@ public class GeometricPoint extends GeometricShape {
 
     // Utility functions
 
-    public static double distance(double x1, double y1, double x2, double y2) {
-        double dX = x1 - x2;
-        double dY = y1 - y2;
-        return Math.sqrt(dX * dX + dY * dY);
-    }
-
     public static double distance(GeometricPoint p1, GeometricPoint p2) {
-        return distance(p1.x, p1.y, p2.x, p2.y);
+        return BasicPoint.distance(p1.point, p2.point);
     }
 }

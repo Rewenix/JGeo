@@ -20,7 +20,8 @@ public class MidpointBuilder implements GeometricShapeBuilder {
                 a.setOnClicked();
                 System.out.println("Accepting point");
                 return true;
-            } else if (p != a) {
+            }
+            else if (p != a) {
                 b = p;
                 b.setOnClicked();
                 System.out.println("Accepting point");
@@ -53,24 +54,11 @@ public class MidpointBuilder implements GeometricShapeBuilder {
                 setPoint(midpoint, pA, pB);
             }
         };
-        midpoint.setUpdater(updater);
-        midpoint.update();
-        midpoint.setViewPane(viewPane);
-        plane.addGeometricShape(midpoint);
+        BuilderUtils.setUpdaterAndAdd(midpoint, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the coordinates of the given point to the midpoint between two points.
-     *
-     * @param point The point to set the coordinates for.
-     * @param x1    The x-coordinate of the first point.
-     * @param y1    The y-coordinate of the first point.
-     * @param x2    The x-coordinate of the second point.
-     * @param y2    The y-coordinate of the second point.
-     */
-    public static void setPoint(GeometricPoint point, double x1, double y1, double x2, double y2) {
-        point.x = (x1 + x2) / 2;
-        point.y = (y1 + y2) / 2;
+    public static void setPoint(GeometricPoint point, BasicPoint p1, BasicPoint p2) {
+        point.setCoordinates(getPoint(p1, p2));
     }
 
     /**
@@ -82,6 +70,10 @@ public class MidpointBuilder implements GeometricShapeBuilder {
      * @param p2    The second point.
      */
     public static void setPoint(GeometricPoint point, GeometricPoint p1, GeometricPoint p2) {
-        setPoint(point, p1.x, p1.y, p2.x, p2.y);
+        setPoint(point, p1.point, p2.point);
+    }
+
+    public static BasicPoint getPoint(BasicPoint p1, BasicPoint p2) {
+        return new BasicPoint((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
     }
 }
