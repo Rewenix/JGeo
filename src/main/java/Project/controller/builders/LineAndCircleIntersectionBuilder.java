@@ -75,6 +75,11 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     public static List<BasicPoint> getPoints(BasicLine l, BasicCircle circle) {
+        BasicPoint projection = PointProjectionOntoLineBuilder.getPoint(circle.center, l);
+        if (Math.abs(projection.distance(circle.center) - circle.radius) <= BuilderUtils.EPSILON) {
+            return List.of(projection, projection);
+        }
+
         double A = l.A;
         double B = l.B;
         double x0 = circle.center.x;
