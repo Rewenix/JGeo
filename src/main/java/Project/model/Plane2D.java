@@ -16,15 +16,8 @@ public class Plane2D {
     }
 
     public void removeLastShape() {
-        if (!shapes.isEmpty()) {
-            GeometricShape geometricShape = shapes.remove(shapes.size() - 1);
-            Shape shape = geometricShape.getDrawableShape();
-            shape.setFill(Color.TRANSPARENT);
-            shape.setStroke(Color.TRANSPARENT);
-            shape = geometricShape.getDrawableHub();
-            shape.setFill(Color.TRANSPARENT);
-            shape.setStroke(Color.TRANSPARENT);
-        }
+        if (!shapes.isEmpty())
+            shapes.remove(shapes.size() - 1).dropViewable();
     }
 
     public void clear() {

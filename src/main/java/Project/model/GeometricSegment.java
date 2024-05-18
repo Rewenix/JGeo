@@ -1,6 +1,7 @@
 package Project.model;
 
 import Project.controller.Transformation;
+import Project.view.ViewableSegment;
 
 public class GeometricSegment extends GeometricLine {
     @Override
@@ -8,28 +9,16 @@ public class GeometricSegment extends GeometricLine {
         return 1;
     }
 
-    public BasicSegment segment = new BasicSegment();
+    public final BasicSegment segment = new BasicSegment();
 
     public GeometricSegment(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
-        drawableHub.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
+        viewableShape = new ViewableSegment(name, transformation, segment);
     }
 
     public void setCoordinates(BasicSegment segment) {
-        this.segment = segment;
-        this.line = (BasicLine) segment;
-    }
-
-    @Override
-    public void updateDrawable() {
-        double X1 = transformation.toScreenX(segment.p1.x);
-        double Y1 = transformation.toScreenY(segment.p1.y);
-        double X2 = transformation.toScreenX(segment.p2.x);
-        double Y2 = transformation.toScreenY(segment.p2.y);
-        drawableLine.setStartX(X1);
-        drawableLine.setStartY(Y1);
-        drawableLine.setEndX(X2);
-        drawableLine.setEndY(Y2);
+        this.segment.setCoordinates(segment);
+        this.line.setCoordinates(segment);
     }
 
     @Override

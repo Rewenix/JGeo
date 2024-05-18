@@ -1,6 +1,7 @@
 package Project.model;
 
 import Project.controller.Transformation;
+import Project.view.ViewableShape;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Shape;
 
@@ -10,8 +11,8 @@ public abstract class GeometricShape {
     protected String name;
     protected Plane2D plane;
     protected Transformation transformation;
-    protected Pane viewPane;
     protected GeometricShapeUpdater updater;
+    protected ViewableShape viewableShape;
 
     public GeometricShape(String name, Plane2D plane, Transformation transformation) {
         this.name = name;
@@ -20,9 +21,7 @@ public abstract class GeometricShape {
     }
 
     public void setViewPane(Pane viewPane) {
-        this.viewPane = viewPane;
-        viewPane.getChildren().addAll(getDrawableShape(), getDrawableHub());
-        getDrawableHub().toBack();
+        viewableShape.setViewPane(viewPane);
     }
 
     public void setUpdater(GeometricShapeUpdater updater) {
@@ -34,15 +33,17 @@ public abstract class GeometricShape {
         updateDrawable();
     }
 
-    public abstract void updateDrawable();
+    public void updateDrawable() { viewableShape.updateDrawable(); }
 
-    public abstract Shape getDrawableShape();
+    public Shape getDrawableShape() { return viewableShape.getDrawableShape(); }
 
-    public abstract Shape getDrawableHub();
+    public Shape getDrawableHub() { return viewableShape.getDrawableHub(); }
 
-    public abstract void setOnClicked();
+    public void setOnClicked() { viewableShape.setOnClicked(); }
 
-    public abstract void unclick();
+    public void unclick() { viewableShape.unclick(); }
+
+    public void dropViewable() { viewableShape.drop(); }
 
     public abstract boolean hasPoint(double planeX, double planeY);
 

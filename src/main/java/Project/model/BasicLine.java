@@ -19,6 +19,10 @@ public class BasicLine {
         this.C = C;
     }
 
+    public void setCoordinates(BasicLine l) {
+        setCoordinates(l.A, l.B, l.C);
+    }
+
     public static double distance(BasicPoint p, BasicLine l) {
         return Math.abs(l.A * p.x + l.B * p.y + l.C) / Math.sqrt(l.A * l.A + l.B * l.B);
     }

@@ -18,4 +18,8 @@ public class BasicSegment extends BasicLine {
         B = p2.x - p1.x;
         C = p1.x * p2.y - p2.x * p1.y;
     }
+
+    public void setCoordinates(BasicSegment s) {
+        setCoordinates(s.p1, s.p2);
+    }
 }

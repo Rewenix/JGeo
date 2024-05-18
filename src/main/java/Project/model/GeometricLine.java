@@ -2,16 +2,13 @@ package Project.model;
 
 import Project.controller.Transformation;
 import Project.controller.builders.PointProjectionOntoLineBuilder;
+import Project.view.ViewableLine;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
 public class GeometricLine extends GeometricShape {
-    private static final double D = 5000;// jak daleko rysowane sa konce
-    public BasicLine line = new BasicLine();
-    private static final double hub = 4;
-    protected final Line drawableLine;
-    protected final Line drawableHub;
+    public final BasicLine line = new BasicLine();
 
     @Override
     public int getPriority() {
@@ -20,59 +17,11 @@ public class GeometricLine extends GeometricShape {
 
     public GeometricLine(String name, Plane2D plane, Transformation transformation) {
         super(name, plane, transformation);
-        drawableLine = new Line();
-        drawableHub = new Line();
-        drawableHub.setStroke(Color.TRANSPARENT);
-        drawableHub.setStrokeWidth(hub);
+        viewableShape = new ViewableLine(name, transformation, line);
     }
 
     public void setCoordinates(BasicLine line) {
-        this.line = line;
-    }
-
-    @Override
-    public void updateDrawable() {
-        double X1, Y1, X2, Y2;
-        if (Math.abs(line.A) > Math.abs(line.B)) {
-            Y1 = transformation.toPlaneY(-D);
-            Y2 = transformation.toPlaneY(D);
-            X1 = -(line.B / line.A) * Y1 - line.C / line.A;
-            X2 = -(line.B / line.A) * Y2 - line.C / line.A;
-        }
-        else {
-            X1 = transformation.toPlaneX(-D);
-            X2 = transformation.toPlaneX(D);
-            Y1 = -(line.A / line.B) * X1 - line.C / line.B;
-            Y2 = -(line.A / line.B) * X2 - line.C / line.B;
-        }
-        drawableLine.setStartX(transformation.toScreenX(X1));
-        drawableLine.setStartY(transformation.toScreenY(Y1));
-        drawableLine.setEndX(transformation.toScreenX(X2));
-        drawableLine.setEndY(transformation.toScreenY(Y2));
-    }
-
-    @Override
-    public Shape getDrawableShape() {
-        return drawableLine;
-    }
-
-    @Override
-    public Shape getDrawableHub() {
-        return drawableHub;
-    }
-
-    @Override
-    public void setOnClicked() {
-        drawableHub.setStartX(drawableLine.getStartX());
-        drawableHub.setStartY(drawableLine.getStartY());
-        drawableHub.setEndX(drawableLine.getEndX());
-        drawableHub.setEndY(drawableLine.getEndY());
-        drawableHub.setStroke(Color.CYAN);
-    }
-
-    @Override
-    public void unclick() {
-        drawableHub.setStroke(Color.TRANSPARENT);
+        this.line.setCoordinates(line);
     }
 
     @Override

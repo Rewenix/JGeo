@@ -17,4 +17,8 @@ public class BasicCircle {
         this.center = center;
         this.radius = radius;
     }
+
+    public void setCoordinates(BasicCircle c) {
+        setCoordinates(c.center, c.radius);
+    }
 }
