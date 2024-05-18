@@ -5,6 +5,7 @@ import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Plane2D {
     private ArrayList<GeometricShape> shapes = new ArrayList<>();
@@ -61,18 +62,11 @@ public class Plane2D {
         return clickedShapes;
     }
 
-    public GeometricShape getClickedShape(double planeX, double planeY, Class<?> expectedClass) {
+    // Na przykład tak można użyć:
+    // Predicate<GeometricShape> isNotPoint = shape -> !(shape instanceof GeometricPoint);
+    public GeometricShape getClickedShape(double planeX, double planeY, Predicate<GeometricShape> condition) {
         for (GeometricShape shape : shapes) {
-            if (expectedClass.isInstance(shape) && shape.hasPoint(planeX, planeY)) {
-                return shape;
-            }
-        }
-        return null;
-    }
-
-    public GeometricShape getClickedShapeNotPoint(double planeX, double planeY) {
-        for (GeometricShape shape : shapes) {
-            if (!(shape instanceof GeometricPoint) && shape.hasPoint(planeX, planeY)) {
+            if (condition.test(shape) && shape.hasPoint(planeX, planeY)) {
                 return shape;
             }
         }
