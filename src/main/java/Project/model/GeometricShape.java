@@ -4,6 +4,8 @@ import Project.controller.Transformation;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Shape;
 
+import java.util.Comparator;
+
 public abstract class GeometricShape {
     protected String name;
     protected Plane2D plane;
@@ -43,4 +45,24 @@ public abstract class GeometricShape {
     public abstract void unclick();
 
     public abstract boolean hasPoint(double planeX, double planeY);
+
+    public static Comparator<GeometricShape> getPriorityComparator() {
+        return (shape1, shape2) -> {
+            if (shape1 instanceof GeometricPoint && shape2 instanceof GeometricPoint) {
+                return 0;
+            } else if (shape1 instanceof GeometricPoint) {
+                return -1;
+            } else if (shape2 instanceof GeometricPoint) {
+                return 1;
+            } else if (shape1 instanceof GeometricSegment && shape2 instanceof GeometricSegment) {
+                return 0;
+            } else if (shape1 instanceof GeometricSegment) {
+                return -1;
+            } else if (shape2 instanceof GeometricSegment) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+    }
 }
