@@ -47,9 +47,7 @@ public abstract class GeometricShape {
 
     public abstract boolean hasPoint(double planeX, double planeY);
 
-    public int getPriority() {
-        return priority;
-    }
+    public abstract int getPriority();
 
     public static Comparator<GeometricShape> getPriorityComparator() {
         return Comparator.comparingInt(GeometricShape::getPriority);

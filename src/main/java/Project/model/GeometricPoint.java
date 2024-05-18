@@ -12,8 +12,9 @@ public class GeometricPoint extends GeometricShape {
     private final Circle drawableShape;
     private final Circle drawableHub;
 
-    static {
-        priority = 0;
+    @Override
+    public int getPriority() {
+        return 0;
     }
 
     public GeometricPoint(String name, Plane2D plane, Transformation transformation, double planeX, double planeY) {

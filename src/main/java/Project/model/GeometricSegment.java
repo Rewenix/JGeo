@@ -3,8 +3,9 @@ package Project.model;
 import Project.controller.Transformation;
 
 public class GeometricSegment extends GeometricLine {
-    static {
-        priority = 1;
+    @Override
+    public int getPriority() {
+        return 1;
     }
 
     public BasicSegment segment = new BasicSegment();

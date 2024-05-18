@@ -11,8 +11,9 @@ public class GeometricCircle extends GeometricShape {
     private final Circle drawableCircle;
     private final Circle drawableHub;
 
-    static {
-        priority = 2;
+    @Override
+    public int getPriority() {
+        return 2;
     }
 
     public GeometricCircle(String name, Plane2D plane, Transformation transformation) {
