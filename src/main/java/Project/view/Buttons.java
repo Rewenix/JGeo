@@ -133,6 +133,24 @@ public class Buttons extends VBox {
                 },
                 "Intersection",
                 "Draws an intersection of two shapes. shapes need to be drawn first with their method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Reflection about Point' button pressed");
+                    controller.changeActor(new ReflectionAboutPointBuilder());
+                },
+                "Reflection about Point",
+                "Reflects a shape about a selected point. Shape and point need to be drawn first with their method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Reflection about Line' button pressed");
+                    controller.changeActor(new ReflectionAboutLineBuilder());
+                },
+                "Reflection about Line",
+                "Reflects a shape about a selected line. Shape and line need to be drawn first with their method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Projection onto Line' button pressed");
+                    controller.changeActor(new PointProjectionOntoLineBuilder());
+                },
+                "Projection onto Line",
+                "Projects a point onto a selected line. Point and line need to be drawn first with their method.");
 
         registerLayout();
     }
@@ -165,13 +183,14 @@ public class Buttons extends VBox {
 
         getChildren().add(scrollPane);
 
-        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Midpoint or Center", "Circle(Point, Point, Point)", "Intersection");
+        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Circle(Point, Point, Point)", "Intersection");
 
-        createButtonGroup("Advanced", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)");
+        createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)", "Projection onto Line");
 
+        createButtonGroup("Transform", "Reflection about Point", "Reflection about Line");
     }
 
-    private void createButtonGroup(String groupName, String ... buttonNames) {
+    private void createButtonGroup(String groupName, String... buttonNames) {
         VBox groupVbox = new VBox();
 
         Label groupLabel = new Label(groupName);

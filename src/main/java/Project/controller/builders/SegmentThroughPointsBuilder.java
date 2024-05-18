@@ -1,7 +1,10 @@
 package Project.controller.builders;
 
 import Project.controller.Transformation;
-import Project.model.*;
+import Project.model.GeometricPoint;
+import Project.model.GeometricSegment;
+import Project.model.GeometricShapeUpdater;
+import Project.model.Plane2D;
 import javafx.scene.layout.Pane;
 
 /**
@@ -17,12 +20,12 @@ public class SegmentThroughPointsBuilder extends LineThroughPointsBuilder {
 
             @Override
             public void update() {
-                segment.setPoints(pA.x, pA.y, pB.x, pB.y);
+                segment.segment.p1 = pA.point;
+                segment.segment.p2 = pB.point;
+                segment.segment.setCoordinates(pA.point, pB.point);
+                segment.setCoordinates(segment.segment);
             }
         };
-        segment.setUpdater(updater);
-        segment.update();
-        segment.setViewPane(viewPane);
-        plane.addGeometricShape(segment);
+        BuilderUtils.setUpdaterAndAdd(segment, updater, viewPane, plane);
     }
 }

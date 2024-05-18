@@ -21,7 +21,8 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
                 center.setOnClicked();
                 System.out.println("Accepting point");
                 return true;
-            } else if (p != center) {
+            }
+            else if (p != center) {
                 point = p;
                 point.setOnClicked();
                 System.out.println("Accepting point");
@@ -54,25 +55,11 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
                 setCircle(circle, pCenter, pPoint);
             }
         };
-        circle.setUpdater(updater);
-        circle.update();
-        circle.setViewPane(viewPane);
-        plane.addGeometricShape(circle);
+        BuilderUtils.setUpdaterAndAdd(circle, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the properties of the given circle based on the provided coordinates.
-     *
-     * @param circle  The circle to set the properties for.
-     * @param centerX The x-coordinate of the center point.
-     * @param centerY The y-coordinate of the center point.
-     * @param pointX  The x-coordinate of the point on the circumference.
-     * @param pointY  The y-coordinate of the point on the circumference.
-     */
-    public static void setCircle(GeometricCircle circle, double centerX, double centerY, double pointX, double pointY) {
-        circle.centerX = centerX;
-        circle.centerY = centerY;
-        circle.R = GeometricPoint.distance(centerX, centerY, pointX, pointY);
+    public static void setCircle(GeometricCircle circle, BasicPoint center, BasicPoint point) {
+        circle.setCoordinates(getCircle(center, point));
     }
 
     /**
@@ -84,6 +71,11 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
      * @param point  The point on the circumference of the circle.
      */
     public static void setCircle(GeometricCircle circle, GeometricPoint center, GeometricPoint point) {
-        setCircle(circle, center.x, center.y, point.x, point.y);
+        setCircle(circle, center.point, point.point);
+    }
+
+    public static BasicCircle getCircle(BasicPoint center, BasicPoint point) {
+        double R = BasicPoint.distance(center, point);
+        return new BasicCircle(center, R);
     }
 }

@@ -19,7 +19,8 @@ public class PerpendicularLineBuilder implements GeometricShapeBuilder {
             line.setOnClicked();
             System.out.println("Accepting line");
             return true;
-        } else if (point == null && shape instanceof GeometricPoint p) {
+        }
+        else if (point == null && shape instanceof GeometricPoint p) {
             point = p;
             point.setOnClicked();
             System.out.println("Accepting point");
@@ -51,54 +52,23 @@ public class PerpendicularLineBuilder implements GeometricShapeBuilder {
                 setLine(perpendicularLine, pLine, pPoint);
             }
         };
-        perpendicularLine.setUpdater(updater);
-        perpendicularLine.update();
-        perpendicularLine.setViewPane(viewPane);
-        plane.addGeometricShape(perpendicularLine);
+        BuilderUtils.setUpdaterAndAdd(perpendicularLine, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the coefficients of a geometric line to represent a perpendicular line
-     * to the given line passing through the given point.
-     *
-     * @param perpendicularLine The geometric line to set the coefficients for.
-     * @param line              The original line.
-     * @param point             The point through which the perpendicular line
-     *                          passes.
-     */
+
     public static void setLine(GeometricLine perpendicularLine, GeometricLine line, GeometricPoint point) {
-        setLine(perpendicularLine, line.A, line.B, point.x, point.y);
+        setLine(perpendicularLine, line.line, point.point);
     }
 
-    /**
-     * Sets the coefficients of a geometric line to represent a perpendicular line
-     * to the given line passing through the given point.
-     *
-     * @param perpendicularLine The geometric line to set the coefficients for.
-     * @param point             The point through which the perpendicular line
-     *                          passes.
-     * @param line              The original line.
-     */
     public static void setLine(GeometricLine perpendicularLine, GeometricPoint point, GeometricLine line) {
-        setLine(perpendicularLine, line, point);
+        setLine(perpendicularLine, line.line, point.point);
     }
 
-    /**
-     * Sets the coefficients of a geometric line to represent a perpendicular line
-     * to the given line passing through the given point.
-     *
-     * @param perpendicularLine The geometric line to set the coefficients for.
-     * @param lineA             The coefficient A of the original line.
-     * @param lineB             The coefficient B of the original line.
-     * @param pointX            The x-coordinate of the point through which the
-     *                          perpendicular line passes.
-     * @param pointY            The y-coordinate of the point through which the
-     *                          perpendicular line passes.
-     */
-    public static void setLine(GeometricLine perpendicularLine, double lineA, double lineB, double pointX,
-            double pointY) {
-        perpendicularLine.A = lineB;
-        perpendicularLine.B = -lineA;
-        perpendicularLine.C = -perpendicularLine.A * pointX - perpendicularLine.B * pointY;
+    public static void setLine(GeometricLine perpendicularLine, BasicLine line, BasicPoint point) {
+        perpendicularLine.setCoordinates(getLine(line, point));
+    }
+
+    public static BasicLine getLine(BasicLine line, BasicPoint point) {
+        return new BasicLine(line.B, -line.A, -line.B * point.x + line.A * point.y);
     }
 }

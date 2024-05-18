@@ -17,7 +17,7 @@ public class Shifter implements Actor {
 
     public void setPoint(GeometricPoint point) {
         this.point = point;
-        if(point != null)
+        if (point != null)
             point.setOnClicked();
     }
 
@@ -31,15 +31,16 @@ public class Shifter implements Actor {
     public void shift(double planeX, double planeY) {
         if (point != null) {
             shiftPoint(planeX, planeY);
-        } else {
+        }
+        else {
             shiftPlane(planeX, planeY);
         }
         plane.update();
     }
 
     public void shiftPoint(double planeX, double planeY) {
-        point.x = planeX;
-        point.y = planeY;
+        point.point.x = planeX;
+        point.point.y = planeY;
     }
 
     public void shiftPlane(double planeX, double planeY) {

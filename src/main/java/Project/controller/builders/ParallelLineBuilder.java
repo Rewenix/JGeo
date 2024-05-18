@@ -19,7 +19,8 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
             line.setOnClicked();
             System.out.println("Accepting line");
             return true;
-        } else if (point == null && shape instanceof GeometricPoint p) {
+        }
+        else if (point == null && shape instanceof GeometricPoint p) {
             point = p;
             point.setOnClicked();
             System.out.println("Accepting point");
@@ -51,10 +52,7 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
                 setLine(parallelLine, pLine, pPoint);
             }
         };
-        parallelLine.setUpdater(updater);
-        parallelLine.update();
-        parallelLine.setViewPane(viewPane);
-        plane.addGeometricShape(parallelLine);
+        BuilderUtils.setUpdaterAndAdd(parallelLine, updater, viewPane, plane);
     }
 
     /**
@@ -62,15 +60,11 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
      * values.
      *
      * @param parallelLine The parallel line to set the coefficients for.
-     * @param lineA        The coefficient A of the original line.
-     * @param lineB        The coefficient B of the original line.
-     * @param pointX       The x-coordinate of the point on the parallel line.
-     * @param pointY       The y-coordinate of the point on the parallel line.
+     * @param line         The original line.
+     * @param point        The point on the parallel line.
      */
-    public static void setLine(GeometricLine parallelLine, double lineA, double lineB, double pointX, double pointY) {
-        parallelLine.A = lineA;
-        parallelLine.B = lineB;
-        parallelLine.C = -(lineA * pointX + lineB * pointY);
+    public static void setLine(GeometricLine parallelLine, BasicLine line, BasicPoint point) {
+        parallelLine.setCoordinates(getLine(line, point));
     }
 
     /**
@@ -82,6 +76,10 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
      * @param point        The point on the parallel line.
      */
     public static void setLine(GeometricLine parallelLine, GeometricLine line, GeometricPoint point) {
-        setLine(parallelLine, line.A, line.B, point.x, point.y);
+        setLine(parallelLine, line.line, point.point);
+    }
+
+    public static BasicLine getLine(BasicLine line, BasicPoint point) {
+        return new BasicLine(line.A, line.B, -(line.A * point.x + line.B * point.y));
     }
 }

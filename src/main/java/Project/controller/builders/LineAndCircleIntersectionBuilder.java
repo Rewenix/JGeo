@@ -5,6 +5,8 @@ import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
 
+import java.util.List;
+
 public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
     private GeometricLine line = null;
     private GeometricCircle circle = null;
@@ -54,61 +56,64 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
                 setPoints(intersection1, intersection2, l, c);
             }
         };
-        intersection1.setUpdater(updater);
-        intersection2.setUpdater(updater);
-        intersection1.update();
-        intersection2.update();
-        intersection1.setViewPane(viewPane);
-        intersection2.setViewPane(viewPane);
-        plane.addGeometricShape(intersection1);
-        plane.addGeometricShape(intersection2);
+        BuilderUtils.setUpdaterAndAdd(intersection1, updater, viewPane, plane);
+        BuilderUtils.setUpdaterAndAdd(intersection2, updater, viewPane, plane);
     }
 
-    public static void setPoints(GeometricPoint i1, GeometricPoint i2, double lA, double lB, double lC, double centerX, double centerY, double R) {
-        double A = lA;
-        double B = lB;
-        double x0 = centerX;
-        double y0 = centerY;
-        if (Math.abs(lB) <= 1e-9) {
-            A = lB;
-            B = lA;
-            x0 = centerY;
-            y0 = centerX;
-        }
-
-        double a = A * A + B * B;
-        double b = 2 * (A * lC + A * B * y0 - B * B * x0);
-        double c = lC * lC + 2 * B * lC * y0 - B * B * (R * R - x0 * x0 - y0 * y0);
-        double delta = b * b - 4 * a * c;
-        i1.x = (-b + Math.sqrt(delta)) / (2 * a);
-        i1.y = (-A * i1.x - lC) / B;
-        i2.x = (-b - Math.sqrt(delta)) / (2 * a);
-        i2.y = (-A * i2.x - lC) / B;
-
-        if (Math.abs(lB) <= 1e-9) {
-            double tmp = i1.x;
-            i1.x = i1.y;
-            i1.y = tmp;
-            tmp = i2.x;
-            i2.x = i2.y;
-            i2.y = tmp;
-        }
-
-        if(B < 0) {
-            double tmp = i1.x;
-            i1.x = i2.x;
-            i2.x = tmp;
-            tmp = i1.y;
-            i1.y = i2.y;
-            i2.y = tmp;
-        }
+    public static void setPoints(GeometricPoint i1, GeometricPoint i2, BasicLine l, BasicCircle c) {
+        List<BasicPoint> points = getPoints(l, c);
+        i1.setCoordinates(points.get(0));
+        i2.setCoordinates(points.get(1));
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, GeometricLine l, GeometricCircle c) {
-        setPoints(i1, i2, l.A, l.B, l.C, c.centerX, c.centerY, c.R);
+        setPoints(i1, i2, l.line, c.circle);
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, GeometricCircle c, GeometricLine l) {
-        setPoints(i1, i2, l.A, l.B, l.C, c.centerX, c.centerY, c.R);
+        setPoints(i1, i2, l.line, c.circle);
+    }
+
+    public static List<BasicPoint> getPoints(BasicLine l, BasicCircle circle) {
+        double A = l.A;
+        double B = l.B;
+        double x0 = circle.center.x;
+        double y0 = circle.center.y;
+        double R = circle.radius;
+        if (Math.abs(l.B) <= BuilderUtils.EPSILON) {
+            A = l.B;
+            B = l.A;
+            x0 = circle.center.y;
+            y0 = circle.center.x;
+        }
+
+        double a = A * A + B * B;
+        double b = 2 * (A * l.C + A * B * y0 - B * B * x0);
+        double c = l.C * l.C + 2 * B * l.C * y0 - B * B * (R * R - x0 * x0 - y0 * y0);
+        double delta = b * b - 4 * a * c;
+        double x1 = (-b + Math.sqrt(delta)) / (2 * a);
+        double y1 = (-A * x1 - l.C) / B;
+        double x2 = (-b - Math.sqrt(delta)) / (2 * a);
+        double y2 = (-A * x2 - l.C) / B;
+
+        if (Math.abs(l.B) <= BuilderUtils.EPSILON) {
+            double tmp = x1;
+            x1 = y1;
+            y1 = tmp;
+            tmp = x2;
+            x2 = y2;
+            y2 = tmp;
+        }
+
+        if (B < 0) {
+            double tmp = x1;
+            x1 = x2;
+            x2 = tmp;
+            tmp = y1;
+            y1 = y2;
+            y2 = tmp;
+        }
+
+        return List.of(new BasicPoint(x1, y1), new BasicPoint(x2, y2));
     }
 }

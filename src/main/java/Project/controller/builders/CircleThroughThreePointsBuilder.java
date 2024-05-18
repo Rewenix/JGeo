@@ -4,7 +4,6 @@ import Project.controller.GeometricShapeBuilder;
 import Project.controller.Transformation;
 import Project.model.*;
 import javafx.scene.layout.Pane;
-import Project.model.GeometricPoint;
 
 /**
  * A builder class for creating a circle through three points.
@@ -20,12 +19,14 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
                 a.setOnClicked();
                 System.out.println("Accepting point");
                 return true;
-            } else if (b == null) {
+            }
+            else if (b == null) {
                 b = p;
                 b.setOnClicked();
                 System.out.println("Accepting point");
                 return true;
-            } else if (c == null) {
+            }
+            else if (c == null) {
                 c = p;
                 c.setOnClicked();
                 System.out.println("Accepting point");
@@ -60,35 +61,11 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
                 setCircle(circle, pA, pB, pC);
             }
         };
-        circle.setUpdater(updater);
-        circle.update();
-        circle.setViewPane(viewPane);
-        plane.addGeometricShape(circle);
+        BuilderUtils.setUpdaterAndAdd(circle, updater, viewPane, plane);
     }
 
-    /**
-     * Sets the properties of the circle based on the given coordinates.
-     *
-     * @param circle The circle to set the properties for.
-     * @param x1     The x-coordinate of the first point.
-     * @param y1     The y-coordinate of the first point.
-     * @param x2     The x-coordinate of the second point.
-     * @param y2     The y-coordinate of the second point.
-     * @param x3     The x-coordinate of the third point.
-     * @param y3     The y-coordinate of the third point.
-     */
-    public static void setCircle(GeometricCircle circle, double x1, double y1, double x2, double y2, double x3,
-            double y3) {
-        double a = x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2;
-        double b = (x1 * x1 + y1 * y1) * (y3 - y2) + (x2 * x2 + y2 * y2) * (y1 - y3)
-                + (x3 * x3 + y3 * y3) * (y2 - y1);
-        double c = (x1 * x1 + y1 * y1) * (x2 - x3) + (x2 * x2 + y2 * y2) * (x3 - x1)
-                + (x3 * x3 + y3 * y3) * (x1 - x2);
-        double d = (x1 * x1 + y1 * y1) * (x3 * y2 - x2 * y3) + (x2 * x2 + y2 * y2) * (x1 * y3 - x3 * y1)
-                + (x3 * x3 + y3 * y3) * (x2 * y1 - x1 * y2);
-        circle.centerX = -b / (2 * a);
-        circle.centerY = -c / (2 * a);
-        circle.R = Math.sqrt(b * b + c * c - 4 * a * d) / (2 * Math.abs(a));
+    public static void setCircle(GeometricCircle circle, BasicPoint a, BasicPoint b, BasicPoint c) {
+        circle.setCoordinates(getCircle(a, b, c));
     }
 
     /**
@@ -100,6 +77,26 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
      * @param c      The third point.
      */
     public static void setCircle(GeometricCircle circle, GeometricPoint a, GeometricPoint b, GeometricPoint c) {
-        setCircle(circle, a.x, a.y, b.x, b.y, c.x, c.y);
+        setCircle(circle, a.point, b.point, c.point);
+    }
+
+    public static BasicCircle getCircle(BasicPoint a, BasicPoint b, BasicPoint c) {
+        double x1 = a.x;
+        double y1 = a.y;
+        double x2 = b.x;
+        double y2 = b.y;
+        double x3 = c.x;
+        double y3 = c.y;
+        double A = x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2;
+        double B = (x1 * x1 + y1 * y1) * (y3 - y2) + (x2 * x2 + y2 * y2) * (y1 - y3)
+                + (x3 * x3 + y3 * y3) * (y2 - y1);
+        double C = (x1 * x1 + y1 * y1) * (x2 - x3) + (x2 * x2 + y2 * y2) * (x3 - x1)
+                + (x3 * x3 + y3 * y3) * (x1 - x2);
+        double D = (x1 * x1 + y1 * y1) * (x3 * y2 - x2 * y3) + (x2 * x2 + y2 * y2) * (x1 * y3 - x3 * y1)
+                + (x3 * x3 + y3 * y3) * (x2 * y1 - x1 * y2);
+        double centerX = -B / (2 * A);
+        double centerY = -C / (2 * A);
+        double R = Math.sqrt(B * B + C * C - 4 * A * D) / (2 * Math.abs(A));
+        return new BasicCircle(new BasicPoint(centerX, centerY), R);
     }
 }

@@ -4,10 +4,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Plane2D {
     private ArrayList<GeometricShape> shapes = new ArrayList<>();
-    double hitbox = 8;
+    final double hitbox = 8;
 
     public void addGeometricShape(GeometricShape shape) {
         shapes.add(shape);
@@ -50,22 +51,19 @@ public class Plane2D {
         return null;
     }
 
-    public ArrayList<GeometricShape> getClickedShapesList(double planeX, double planeY) {
-        ArrayList<GeometricShape> clickedPoints = new ArrayList<>();
-        ArrayList<GeometricShape> clickedSegments = new ArrayList<>();
-        ArrayList<GeometricShape> clickedShapes = new ArrayList<>();
+    public List<GeometricShape> getClickedShapesList(double planeX, double planeY) {
+        List<GeometricShape> clickedPoints = new ArrayList<>();
+        List<GeometricShape> clickedSegments = new ArrayList<>();
+        List<GeometricShape> clickedShapes = new ArrayList<>();
         for (GeometricShape shape : shapes) {
             if (shape.hasPoint(planeX, planeY)) {
-                if(shape instanceof GeometricPoint)
-                    clickedPoints.add(shape);
-                else if(shape instanceof GeometricSegment)
-                    clickedSegments.add(shape);
-                else
-                    clickedShapes.add(shape);
+                if (shape instanceof GeometricPoint) clickedPoints.add(shape);
+                else if (shape instanceof GeometricSegment) clickedSegments.add(shape);
+                else clickedShapes.add(shape);
             }
         }
 
-        ArrayList<GeometricShape> mergedList = new ArrayList<>();
+        List<GeometricShape> mergedList = new ArrayList<>();
         mergedList.addAll(clickedPoints);
         mergedList.addAll(clickedSegments);
         mergedList.addAll(clickedShapes);
