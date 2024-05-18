@@ -17,6 +17,11 @@ public class BasicPoint {
         this.y = y;
     }
 
+    public void setCoordinates(BasicPoint p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
     public static double distance(BasicPoint p1, BasicPoint p2) {
         return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }

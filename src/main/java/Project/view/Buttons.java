@@ -63,7 +63,7 @@ public class Buttons extends VBox {
                 "Shifts a point or the plane. If a point is selected, it will be moved to the selected place.");
         registerToggleButton(event -> {
                     System.out.println("'Point' button pressed");
-                    controller.changeActor(new FreePointBuilder());
+                    controller.changeActor(new PointBuilder());
                 },
                 "Point",
                 "Draws a point where selected.");

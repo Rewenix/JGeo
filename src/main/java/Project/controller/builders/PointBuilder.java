@@ -8,13 +8,12 @@ import Project.model.GeometricShapeUpdater;
 import Project.model.Plane2D;
 import javafx.scene.layout.Pane;
 
-/**
- * A builder class for creating a free point.
- */
-public class FreePointBuilder implements GeometricShapeBuilder {
+public class PointBuilder implements GeometricShapeBuilder {
+    private GeometricShape shape;
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
+        this.shape = shape;
         return true;
     }
 
@@ -25,21 +24,21 @@ public class FreePointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void reset() {
-
+        shape = null;
     }
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
         GeometricPoint point = new GeometricPoint("Punkt", plane, transformation, planeX, planeY);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
+            GeometricShape pShape = shape;
 
             @Override
             public void update() {
-
+                if (pShape == null) return;
+                point.setCoordinates(pShape.projection(point.point));
             }
         };
-        point.setUpdater(updater);
-        point.setViewPane(viewPane);
-        plane.addGeometricShape(point);
+        BuilderUtils.setUpdaterAndAdd(point, updater, viewPane, plane);
     }
 }

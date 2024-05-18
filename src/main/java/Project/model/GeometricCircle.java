@@ -1,9 +1,13 @@
 package Project.model;
 
 import Project.controller.Transformation;
+import Project.controller.builders.LineAndCircleIntersectionBuilder;
+import Project.controller.builders.LineThroughPointsBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+
+import java.util.List;
 
 public class GeometricCircle extends GeometricShape {
     private static final double hub = 4;
@@ -66,4 +70,13 @@ public class GeometricCircle extends GeometricShape {
         return Math.abs(d - circle.radius) / transformation.scale <= plane.hitbox;
     }
 
+    @Override
+    public BasicPoint projection(BasicPoint point) {
+        BasicLine line = LineThroughPointsBuilder.getLine(circle.center, point);
+        List<BasicPoint> intersections = LineAndCircleIntersectionBuilder.getPoints(line, circle);
+        if (point.distance(intersections.get(0)) < point.distance(intersections.get(1))) {
+            return intersections.get(0);
+        }
+        return intersections.get(1);
+    }
 }

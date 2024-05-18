@@ -1,6 +1,7 @@
 package Project.model;
 
 import Project.controller.Transformation;
+import Project.controller.builders.PointProjectionOntoLineBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
@@ -78,6 +79,11 @@ public class GeometricLine extends GeometricShape {
     public boolean hasPoint(double planeX, double planeY) {
         double d = BasicLine.distance(new BasicPoint(planeX, planeY), line);
         return d / transformation.scale <= plane.hitbox;
+    }
+
+    @Override
+    public BasicPoint projection(BasicPoint point) {
+        return PointProjectionOntoLineBuilder.getPoint(point, line);
     }
 
     public static double distance(GeometricPoint p, GeometricLine l) {

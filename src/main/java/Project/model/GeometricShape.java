@@ -12,7 +12,7 @@ public abstract class GeometricShape {
     protected Transformation transformation;
     protected Pane viewPane;
     protected GeometricShapeUpdater updater;
-    
+
     public GeometricShape(String name, Plane2D plane, Transformation transformation) {
         this.name = name;
         this.plane = plane;
@@ -45,6 +45,8 @@ public abstract class GeometricShape {
     public abstract void unclick();
 
     public abstract boolean hasPoint(double planeX, double planeY);
+
+    public abstract BasicPoint projection(BasicPoint point);
 
     public abstract int getPriority();
 

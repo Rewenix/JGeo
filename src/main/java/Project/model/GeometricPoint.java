@@ -57,6 +57,11 @@ public class GeometricPoint extends GeometricShape {
     }
 
     @Override
+    public BasicPoint projection(BasicPoint point) {
+        return this.point;
+    }
+
+    @Override
     public void setOnClicked() {
         drawableHub.setFill(Color.CYAN);
     }
