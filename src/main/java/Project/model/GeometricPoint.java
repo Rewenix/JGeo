@@ -35,6 +35,10 @@ public class GeometricPoint extends GeometricShape {
         return this.point;
     }
 
+    public boolean isDefined() {
+        return Double.isFinite(point.x) && Double.isFinite(point.y);
+    }
+
     // Utility functions
 
     public static double distance(GeometricPoint p1, GeometricPoint p2) {

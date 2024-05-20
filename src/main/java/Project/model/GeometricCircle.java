@@ -27,6 +27,10 @@ public class GeometricCircle extends GeometricShape {
         this.circle.setCoordinates(circle);
     }
 
+    public boolean isDefined() {
+        return Double.isFinite(circle.center.x) && Double.isFinite(circle.center.y) && Double.isFinite(circle.radius);
+    }
+
     @Override
     public boolean hasPoint(double planeX, double planeY) {
         double d = circle.center.distance(new BasicPoint(planeX, planeY));

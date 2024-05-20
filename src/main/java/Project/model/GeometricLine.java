@@ -35,6 +35,10 @@ public class GeometricLine extends GeometricShape {
         return PointProjectionOntoLineBuilder.getPoint(point, line);
     }
 
+    public void makeUndefined() {
+        line.setCoordinates(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+    }
+
     public static double distance(GeometricPoint p, GeometricLine l) {
         return BasicLine.distance(p.point, l.line);
     }

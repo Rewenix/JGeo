@@ -50,7 +50,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricCircle circle = new GeometricCircle("Okrąg", plane, transformation);
+        GeometricGenCircle genCircle = new GeometricGenCircle("Okrąg uogólniony", plane, transformation);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
@@ -58,10 +58,17 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                setCircle(circle, pA, pB, pC);
+                setCircle(genCircle.circle, pA, pB, pC);
+                if(!genCircle.circle.isDefined() && pA.isDefined() && pB.isDefined() && pC.isDefined()) {
+                    genCircle.line.setCoordinates(LineThroughPointsBuilder.getLine(pA.point, pB.point));
+                }
+                else {
+                    genCircle.line.makeUndefined();
+                }
+                genCircle.setViewable();
             }
         };
-        BuilderUtils.setUpdaterAndAdd(circle, updater, viewPane, plane);
+        BuilderUtils.setUpdaterAndAdd(genCircle, updater, viewPane, plane);
     }
 
     public static void setCircle(GeometricCircle circle, BasicPoint a, BasicPoint b, BasicPoint c) {
