@@ -64,6 +64,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
                 }
                 else {
                     genCircle.line.makeUndefined();
+                    System.out.println(genCircle.circle.circle.center.x + " " + genCircle.circle.circle.center.y + " " + genCircle.circle.circle.radius);
                 }
                 genCircle.setViewable();
             }
