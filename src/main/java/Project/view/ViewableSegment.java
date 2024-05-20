@@ -8,10 +8,9 @@ import javafx.scene.shape.StrokeLineJoin;
 public class ViewableSegment extends ViewableLine{
     private final BasicSegment segment;
 
-    public ViewableSegment(String name, Transformation transformation, BasicLine line) {
-        super(name, transformation, line);
-        if(!(line instanceof BasicSegment)) throw new IllegalArgumentException("Line must be a segment");
-        this.segment = (BasicSegment) line;
+    public ViewableSegment(String name, Transformation transformation, BasicSegment segment) {
+        super(name, transformation, segment);
+        this.segment = segment;
         drawableHub.setStrokeLineJoin(StrokeLineJoin.ROUND);
     }
 
