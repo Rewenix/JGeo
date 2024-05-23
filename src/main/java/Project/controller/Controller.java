@@ -3,15 +3,23 @@ package Project.controller;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
+import Project.view.ViewablePlane;
+import Project.view.ViewablePoint;
+import Project.view.ViewableShape;
 import javafx.scene.layout.Pane;
 
 import java.util.List;
 
 public class Controller {
     private final Plane2D plane = new Plane2D();
-    private final Transformation transformation = new Transformation();
+    private final ViewablePlane viewablePlane;
+    private final Transformation transformation;
     private Actor selectedActor;
-    private final Pane viewPane;
+    // private final Pane viewPane;
+
+    public ViewablePlane getViewablePlane() {
+        return viewablePlane;
+    }
 
     public Plane2D getPlane() {
         return plane;
@@ -22,42 +30,44 @@ public class Controller {
     }
 
     public Controller(Pane viewPane) {
-        this.viewPane = viewPane;
+        // this.viewPane = viewPane;
+        viewablePlane = new ViewablePlane(plane, viewPane);
+        transformation = viewablePlane.getTransformation();
         selectedActor = null;
     }
 
     public void changeActor(Actor actor) {
         System.out.println("Change actor");
         selectedActor = actor;
-        plane.unclickAll();
+        viewablePlane.unclickAll();
     }
 
     public void handleNormalClick(double screenX, double screenY) {
         if (selectedActor == null) return;
         if (selectedActor instanceof GeometricShapeBuilder selectedBuilder) {
-            double planeX = transformation.toPlaneX(screenX);
-            double planeY = transformation.toPlaneY(screenY);
-            List<GeometricShape> clickedShapesList = plane.getClickedShapesList(planeX, planeY);
-            for (GeometricShape clickedShape : clickedShapesList)
-                if (selectedBuilder.acceptArgument(clickedShape)) break;
+            List<ViewableShape> clickedShapesList = viewablePlane.getClickedShapesList(screenX, screenY);
+            for (ViewableShape clickedShape : clickedShapesList)
+                if (selectedBuilder.acceptArgument(clickedShape.getGeometricShape())) {
+                    clickedShape.setOnClicked();
+                    break;
+                }
             if (selectedBuilder.isReady()) {
                 System.out.println("Building shape with builder");
-                selectedBuilder.build(plane, transformation, viewPane, planeX, planeY);
+                selectedBuilder.build(viewablePlane, transformation.toScreenX(screenX), transformation.toScreenY(screenY));
                 selectedBuilder.reset();
-                plane.unclickAll();
+                viewablePlane.unclickAll();
             }
             return;
         }
         if (selectedActor instanceof Shifter selectedShifter) {
-            plane.unclickAll();
-            double planeX = transformation.toPlaneX(screenX);
-            double planeY = transformation.toPlaneY(screenY);
-            if (plane.getClickedShape(planeX, planeY) instanceof GeometricPoint point) {
-                selectedShifter.setPoint(point);
+            viewablePlane.unclickAll();
+            if (viewablePlane.getClickedShape(screenX, screenY) instanceof ViewablePoint point) {
+                selectedShifter.setPoint(point.getGeometricShape());
+                point.setOnClicked();
                 return;
             }
             selectedShifter.setPoint(null);
-            selectedShifter.setOrigin(planeX, planeY);
+            selectedShifter.setOrigin(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
             return;
         }
     }
@@ -74,10 +84,10 @@ public class Controller {
     }
 
     public void removeLastShape() {
-        plane.removeLastShape();
+        viewablePlane.removeLastShape();
     }
 
     public void clearShapes() {
-        plane.clear();
+        viewablePlane.clear();
     }
 }

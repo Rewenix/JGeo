@@ -15,6 +15,11 @@ public class ViewablePlane {
     Pane viewPane;
     static double hitbox = 8; //TODO wczytać z pliku konfiguracyjnego
 
+    public ViewablePlane(Plane2D plane, Pane viewPane) {
+        this.plane = plane;
+        this.viewPane = viewPane;
+    }
+
     public ViewablePlane(Plane2D plane) {
         this.plane = plane;
     }

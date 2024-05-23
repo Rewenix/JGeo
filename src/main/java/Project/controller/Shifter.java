@@ -17,8 +17,6 @@ public class Shifter implements Actor {
 
     public void setPoint(GeometricPoint point) {
         this.point = point;
-        if (point != null)
-            point.setOnClicked();
     }
 
     public void setOrigin(double screenX, double screenY) {
