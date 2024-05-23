@@ -47,6 +47,7 @@ public class ViewablePlane {
     public void addViewableShape(ViewableShape shape) {
         shapes.add(shape);
         shape.setViewPane(viewPane);
+        shape.updateDrawable();
     }
 
     public void updateDrawables() {
