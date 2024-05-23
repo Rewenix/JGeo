@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewablePlane { // To jest mocno nie skonczone, ale nie wiem dokladnie co tu ma byc.
-    public Plane2D plane;
+    Plane2D plane;
     private List<ViewableShape> shapes = new ArrayList<>();
-    public Transformation transformation;
-    public Pane viewPane;
+    Transformation transformation;
+    Pane viewPane;
     public static double hitbox = 8;
 
     public ViewablePlane(Plane2D plane) {

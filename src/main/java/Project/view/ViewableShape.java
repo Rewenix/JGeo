@@ -21,7 +21,7 @@ public abstract class ViewableShape {
     public abstract Shape getDrawableHub();
 
     public void drop() {
-        viewablePlane.getViewPane().getChildren().removeAll(getDrawableShape(), getDrawableHub());
+        viewablePlane.viewPane.getChildren().removeAll(getDrawableShape(), getDrawableHub());
     }
 
     public void setOnClicked() {
