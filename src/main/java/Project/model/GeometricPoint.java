@@ -1,24 +1,28 @@
 package Project.model;
 
-import Project.controller.Transformation;
-import Project.view.ViewablePoint;
-
 public class GeometricPoint extends GeometricShape {
     public final BasicPoint point = new BasicPoint();
+
+    public GeometricPoint(String name, double x, double y) {
+        super(name);
+        point.setCoordinates(x, y);
+    }
+
+    public GeometricPoint(double x, double y) {
+        this("", x, y);
+    }
+
+    public GeometricPoint(String name) {
+        this(name, 0, 0);
+    }
+
+    public GeometricPoint() {
+        super();
+    }
 
     @Override
     public int getPriority() {
         return 0;
-    }
-
-    public GeometricPoint(String name, Plane2D plane, Transformation transformation, double planeX, double planeY) {
-        super(name, plane, transformation);
-        point.setCoordinates(planeX, planeY);
-        viewableShape = new ViewablePoint(name, transformation, point);
-    }
-
-    public GeometricPoint(String name, Plane2D plane, Transformation transformation) {
-        this(name, plane, transformation, 0, 0);
     }
 
     public void setCoordinates(BasicPoint point) {
@@ -26,8 +30,8 @@ public class GeometricPoint extends GeometricShape {
     }
 
     @Override
-    public boolean hasPoint(double planeX, double planeY) {
-        return BasicPoint.distance(point, new BasicPoint(planeX, planeY)) / transformation.scale <= plane.hitbox;
+    public double distance(BasicPoint point) {
+        return this.point.distance(point);
     }
 
     @Override
@@ -35,13 +39,8 @@ public class GeometricPoint extends GeometricShape {
         return this.point;
     }
 
+    @Override
     public boolean isDefined() {
-        return Double.isFinite(point.x) && Double.isFinite(point.y);
-    }
-
-    // Utility functions
-
-    public static double distance(GeometricPoint p1, GeometricPoint p2) {
-        return BasicPoint.distance(p1.point, p2.point);
+        return point.isDefined();
     }
 }

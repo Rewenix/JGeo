@@ -30,4 +30,8 @@ public class BasicLine {
     public double distance(BasicPoint p) {
         return Math.abs(A * p.x + B * p.y + C) / Math.sqrt(A * A + B * B);
     }
+
+    public boolean isDefined() {
+        return Double.isFinite(A) && Double.isFinite(B) && Double.isFinite(C) && (A != 0 || B != 0);
+    }
 }
