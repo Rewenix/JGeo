@@ -1,20 +1,19 @@
 package Project.view;
 
 import Project.controller.Transformation;
-import Project.model.GeometricPoint;
-import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
-public class ViewablePlane { // To jest mocno nie skonczone, ale nie wiem dokladnie co tu ma byc.
+public class ViewablePlane {
     Plane2D plane;
     private final List<ViewableShape> shapes = new ArrayList<>();
     final Transformation transformation = new Transformation();
     Pane viewPane;
-    public static double hitbox = 8;
+    static double hitbox = 8; //TODO wczytać z pliku konfiguracyjnego
 
     public ViewablePlane(Plane2D plane) {
         this.plane = plane;
@@ -27,10 +26,6 @@ public class ViewablePlane { // To jest mocno nie skonczone, ale nie wiem doklad
     public Plane2D getPlane() {
         return plane;
     }
-
-    /*public void setTransformation(Transformation transformation) {
-        this.transformation = transformation;
-    }*/
 
     public Transformation getTransformation() {
         return transformation;
@@ -79,6 +74,16 @@ public class ViewablePlane { // To jest mocno nie skonczone, ale nie wiem doklad
         return clickedShapes;
     }
 
+    public List<ViewableShape> getClickedShapesList(double screenX, double screenY, Predicate<ViewableShape> predicate) {
+        List<ViewableShape> clickedShapes = new ArrayList<>();
+        for (ViewableShape shape : shapes)
+            if (predicate.test(shape) && shape.hasPoint(screenX, screenY))
+                clickedShapes.add(shape);
+
+        clickedShapes.sort(ViewableShape.getPriorityComparator());
+        return clickedShapes;
+    }
+
     public ViewableShape getClickedShape(double screenX, double screenY) {
         for (ViewableShape shape : shapes) {
             if (shape instanceof ViewablePoint point && point.hasPoint(screenX, screenY)) {
@@ -87,6 +92,15 @@ public class ViewablePlane { // To jest mocno nie skonczone, ale nie wiem doklad
         }
         for (ViewableShape shape : shapes) {
             if (shape.hasPoint(screenX, screenY)) {
+                return shape;
+            }
+        }
+        return null;
+    }
+
+    public ViewableShape getClickedShape(double screenX, double screenY, Predicate<ViewableShape> predicate) {
+        for (ViewableShape shape : shapes) {
+            if (predicate.test(shape) && shape.hasPoint(screenX, screenY)) {
                 return shape;
             }
         }
