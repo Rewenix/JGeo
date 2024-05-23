@@ -1,8 +1,7 @@
 package Project.controller;
 
 import Project.model.GeometricShape;
-import Project.model.Plane2D;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public interface GeometricShapeBuilder extends Actor {
 
@@ -12,5 +11,5 @@ public interface GeometricShapeBuilder extends Actor {
 
     void reset();
 
-    void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY);
+    void build(ViewablePlane viewablePlane, double planeX, double planeY);
 }
