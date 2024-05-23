@@ -3,27 +3,39 @@ package Project.view;
 import Project.controller.Transformation;
 import Project.model.BasicLine;
 import Project.model.BasicSegment;
+import Project.model.GeometricSegment;
 import javafx.scene.shape.StrokeLineJoin;
 
 public class ViewableSegment extends ViewableLine{
-    private final BasicSegment segment;
+    private final GeometricSegment geoSegment;
 
-    public ViewableSegment(String name, Transformation transformation, BasicSegment segment) {
-        super(name, transformation, segment);
-        this.segment = segment;
+    public ViewableSegment(String name, ViewablePlane viewablePlane, GeometricSegment geoSegment) {
+        super(name, viewablePlane, geoSegment);
+        this.geoSegment = geoSegment;
         drawableHub.setStrokeLineJoin(StrokeLineJoin.ROUND);
     }
 
     @Override
     public void updateDrawable() {
-        drawableShape.setStartX(transformation.toScreenX(segment.p1.x));
-        drawableShape.setStartY(transformation.toScreenY(segment.p1.y));
-        drawableShape.setEndX(transformation.toScreenX(segment.p2.x));
-        drawableShape.setEndY(transformation.toScreenY(segment.p2.y));
+        BasicSegment segment = geoSegment.segment;
+        drawableShape.setStartX(getTransformation().toScreenX(segment.p1.x));
+        drawableShape.setStartY(getTransformation().toScreenY(segment.p1.y));
+        drawableShape.setEndX(getTransformation().toScreenX(segment.p2.x));
+        drawableShape.setEndY(getTransformation().toScreenY(segment.p2.y));
 
         drawableHub.setStartX(drawableShape.getStartX());
         drawableHub.setStartY(drawableShape.getStartY());
         drawableHub.setEndX(drawableShape.getEndX());
         drawableHub.setEndY(drawableShape.getEndY());
+    }
+
+    @Override
+    public int getPriority() {
+        return 1;
+    }
+
+    @Override
+    public GeometricSegment getGeometricShape() {
+        return geoSegment;
     }
 }

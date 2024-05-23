@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.model.BasicPoint;
 import Project.model.GeometricPoint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -9,13 +10,13 @@ public class ViewablePoint extends ViewableShape {
     private static final double R = 4;
     private final Circle drawableShape;
     private final Circle drawableHub;
-    private final GeometricPoint point;
+    private final GeometricPoint geoPoint;
 
-    public ViewablePoint(String name, ViewablePlane viewablePlane, GeometricPoint point) {
+    public ViewablePoint(String name, ViewablePlane viewablePlane, GeometricPoint geoPoint) {
         super(name, viewablePlane);
-        this.point = point;
-        drawableShape = new Circle(viewablePlane.transformation.toScreenX(point.point.x), viewablePlane.transformation.toScreenY(point.point.y), R);
-        drawableHub = new Circle(viewablePlane.transformation.toScreenX(point.point.x), viewablePlane.transformation.toScreenY(point.point.y), R);
+        this.geoPoint = geoPoint;
+        drawableShape = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), R);
+        drawableHub = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), R);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
@@ -36,14 +37,20 @@ public class ViewablePoint extends ViewableShape {
 
     @Override
     public void updateDrawable() {
-        drawableShape.setCenterX(viewablePlane.transformation.toScreenX(point.point.x));
-        drawableShape.setCenterY(viewablePlane.transformation.toScreenY(point.point.y));
+        BasicPoint point = geoPoint.point;
+        drawableShape.setCenterX(getTransformation().toScreenX(point.x));
+        drawableShape.setCenterY(getTransformation().toScreenY(point.y));
         drawableHub.setCenterX(drawableShape.getCenterX());
         drawableHub.setCenterY(drawableShape.getCenterY());
     }
 
     @Override
     public GeometricPoint getGeometricShape() {
-        return point;
+        return geoPoint;
+    }
+
+    @Override
+    public int getPriority() {
+        return 0;
     }
 }

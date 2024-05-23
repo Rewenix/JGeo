@@ -2,6 +2,8 @@ package Project.view;
 
 import Project.controller.Transformation;
 import Project.model.BasicCircle;
+import Project.model.GeometricCircle;
+import Project.model.GeometricShape;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -9,11 +11,11 @@ import javafx.scene.shape.Shape;
 public class ViewableCircle extends ViewableShape{
     private final Circle drawableShape;
     private final Circle drawableHub;
-    private final BasicCircle circle;
+    private final GeometricCircle geoCircle;
 
-    public ViewableCircle(String name, Transformation transformation, BasicCircle circle) {
-        super(name, transformation);
-        this.circle = circle;
+    public ViewableCircle(String name, ViewablePlane viewablePlane, GeometricCircle geoCircle) {
+        super(name, viewablePlane);
+        this.geoCircle = geoCircle;
         drawableShape = new Circle();
         drawableShape.setFill(Color.TRANSPARENT);
         drawableShape.setStroke(Color.BLACK);
@@ -38,11 +40,22 @@ public class ViewableCircle extends ViewableShape{
 
     @Override
     public void updateDrawable() {
-        drawableShape.setCenterX(transformation.toScreenX(circle.center.x));
-        drawableShape.setCenterY(transformation.toScreenY(circle.center.y));
-        drawableShape.setRadius(transformation.toScreenX(circle.center.x + circle.radius) - transformation.toScreenX(circle.center.x));
+        BasicCircle circle = geoCircle.circle;
+        drawableShape.setCenterX(getTransformation().toScreenX(circle.center.x));
+        drawableShape.setCenterY(getTransformation().toScreenY(circle.center.y));
+        drawableShape.setRadius(getTransformation().toScreenX(circle.center.x + circle.radius) - getTransformation().toScreenX(circle.center.x));
         drawableHub.setCenterX(drawableShape.getCenterX());
         drawableHub.setCenterY(drawableShape.getCenterY());
         drawableHub.setRadius(drawableShape.getRadius());
+    }
+
+    @Override
+    public GeometricShape getGeometricShape() {
+        return geoCircle;
+    }
+
+    @Override
+    public int getPriority() {
+        return 2;
     }
 }
