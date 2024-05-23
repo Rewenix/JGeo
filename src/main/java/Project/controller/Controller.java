@@ -53,7 +53,7 @@ public class Controller {
                 }
             if (selectedBuilder.isReady()) {
                 System.out.println("Building shape with builder");
-                selectedBuilder.build(viewablePlane, transformation.toScreenX(screenX), transformation.toScreenY(screenY));
+                selectedBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
                 selectedBuilder.reset();
                 viewablePlane.unclickAll();
             }
