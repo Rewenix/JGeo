@@ -16,6 +16,12 @@ public class LineReflectionAboutPointBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (line == null) {
+                line = ll;
+                return true;
+            }
+        }
         else if (shape instanceof GeometricPoint p) {
             if (reflectionPoint == null) {
                 reflectionPoint = p;

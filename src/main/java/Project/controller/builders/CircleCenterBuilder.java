@@ -13,6 +13,10 @@ public class CircleCenterBuilder implements GeometricShapeBuilder {
             circle = c;
             return true;
         }
+        if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            circle = cc;
+            return true;
+        }
         return false;
     }
 

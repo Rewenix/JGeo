@@ -20,6 +20,16 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (a == null) {
+                a = ll;
+                return true;
+            }
+            else if (ll != a) {
+                b = ll;
+                return true;
+            }
+        }
         return false;
     }
 

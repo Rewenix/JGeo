@@ -17,6 +17,10 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
             line = l;
             return true;
         }
+        else if (line == null && shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            line = ll;
+            return true;
+        }
         else if (point == null && shape instanceof GeometricPoint p) {
             point = p;
             return true;

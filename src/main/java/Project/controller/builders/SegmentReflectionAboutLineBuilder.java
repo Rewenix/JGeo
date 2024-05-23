@@ -22,6 +22,18 @@ public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder 
                 return true;
             }
         }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricSegment ll) {
+            if (segment == null) {
+                segment = ll;
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (line == null) {
+                line = ll;
+                return true;
+            }
+        }
         return false;
     }
 

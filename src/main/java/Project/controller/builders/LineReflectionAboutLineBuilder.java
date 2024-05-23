@@ -20,6 +20,16 @@ public class LineReflectionAboutLineBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (line == null) {
+                line = ll;
+                return true;
+            }
+            else if (ll != line) {
+                reflectionLine = ll;
+                return true;
+            }
+        }
         return false;
     }
 

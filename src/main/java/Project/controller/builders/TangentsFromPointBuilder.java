@@ -21,6 +21,10 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
             circle = c;
             return true;
         }
+        else if (circle == null && shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            circle = cc;
+            return true;
+        }
         return false;
     }
 

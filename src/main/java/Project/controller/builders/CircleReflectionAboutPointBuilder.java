@@ -16,6 +16,12 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
                 return true;
             }
         }
+        else if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            if (circle == null) {
+                circle = cc;
+                return true;
+            }
+        }
         else if (shape instanceof GeometricPoint p) {
             if (reflectionPoint == null) {
                 reflectionPoint = p;

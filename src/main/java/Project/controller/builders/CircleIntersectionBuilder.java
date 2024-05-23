@@ -22,6 +22,16 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
+        if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            if (a == null) {
+                a = cc;
+                return true;
+            }
+            else if (cc != a) {
+                b = cc;
+                return true;
+            }
+        }
         return false;
     }
 
