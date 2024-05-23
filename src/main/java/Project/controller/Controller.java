@@ -79,6 +79,7 @@ public class Controller {
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
             selectedShifter.setOrigin(planeX, planeY);
+            viewablePlane.updateDrawables();
             return;
         }
     }
