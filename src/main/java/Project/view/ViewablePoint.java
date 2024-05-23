@@ -1,22 +1,21 @@
 package Project.view;
 
-import Project.controller.Transformation;
-import Project.model.BasicPoint;
+import Project.model.GeometricPoint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class ViewablePoint extends ViewableShape{
+public class ViewablePoint extends ViewableShape {
     private static final double R = 4;
     private final Circle drawableShape;
     private final Circle drawableHub;
-    private final BasicPoint point;
+    private final GeometricPoint point;
 
-    public ViewablePoint(String name, Transformation transformation, BasicPoint point) {
-        super(name, transformation);
+    public ViewablePoint(String name, ViewablePlane viewablePlane, GeometricPoint point) {
+        super(name, viewablePlane);
         this.point = point;
-        drawableShape = new Circle(transformation.toScreenX(point.x), transformation.toScreenY(point.y), R);
-        drawableHub = new Circle(transformation.toScreenX(point.x), transformation.toScreenY(point.y), R);
+        drawableShape = new Circle(viewablePlane.transformation.toScreenX(point.point.x), viewablePlane.transformation.toScreenY(point.point.y), R);
+        drawableHub = new Circle(viewablePlane.transformation.toScreenX(point.point.x), viewablePlane.transformation.toScreenY(point.point.y), R);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
@@ -37,9 +36,14 @@ public class ViewablePoint extends ViewableShape{
 
     @Override
     public void updateDrawable() {
-        drawableShape.setCenterX(transformation.toScreenX(point.x));
-        drawableShape.setCenterY(transformation.toScreenY(point.y));
+        drawableShape.setCenterX(viewablePlane.transformation.toScreenX(point.point.x));
+        drawableShape.setCenterY(viewablePlane.transformation.toScreenY(point.point.y));
         drawableHub.setCenterX(drawableShape.getCenterX());
         drawableHub.setCenterY(drawableShape.getCenterY());
+    }
+
+    @Override
+    public GeometricPoint getGeometricShape() {
+        return point;
     }
 }

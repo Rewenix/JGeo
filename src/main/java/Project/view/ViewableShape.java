@@ -1,18 +1,17 @@
 package Project.view;
 
-import Project.controller.Transformation;
-import javafx.scene.layout.Pane;
+import Project.model.BasicPoint;
+import Project.model.GeometricShape;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 public abstract class ViewableShape {
     public final String name;
-    private Pane viewPane;
-    protected final Transformation transformation;
+    final ViewablePlane viewablePlane;
 
-    public ViewableShape(String name, Transformation transformation) {
+    public ViewableShape(String name, ViewablePlane viewablePlane) {
         this.name = name;
-        this.transformation = transformation;
+        this.viewablePlane = viewablePlane;
     }
 
     public abstract double getHub();
@@ -21,16 +20,8 @@ public abstract class ViewableShape {
 
     public abstract Shape getDrawableHub();
 
-    public void setViewPane(Pane viewPane) {
-        this.viewPane = viewPane;
-        getDrawableHub().setStroke(Color.TRANSPARENT);
-        getDrawableHub().setStrokeWidth(getHub());
-        viewPane.getChildren().addAll(getDrawableShape(), getDrawableHub());
-        getDrawableHub().toBack();
-    }
-
     public void drop() {
-        viewPane.getChildren().removeAll(getDrawableShape(), getDrawableHub());
+        viewablePlane.getViewPane().getChildren().removeAll(getDrawableShape(), getDrawableHub());
     }
 
     public void setOnClicked() {
@@ -41,5 +32,14 @@ public abstract class ViewableShape {
         getDrawableHub().setStroke(Color.TRANSPARENT);
     }
 
+    public boolean hasPoint(double screenX, double screenY) { // to chyba ma sens
+        BasicPoint p = new BasicPoint(viewablePlane.transformation.toPlaneX(screenX), viewablePlane.transformation.toPlaneY(screenY));
+        double distance = getGeometricShape().distance(p);
+        double screenDistance = distance / viewablePlane.transformation.scale;
+        return screenDistance <= viewablePlane.hitbox;
+    }
+
     public abstract void updateDrawable();
+
+    public abstract GeometricShape getGeometricShape();
 }
