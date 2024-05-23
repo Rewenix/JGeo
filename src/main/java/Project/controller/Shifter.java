@@ -19,9 +19,9 @@ public class Shifter implements Actor {
         this.point = point;
     }
 
-    public void setOrigin(double screenX, double screenY) {
-        vectorOriginX = screenX;
-        vectorOriginY = screenY;
+    public void setOrigin(double planeX, double planeY) {
+        vectorOriginX = planeX;
+        vectorOriginY = planeY;
         offsetXOnEntry = transformation.offsetX;
         offsetYOnEntry = transformation.offsetY;
     }
