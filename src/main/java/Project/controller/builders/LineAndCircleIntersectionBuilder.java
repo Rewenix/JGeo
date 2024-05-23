@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 import java.util.List;
 
@@ -16,16 +15,12 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricLine l) {
             if (line == null) {
                 line = l;
-                line.setOnClicked();
-                System.out.println("Accepting line");
                 return true;
             }
         }
         if (shape instanceof GeometricCircle c) {
             if (circle == null) {
                 circle = c;
-                circle.setOnClicked();
-                System.out.println("Accepting circle");
                 return true;
             }
         }
@@ -44,9 +39,9 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint intersection1 = new GeometricPoint("Intersection 1", plane, transformation);
-        GeometricPoint intersection2 = new GeometricPoint("Intersection 2", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint intersection1 = new GeometricPoint("Intersection 1");
+        GeometricPoint intersection2 = new GeometricPoint("Intersection 2");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine l = line;
             private GeometricCircle c = circle;
@@ -56,8 +51,10 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
                 setPoints(intersection1, intersection2, l, c);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(intersection1, updater, viewPane, plane);
-        BuilderUtils.setUpdaterAndAdd(intersection2, updater, viewPane, plane);
+        intersection1.setUpdater(updater);
+        intersection2.setUpdater(updater);
+        BuilderUtils.addToPlane(intersection1, viewablePlane);
+        BuilderUtils.addToPlane(intersection2, viewablePlane);
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, BasicLine l, BasicCircle c) {

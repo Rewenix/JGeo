@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private GeometricSegment segment = null;
@@ -14,16 +13,12 @@ public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder
         if (shape instanceof GeometricSegment s) {
             if (segment == null) {
                 segment = s;
-                segment.setOnClicked();
-                System.out.println("Accepting segment");
                 return true;
             }
         }
         else if (shape instanceof GeometricPoint p) {
             if (reflectionPoint == null) {
                 reflectionPoint = p;
-                reflectionPoint.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -42,8 +37,8 @@ public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricSegment reflectedSegment = new GeometricSegment("Odbity odcinek", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricSegment reflectedSegment = new GeometricSegment("Odbity odcinek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricSegment pSegment = segment;
             private GeometricPoint pReflectionPoint = reflectionPoint;
@@ -53,7 +48,8 @@ public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder
                 setSegment(reflectedSegment, pSegment, pReflectionPoint);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(reflectedSegment, updater, viewPane, plane);
+        reflectedSegment.setUpdater(updater);
+        BuilderUtils.addToPlane(reflectedSegment, viewablePlane);
     }
 
     public static void setSegment(GeometricSegment segment, BasicSegment pSegment, BasicPoint pReflectionPoint) {

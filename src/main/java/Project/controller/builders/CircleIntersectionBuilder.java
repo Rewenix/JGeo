@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 import java.util.List;
 
@@ -16,14 +15,10 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricCircle c) {
             if (a == null) {
                 a = c;
-                a.setOnClicked();
-                System.out.println("Accepting circle");
                 return true;
             }
             else if (c != a) {
                 b = c;
-                b.setOnClicked();
-                System.out.println("Accepting circle");
                 return true;
             }
         }
@@ -42,9 +37,9 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint i1 = new GeometricPoint("Intersection 1", plane, transformation);
-        GeometricPoint i2 = new GeometricPoint("Intersection 2", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint i1 = new GeometricPoint("Intersection 1");
+        GeometricPoint i2 = new GeometricPoint("Intersection 2");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle cA = a;
             private GeometricCircle cB = b;
@@ -54,8 +49,10 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
                 setPoints(i1, i2, cA, cB);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(i1, updater, viewPane, plane);
-        BuilderUtils.setUpdaterAndAdd(i2, updater, viewPane, plane);
+        i1.setUpdater(updater);
+        i2.setUpdater(updater);
+        BuilderUtils.addToPlane(i1, viewablePlane);
+        BuilderUtils.addToPlane(i2, viewablePlane);
     }
 
     public static void setPoints(GeometricPoint i1, GeometricPoint i2, BasicCircle c1, BasicCircle c2) {

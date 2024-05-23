@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class LineIntersectionBuilder implements GeometricShapeBuilder {
     private GeometricLine a = null;
@@ -14,14 +13,10 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricLine l) {
             if (a == null) {
                 a = l;
-                a.setOnClicked();
-                System.out.println("Accepting line");
                 return true;
             }
             else if (l != a) {
                 b = l;
-                b.setOnClicked();
-                System.out.println("Accepting line");
                 return true;
             }
         }
@@ -40,8 +35,8 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint intersection = new GeometricPoint("Przecięcie", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint intersection = new GeometricPoint("Przecięcie");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine lA = a;
             private GeometricLine lB = b;
@@ -51,7 +46,8 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
                 setPoint(intersection, lA, lB);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(intersection, updater, viewPane, plane);
+        intersection.setUpdater(updater);
+        BuilderUtils.addToPlane(intersection, viewablePlane);
     }
 
     public static void setPoint(GeometricPoint point, BasicLine lA, BasicLine lB) {

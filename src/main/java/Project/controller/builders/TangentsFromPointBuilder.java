@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for constructing tangent lines from a point to a circle.
@@ -16,14 +15,10 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     public boolean acceptArgument(GeometricShape shape) {
         if (point == null && shape instanceof GeometricPoint p) {
             point = p;
-            point.setOnClicked();
-            System.out.println("Accepting point");
             return true;
         }
         else if (circle == null && shape instanceof GeometricCircle c) {
             circle = c;
-            circle.setOnClicked();
-            System.out.println("Accepting circle");
             return true;
         }
         return false;
@@ -41,9 +36,9 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine tangent1 = new GeometricLine("Tangent1", plane, transformation);
-        GeometricLine tangent2 = new GeometricLine("Tangent2", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricLine tangent1 = new GeometricLine("Tangent1");
+        GeometricLine tangent2 = new GeometricLine("Tangent2");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint p = point;
             private GeometricCircle c = circle;
@@ -53,8 +48,10 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
                 setLines(tangent1, tangent2, p, c);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(tangent1, updater, viewPane, plane);
-        BuilderUtils.setUpdaterAndAdd(tangent2, updater, viewPane, plane);
+        tangent1.setUpdater(updater);
+        tangent2.setUpdater(updater);
+        BuilderUtils.addToPlane(tangent1, viewablePlane);
+        BuilderUtils.addToPlane(tangent2, viewablePlane);
     }
 
     public static void setLines(GeometricLine line1, GeometricLine line2, BasicPoint point, BasicCircle circle) {

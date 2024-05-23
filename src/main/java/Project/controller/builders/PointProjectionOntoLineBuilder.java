@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;
@@ -14,16 +13,12 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (point == null) {
                 point = p;
-                point.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
         else if (shape instanceof GeometricLine l) {
             if (line == null) {
                 line = l;
-                line.setOnClicked();
-                System.out.println("Accepting line");
                 return true;
             }
         }
@@ -42,8 +37,8 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint projectedPoint = new GeometricPoint("Punkt rzutowany", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint projectedPoint = new GeometricPoint("Punkt rzutowany");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pPoint = point;
             private GeometricLine pLine = line;
@@ -53,7 +48,8 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
                 setPoint(projectedPoint, pPoint, pLine);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(projectedPoint, updater, viewPane, plane);
+        projectedPoint.setUpdater(updater);
+        BuilderUtils.addToPlane(projectedPoint, viewablePlane);
     }
 
     public static void setPoint(GeometricPoint point, BasicPoint pPoint, BasicLine pLine) {

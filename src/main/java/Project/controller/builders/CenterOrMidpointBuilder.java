@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
-import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.model.GeometricShape;
+import Project.view.ViewablePlane;
 
 public class CenterOrMidpointBuilder implements GeometricShapeBuilder {
     private final CircleCenterBuilder circleCenterBuilder = new CircleCenterBuilder();
@@ -26,12 +25,12 @@ public class CenterOrMidpointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         if (circleCenterBuilder.isReady()) {
-            circleCenterBuilder.build(plane, transformation, viewPane, planeX, planeY);
+            circleCenterBuilder.build(viewablePlane, planeX, planeY);
         }
         else if (midpointBuilder.isReady()) {
-            midpointBuilder.build(plane, transformation, viewPane, planeX, planeY);
+            midpointBuilder.build(viewablePlane, planeX, planeY);
         }
     }
 }

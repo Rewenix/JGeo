@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for creating a perpendicular bisector of two points.
@@ -16,14 +15,10 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
-                a.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
             else if (p != a) {
                 b = p;
-                b.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -42,8 +37,8 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine line = new GeometricLine("Symetralna", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricLine line = new GeometricLine("Symetralna");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
@@ -53,7 +48,8 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
                 setLine(line, pA, pB);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(line, updater, viewPane, plane);
+        line.setUpdater(updater);
+        BuilderUtils.addToPlane(line, viewablePlane);
     }
 
     public static void setLine(GeometricLine line, BasicPoint p1, BasicPoint p2) {

@@ -1,10 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.GeometricShape;
-import Project.model.Plane2D;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class ReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private final PointReflectionAboutPointBuilder pointReflectionAboutPointBuilder = new PointReflectionAboutPointBuilder();
@@ -45,18 +43,18 @@ public class ReflectionAboutPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         if (pointReflectionAboutPointBuilder.isReady()) {
-            pointReflectionAboutPointBuilder.build(plane, transformation, viewPane, planeX, planeY);
+            pointReflectionAboutPointBuilder.build(viewablePlane, planeX, planeY);
         }
         else if (segmentReflectionAboutPointBuilder.isReady()) {
-            segmentReflectionAboutPointBuilder.build(plane, transformation, viewPane, planeX, planeY);
+            segmentReflectionAboutPointBuilder.build(viewablePlane, planeX, planeY);
         }
         else if (lineReflectionAboutPointBuilder.isReady()) {
-            lineReflectionAboutPointBuilder.build(plane, transformation, viewPane, planeX, planeY);
+            lineReflectionAboutPointBuilder.build(viewablePlane, planeX, planeY);
         }
         else if (circleReflectionAboutPointBuilder.isReady()) {
-            circleReflectionAboutPointBuilder.build(plane, transformation, viewPane, planeX, planeY);
+            circleReflectionAboutPointBuilder.build(viewablePlane, planeX, planeY);
         }
     }
 }

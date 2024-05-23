@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for creating a parallel lines.
@@ -16,14 +15,10 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
     public boolean acceptArgument(GeometricShape shape) {
         if (line == null && shape instanceof GeometricLine l) {
             line = l;
-            line.setOnClicked();
-            System.out.println("Accepting line");
             return true;
         }
         else if (point == null && shape instanceof GeometricPoint p) {
             point = p;
-            point.setOnClicked();
-            System.out.println("Accepting point");
             return true;
         }
         return false;
@@ -41,8 +36,8 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine parallelLine = new GeometricLine("Prosta równoległa", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricLine parallelLine = new GeometricLine("Prosta równoległa");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricPoint pPoint = point;
@@ -52,7 +47,8 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
                 setLine(parallelLine, pLine, pPoint);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(parallelLine, updater, viewPane, plane);
+        parallelLine.setUpdater(updater);
+        BuilderUtils.addToPlane(parallelLine, viewablePlane);
     }
 
     /**
