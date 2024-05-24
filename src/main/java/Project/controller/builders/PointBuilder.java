@@ -1,12 +1,10 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
-import Project.model.Plane2D;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class PointBuilder implements GeometricShapeBuilder {
     private GeometricShape shape;
@@ -28,8 +26,8 @@ public class PointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint point = new GeometricPoint("Punkt", plane, transformation, planeX, planeY);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint point = new GeometricPoint("", planeX, planeY);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             GeometricShape pShape = shape;
 
@@ -39,6 +37,7 @@ public class PointBuilder implements GeometricShapeBuilder {
                 point.setCoordinates(pShape.projection(point.point));
             }
         };
-        BuilderUtils.setUpdaterAndAdd(point, updater, viewPane, plane);
+        point.setUpdater(updater);
+        BuilderUtils.addToPlane(point, viewablePlane);
     }
 }

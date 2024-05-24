@@ -1,9 +1,11 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
-import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.model.BasicPoint;
+import Project.model.GeometricPoint;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
+import Project.view.ViewablePlane;
 
 public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;
@@ -14,14 +16,10 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (point == null) {
                 point = p;
-                point.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
             else if (p != point) {
                 reflectionPoint = p;
-                reflectionPoint.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -40,8 +38,8 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint reflectedPoint = new GeometricPoint("Punkt odbity", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint reflectedPoint = new GeometricPoint("Punkt odbity");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pPoint = point;
             private GeometricPoint pReflectionPoint = reflectionPoint;
@@ -51,7 +49,8 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
                 setPoint(reflectedPoint, pPoint, pReflectionPoint);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(reflectedPoint, updater, viewPane, plane);
+        reflectedPoint.setUpdater(updater);
+        BuilderUtils.addToPlane(reflectedPoint, viewablePlane);
     }
 
     public static void setPoint(GeometricPoint point, BasicPoint pPoint, BasicPoint pReflectionPoint) {

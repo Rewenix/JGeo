@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for creating a circle with a center point and another point
@@ -18,14 +17,10 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (center == null) {
                 center = p;
-                center.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
             else if (p != center) {
                 point = p;
-                point.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -44,8 +39,8 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricCircle circle = new GeometricCircle("Okrąg", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricCircle circle = new GeometricCircle("Okrąg");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pCenter = center;
             private GeometricPoint pPoint = point;
@@ -55,7 +50,8 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
                 setCircle(circle, pCenter, pPoint);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(circle, updater, viewPane, plane);
+        circle.setUpdater(updater);
+        BuilderUtils.addToPlane(circle, viewablePlane);
     }
 
     public static void setCircle(GeometricCircle circle, BasicPoint center, BasicPoint point) {

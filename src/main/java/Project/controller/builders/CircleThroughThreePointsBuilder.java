@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for creating a circle through three points.
@@ -16,20 +15,14 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
-                a.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
             else if (b == null) {
                 b = p;
-                b.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
             else if (c == null) {
                 c = p;
-                c.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -49,8 +42,8 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricCircle circle = new GeometricCircle("Okrąg", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricGenCircle genCircle = new GeometricGenCircle("Okrąg uogólniony");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
@@ -58,10 +51,17 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
-                setCircle(circle, pA, pB, pC);
+                setCircle(genCircle.circle, pA, pB, pC);
+                if (!genCircle.circle.isDefined()) {
+                    LineThroughPointsBuilder.setLine(genCircle.line, pA.point, pB.point);
+                }
+                else {
+                    genCircle.line.makeUndefined();
+                }
             }
         };
-        BuilderUtils.setUpdaterAndAdd(circle, updater, viewPane, plane);
+        genCircle.setUpdater(updater);
+        BuilderUtils.addToPlane(genCircle, viewablePlane);
     }
 
     public static void setCircle(GeometricCircle circle, BasicPoint a, BasicPoint b, BasicPoint c) {
@@ -81,6 +81,12 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     public static BasicCircle getCircle(BasicPoint a, BasicPoint b, BasicPoint c) {
+        BasicLine ab = LineThroughPointsBuilder.getLine(a, b);
+        double dc = ab.distance(c);
+        if (dc < BuilderUtils.EPSILON) {
+            return new BasicCircle(new BasicPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY);
+        }
+
         double x1 = a.x;
         double y1 = a.y;
         double x2 = b.x;

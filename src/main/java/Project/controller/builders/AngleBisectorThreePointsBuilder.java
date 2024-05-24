@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for creating an angle bisector using three points.
@@ -16,17 +15,14 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
-                a.setOnClicked();
                 return true;
             }
             else if (b == null) {
                 b = p;
-                b.setOnClicked();
                 return true;
             }
             else if (c == null) {
                 c = p;
-                c.setOnClicked();
                 return true;
             }
         }
@@ -40,20 +36,14 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void reset() {
-        if (a != null)
-            a.unclick();
         a = null;
-        if (b != null)
-            b.unclick();
         b = null;
-        if (c != null)
-            c.unclick();
         c = null;
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine line = new GeometricLine("Dwusieczna", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricLine line = new GeometricLine("Dwusieczna");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
@@ -64,7 +54,8 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
                 setLine(line, pA, pB, pC);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(line, updater, viewPane, plane);
+        line.setUpdater(updater);
+        BuilderUtils.addToPlane(line, viewablePlane);
     }
 
     public static void setLine(GeometricLine line, BasicPoint a, BasicPoint b, BasicPoint c) {

@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private GeometricCircle circle = null;
@@ -14,16 +13,18 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
         if (shape instanceof GeometricCircle c) {
             if (circle == null) {
                 circle = c;
-                circle.setOnClicked();
-                System.out.println("Accepting circle");
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            if (circle == null) {
+                circle = cc;
                 return true;
             }
         }
         else if (shape instanceof GeometricPoint p) {
             if (reflectionPoint == null) {
                 reflectionPoint = p;
-                reflectionPoint.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -42,8 +43,8 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricCircle reflectedCircle = new GeometricCircle("Odbity okrąg", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricCircle reflectedCircle = new GeometricCircle("Odbity okrąg");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle pCircle = circle;
             private GeometricPoint pReflectionPoint = reflectionPoint;
@@ -53,7 +54,8 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
                 setCircle(reflectedCircle, pCircle, pReflectionPoint);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(reflectedCircle, updater, viewPane, plane);
+        reflectedCircle.setUpdater(updater);
+        BuilderUtils.addToPlane(reflectedCircle, viewablePlane);
     }
 
     public static void setCircle(GeometricCircle circle, BasicCircle pCircle, BasicPoint pReflectionPoint) {

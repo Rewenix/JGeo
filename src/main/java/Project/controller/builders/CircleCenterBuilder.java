@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class CircleCenterBuilder implements GeometricShapeBuilder {
     private GeometricCircle circle = null;
@@ -12,6 +11,10 @@ public class CircleCenterBuilder implements GeometricShapeBuilder {
     public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricCircle c) {
             circle = c;
+            return true;
+        }
+        if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            circle = cc;
             return true;
         }
         return false;
@@ -28,8 +31,8 @@ public class CircleCenterBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint center = new GeometricPoint("Środek", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint center = new GeometricPoint("Środek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle c = circle;
 
@@ -38,7 +41,8 @@ public class CircleCenterBuilder implements GeometricShapeBuilder {
                 setPoint(center, c);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(center, updater, viewPane, plane);
+        center.setUpdater(updater);
+        BuilderUtils.addToPlane(center, viewablePlane);
     }
 
     public static void setPoint(GeometricPoint point, BasicCircle circle) {

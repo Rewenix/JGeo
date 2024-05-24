@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder {
     private GeometricSegment segment = null;
@@ -14,16 +13,24 @@ public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder 
         if (shape instanceof GeometricSegment s) {
             if (segment == null) {
                 segment = s;
-                segment.setOnClicked();
-                System.out.println("Accepting segment");
                 return true;
             }
         }
         else if (shape instanceof GeometricLine l) {
             if (line == null) {
                 line = l;
-                line.setOnClicked();
-                System.out.println("Accepting line");
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricSegment ll) {
+            if (segment == null) {
+                segment = ll;
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (line == null) {
+                line = ll;
                 return true;
             }
         }
@@ -42,8 +49,8 @@ public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder 
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricSegment reflectedSegment = new GeometricSegment("Odbity odcinek", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricSegment reflectedSegment = new GeometricSegment("Odbity odcinek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricSegment pSegment = segment;
             private GeometricLine pLine = line;
@@ -53,7 +60,8 @@ public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder 
                 setSegment(reflectedSegment, pSegment, pLine);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(reflectedSegment, updater, viewPane, plane);
+        reflectedSegment.setUpdater(updater);
+        BuilderUtils.addToPlane(reflectedSegment, viewablePlane);
     }
 
     public static void setSegment(GeometricSegment reflectedSegment, BasicSegment pSegment, BasicLine pLine) {

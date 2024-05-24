@@ -14,7 +14,15 @@ public class BasicCircle {
     }
 
     public void setCoordinates(BasicPoint center, double radius) {
-        this.center = center;
+        this.center.setCoordinates(center);
         this.radius = radius;
+    }
+
+    public void setCoordinates(BasicCircle circle) {
+        setCoordinates(circle.center, circle.radius);
+    }
+
+    public boolean isDefined() {
+        return center.isDefined() && Double.isFinite(radius) && radius > 0;
     }
 }

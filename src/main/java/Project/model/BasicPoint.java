@@ -29,4 +29,8 @@ public class BasicPoint {
     public double distance(BasicPoint p) {
         return Math.sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y));
     }
+
+    public boolean isDefined() {
+        return Double.isFinite(x) && Double.isFinite(y);
+    }
 }

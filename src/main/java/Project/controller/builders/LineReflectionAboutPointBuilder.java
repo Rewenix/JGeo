@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class LineReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private GeometricLine line = null;
@@ -14,16 +13,18 @@ public class LineReflectionAboutPointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricLine l) {
             if (line == null) {
                 line = l;
-                line.setOnClicked();
-                System.out.println("Accepting line");
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (line == null) {
+                line = ll;
                 return true;
             }
         }
         else if (shape instanceof GeometricPoint p) {
             if (reflectionPoint == null) {
                 reflectionPoint = p;
-                reflectionPoint.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -42,8 +43,8 @@ public class LineReflectionAboutPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricLine reflectedLine = new GeometricLine("Odbita prosta", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricLine reflectedLine = new GeometricLine("Odbita prosta");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricPoint pReflectionPoint = reflectionPoint;
@@ -53,7 +54,8 @@ public class LineReflectionAboutPointBuilder implements GeometricShapeBuilder {
                 setLine(reflectedLine, pLine, pReflectionPoint);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(reflectedLine, updater, viewPane, plane);
+        reflectedLine.setUpdater(updater);
+        BuilderUtils.addToPlane(reflectedLine, viewablePlane);
     }
 
     public static void setLine(GeometricLine line, BasicLine pLine, BasicPoint pReflectionPoint) {

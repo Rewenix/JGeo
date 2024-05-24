@@ -1,9 +1,8 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
 import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.view.ViewablePlane;
 
 public class CircleReflectionAboutLineBuilder implements GeometricShapeBuilder {
     private GeometricCircle circle = null;
@@ -14,16 +13,24 @@ public class CircleReflectionAboutLineBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricCircle c) {
             if (circle == null) {
                 circle = c;
-                circle.setOnClicked();
-                System.out.println("Accepting circle");
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
+            if (circle == null) {
+                circle = cc;
                 return true;
             }
         }
         else if (shape instanceof GeometricLine l) {
             if (line == null) {
                 line = l;
-                line.setOnClicked();
-                System.out.println("Accepting line");
+                return true;
+            }
+        }
+        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
+            if (line == null) {
+                line = ll;
                 return true;
             }
         }
@@ -42,8 +49,8 @@ public class CircleReflectionAboutLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricCircle reflectedCircle = new GeometricCircle("Odbite kolo", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricCircle reflectedCircle = new GeometricCircle("Odbite kolo");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle pCircle = circle;
             private GeometricLine pLine = line;
@@ -54,9 +61,7 @@ public class CircleReflectionAboutLineBuilder implements GeometricShapeBuilder {
             }
         };
         reflectedCircle.setUpdater(updater);
-        reflectedCircle.update();
-        reflectedCircle.setViewPane(viewPane);
-        plane.addGeometricShape(reflectedCircle);
+        BuilderUtils.addToPlane(reflectedCircle, viewablePlane);
     }
 
     public static void setCircle(GeometricCircle reflectedCircle, BasicCircle pCircle, BasicLine reflectionLine) {

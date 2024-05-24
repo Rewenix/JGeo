@@ -1,9 +1,11 @@
 package Project.controller.builders;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.controller.Transformation;
-import Project.model.*;
-import javafx.scene.layout.Pane;
+import Project.model.BasicPoint;
+import Project.model.GeometricPoint;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
+import Project.view.ViewablePlane;
 
 /**
  * A builder class for creating a midpoint between two points.
@@ -17,14 +19,10 @@ public class MidpointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint p) {
             if (a == null) {
                 a = p;
-                a.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
             else if (p != a) {
                 b = p;
-                b.setOnClicked();
-                System.out.println("Accepting point");
                 return true;
             }
         }
@@ -43,8 +41,8 @@ public class MidpointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
-    public void build(Plane2D plane, Transformation transformation, Pane viewPane, double planeX, double planeY) {
-        GeometricPoint midpoint = new GeometricPoint("Środek", plane, transformation);
+    public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        GeometricPoint midpoint = new GeometricPoint("Środek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
@@ -54,7 +52,8 @@ public class MidpointBuilder implements GeometricShapeBuilder {
                 setPoint(midpoint, pA, pB);
             }
         };
-        BuilderUtils.setUpdaterAndAdd(midpoint, updater, viewPane, plane);
+        midpoint.setUpdater(updater);
+        BuilderUtils.addToPlane(midpoint, viewablePlane);
     }
 
     public static void setPoint(GeometricPoint point, BasicPoint p1, BasicPoint p2) {
