@@ -1,12 +1,10 @@
 package Project.view;
 
-import Project.controller.Transformation;
-import Project.model.BasicLine;
 import Project.model.BasicSegment;
 import Project.model.GeometricSegment;
 import javafx.scene.shape.StrokeLineJoin;
 
-public class ViewableSegment extends ViewableLine{
+public class ViewableSegment extends ViewableLine {
     private final GeometricSegment geoSegment;
 
     public ViewableSegment(String name, ViewablePlane viewablePlane, GeometricSegment geoSegment) {

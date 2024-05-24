@@ -30,9 +30,4 @@ public class GeometricGenCircle extends GeometricShape {
     public boolean isDefined() { // chyba nie ma sytuacji, że oba nie są zdefiniowane
         return true;
     }
-
-    @Override
-    public int getPriority() {
-        return 2;
-    }
 }

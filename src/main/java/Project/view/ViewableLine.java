@@ -1,13 +1,12 @@
 package Project.view;
 
-import Project.controller.Transformation;
 import Project.model.BasicLine;
 import Project.model.GeometricLine;
 import Project.model.GeometricShape;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
-public class ViewableLine extends ViewableShape{
+public class ViewableLine extends ViewableShape {
     protected final Line drawableShape;
     protected final Line drawableHub;
     protected final GeometricLine geoLine;

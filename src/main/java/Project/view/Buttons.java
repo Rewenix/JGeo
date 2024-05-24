@@ -151,6 +151,12 @@ public class Buttons extends VBox {
                 },
                 "Projection onto Line",
                 "Projects a point onto a selected line. Point and line need to be drawn first with their method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Pole or Polar' button pressed");
+                    controller.changeActor(new PoleOrPolarBuilder());
+                },
+                "Pole or Polar",
+                "Draws a pole or a polar of a point with respect to a circle. Point and circle need to be drawn first with their method.");
 
         registerLayout();
     }
@@ -187,7 +193,7 @@ public class Buttons extends VBox {
 
         createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)", "Projection onto Line");
 
-        createButtonGroup("Transform", "Reflection about Point", "Reflection about Line");
+        createButtonGroup("Transform", "Reflection about Point", "Reflection about Line", "Pole or Polar");
     }
 
     private void createButtonGroup(String groupName, String... buttonNames) {

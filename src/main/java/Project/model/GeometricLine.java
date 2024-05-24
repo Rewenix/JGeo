@@ -13,11 +13,6 @@ public class GeometricLine extends GeometricShape {
         super();
     }
 
-    @Override
-    public int getPriority() {
-        return 2;
-    }
-
     public void setCoordinates(BasicLine line) {
         this.line.setCoordinates(line);
     }

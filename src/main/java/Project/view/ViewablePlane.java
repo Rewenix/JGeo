@@ -20,14 +20,6 @@ public class ViewablePlane {
         this.viewPane = viewPane;
     }
 
-    /*public ViewablePlane(Plane2D plane) {
-        this.plane = plane;
-    }
-
-    public ViewablePlane() {
-        this(new Plane2D());
-    }*/
-
     public Plane2D getPlane() {
         return plane;
     }

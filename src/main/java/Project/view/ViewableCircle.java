@@ -1,6 +1,5 @@
 package Project.view;
 
-import Project.controller.Transformation;
 import Project.model.BasicCircle;
 import Project.model.GeometricCircle;
 import Project.model.GeometricShape;
@@ -8,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class ViewableCircle extends ViewableShape{
+public class ViewableCircle extends ViewableShape {
     private final Circle drawableShape;
     private final Circle drawableHub;
     private final GeometricCircle geoCircle;

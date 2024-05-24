@@ -38,9 +38,4 @@ public class GeometricCircle extends GeometricShape {
         }
         return intersections.get(1);
     }
-
-    @Override
-    public int getPriority() {
-        return 2;
-    }
 }

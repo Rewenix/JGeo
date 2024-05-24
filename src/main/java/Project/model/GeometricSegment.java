@@ -36,9 +36,4 @@ public class GeometricSegment extends GeometricLine {
     public double distance(BasicPoint point) {
         return point.distance(projection(point));
     }
-
-    @Override
-    public int getPriority() {
-        return 1;
-    }
 }

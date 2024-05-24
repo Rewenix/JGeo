@@ -20,11 +20,6 @@ public class GeometricPoint extends GeometricShape {
         super();
     }
 
-    @Override
-    public int getPriority() {
-        return 0;
-    }
-
     public void setCoordinates(BasicPoint point) {
         this.point.setCoordinates(point);
     }

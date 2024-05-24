@@ -1,7 +1,5 @@
 package Project.model;
 
-import java.util.Comparator;
-
 public abstract class GeometricShape {
     protected String name;
     protected GeometricShapeUpdater updater;
@@ -27,10 +25,4 @@ public abstract class GeometricShape {
     public abstract BasicPoint projection(BasicPoint point);
 
     public abstract boolean isDefined();
-
-    public abstract int getPriority();
-
-    public static Comparator<GeometricShape> getPriorityComparator() {
-        return Comparator.comparingInt(GeometricShape::getPriority);
-    }
 }
