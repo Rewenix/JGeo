@@ -52,8 +52,8 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
             @Override
             public void update() {
                 setCircle(genCircle.circle, pA, pB, pC);
-                if (!genCircle.circle.isDefined() && pA.isDefined() && pB.isDefined() && pC.isDefined()) {
-                    genCircle.line.setCoordinates(LineThroughPointsBuilder.getLine(pA.point, pB.point));
+                if (!genCircle.circle.isDefined()) {
+                    LineThroughPointsBuilder.setLine(genCircle.line, pA.point, pB.point);
                 }
                 else {
                     genCircle.line.makeUndefined();
@@ -81,6 +81,12 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     public static BasicCircle getCircle(BasicPoint a, BasicPoint b, BasicPoint c) {
+        BasicLine ab = LineThroughPointsBuilder.getLine(a, b);
+        double dc = ab.distance(c);
+        if (dc < BuilderUtils.EPSILON) {
+            return new BasicCircle(new BasicPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY);
+        }
+
         double x1 = a.x;
         double y1 = a.y;
         double x2 = b.x;
