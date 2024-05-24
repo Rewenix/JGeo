@@ -8,7 +8,7 @@ public class Transformation {
     }
 
     public double toPlaneY(double screenY) {
-        return screenY * scale + offsetY;
+        return -screenY * scale + offsetY;
     }
 
     public double toScreenX(double planeX) {
@@ -16,6 +16,14 @@ public class Transformation {
     }
 
     public double toScreenY(double planeY) {
-        return (planeY - offsetY) / scale;
+        return -(planeY - offsetY) / scale;
+    }
+
+    public void changeScale(double screenX, double screenY, double mul){
+        double planeX = toPlaneX(screenX);
+        double planeY = toPlaneY(screenY);
+        scale = scale * mul;
+        offsetX = planeX - scale * screenX;
+        offsetY = planeY + scale * screenY;
     }
 }

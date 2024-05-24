@@ -15,6 +15,7 @@ public class Controller {
     private final ViewablePlane viewablePlane;
     private final Transformation transformation;
     private Actor selectedActor;
+    private static final double ZOOM_SPEED = 0.002; //TODO: wczytywać z pliku konfiguracyjnego
 
     public ViewablePlane getViewablePlane() {
         return viewablePlane;
@@ -77,6 +78,11 @@ public class Controller {
             selectedShifter.setOrigin(planeX, planeY);
             return;
         }
+    }
+
+    public void handleScrolled(double screenX, double screenY, double scrollAmount){
+        transformation.changeScale(screenX, screenY, Math.exp(-scrollAmount * ZOOM_SPEED));
+        viewablePlane.updateDrawables();
     }
 
     public void removeLastShape() {

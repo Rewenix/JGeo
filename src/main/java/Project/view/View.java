@@ -35,6 +35,10 @@ public class View extends BorderPane {
             controller.handleDragged(event.getX(), event.getY());
         });
 
+        drawingPane.setOnScroll(event -> {
+            controller.handleScrolled(event.getX(), event.getY(), event.getDeltaY());
+        });
+
         buttons.registerController(controller);
     }
 }
