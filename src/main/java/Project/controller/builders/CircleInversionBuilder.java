@@ -86,6 +86,8 @@ public class CircleInversionBuilder implements GeometricShapeBuilder {
         for (BasicPoint point : points) {
             invertedPoints.add(PointInversionBuilder.getPoint(point, inversionCircle));
         }
+        if (invertedPoints.size() < 2)
+            return new BasicLine(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
         return LineThroughPointsBuilder.getLine(invertedPoints.get(0), invertedPoints.get(1));
     }
 
@@ -103,6 +105,8 @@ public class CircleInversionBuilder implements GeometricShapeBuilder {
         for (BasicPoint point : points) {
             invertedPoints.add(PointInversionBuilder.getPoint(point, inversionCircle));
         }
+        if (invertedPoints.size() < 3)
+            return new BasicCircle(new BasicPoint(), Double.POSITIVE_INFINITY);
         return CircleThroughThreePointsBuilder.getCircle(invertedPoints.get(0), invertedPoints.get(1), invertedPoints.get(2));
     }
 }

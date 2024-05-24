@@ -79,10 +79,10 @@ public class LineInversionBuilder implements GeometricShapeBuilder {
     }
 
     public static BasicCircle getCircle(BasicLine line, BasicCircle circle) {
-        BasicPoint p1 = new BasicPoint(1, 1);
-        BasicPoint p2 = new BasicPoint(-1, -1);
-        BasicPoint p3 = new BasicPoint(-2, -2);
-        BasicPoint p4 = new BasicPoint(2, 2);
+        BasicPoint p1 = new BasicPoint(100, 100);
+        BasicPoint p2 = new BasicPoint(-100, -100);
+        BasicPoint p3 = new BasicPoint(-200, -200);
+        BasicPoint p4 = new BasicPoint(200, 200);
         if (Math.abs(line.B) < Math.abs(line.A)) {
             p1.x = -(line.C + line.B * p1.y) / line.A;
             p2.x = -(line.C + line.B * p2.y) / line.A;
@@ -106,6 +106,8 @@ public class LineInversionBuilder implements GeometricShapeBuilder {
         for (BasicPoint point : pointsNotOnCenter) {
             invertedPoints.add(PointInversionBuilder.getPoint(point, circle));
         }
+
+        if (invertedPoints.size() < 3) return new BasicCircle(new BasicPoint(), Double.POSITIVE_INFINITY);
 
         return CircleThroughThreePointsBuilder.getCircle(invertedPoints.get(0), invertedPoints.get(1), invertedPoints.get(2));
     }
