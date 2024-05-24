@@ -8,6 +8,7 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
     private final LineIntersectionBuilder lineIntersectionBuilder = new LineIntersectionBuilder();
     private final CircleIntersectionBuilder circleIntersectionBuilder = new CircleIntersectionBuilder();
     private final LineAndCircleIntersectionBuilder lineAndCircleIntersectionBuilder = new LineAndCircleIntersectionBuilder();
+    private final GenCircleIntersectionBuilder genCircleIntersectionBuilder = new GenCircleIntersectionBuilder();
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
@@ -21,12 +22,15 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
         if (lineAndCircleIntersectionBuilder.acceptArgument(shape)) {
             accepted = true;
         }
+        if (genCircleIntersectionBuilder.acceptArgument(shape)) {
+            accepted = true;
+        }
         return accepted;
     }
 
     @Override
     public boolean isReady() {
-        return lineIntersectionBuilder.isReady() || circleIntersectionBuilder.isReady() || lineAndCircleIntersectionBuilder.isReady();
+        return lineIntersectionBuilder.isReady() || circleIntersectionBuilder.isReady() || lineAndCircleIntersectionBuilder.isReady() || genCircleIntersectionBuilder.isReady();
     }
 
     @Override
@@ -34,6 +38,7 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
         lineIntersectionBuilder.reset();
         circleIntersectionBuilder.reset();
         lineAndCircleIntersectionBuilder.reset();
+        genCircleIntersectionBuilder.reset();
     }
 
     @Override
@@ -46,6 +51,9 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
         }
         else if (lineAndCircleIntersectionBuilder.isReady()) {
             lineAndCircleIntersectionBuilder.build(viewablePlane, planeX, planeY);
+        }
+        else if (genCircleIntersectionBuilder.isReady()) {
+            genCircleIntersectionBuilder.build(viewablePlane, planeX, planeY);
         }
     }
 }
