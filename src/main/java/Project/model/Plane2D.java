@@ -3,14 +3,15 @@ package Project.model;
 import java.util.ArrayList;
 
 public class Plane2D {
-    private ArrayList<GeometricShape> shapes = new ArrayList<>();
+    private final ArrayList<GeometricShape> shapes = new ArrayList<>();
 
     public void addGeometricShape(GeometricShape shape) {
         shapes.add(shape);
     }
 
-    public void removeLastShape() {
-        if (!shapes.isEmpty()) shapes.remove(shapes.size() - 1);
+    public GeometricShape removeLastShape() {
+        if (!shapes.isEmpty()) return shapes.remove(shapes.size() - 1);
+        return null;
     }
 
     public void clear() {

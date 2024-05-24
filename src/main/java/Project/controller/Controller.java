@@ -1,5 +1,6 @@
 package Project.controller;
 
+import Project.model.GeometricGenCircle;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
@@ -80,10 +81,16 @@ public class Controller {
     }
 
     public void removeLastShape() {
-        viewablePlane.removeLastShape();
+        GeometricShape removedShape = plane.removeLastShape();
+        if(removedShape != null) {
+            viewablePlane.removeLastShape();
+            if(removedShape instanceof GeometricGenCircle)
+                viewablePlane.removeLastShape();
+        }
     }
 
     public void clearShapes() {
+        plane.clear();
         viewablePlane.clear();
     }
 }
