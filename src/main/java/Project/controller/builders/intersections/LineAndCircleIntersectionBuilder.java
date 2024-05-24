@@ -20,21 +20,9 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
-        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
-            if (line == null) {
-                line = ll;
-                return true;
-            }
-        }
         if (shape instanceof GeometricCircle c) {
             if (circle == null) {
                 circle = c;
-                return true;
-            }
-        }
-        else if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
-            if (circle == null) {
-                circle = cc;
                 return true;
             }
         }
