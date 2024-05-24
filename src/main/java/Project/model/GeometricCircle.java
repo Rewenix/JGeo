@@ -1,7 +1,7 @@
 package Project.model;
 
-import Project.controller.builders.LineAndCircleIntersectionBuilder;
-import Project.controller.builders.LineThroughPointsBuilder;
+import Project.controller.builders.intersections.LineAndCircleIntersectionBuilder;
+import Project.controller.builders.lines.LineThroughPointsBuilder;
 
 import java.util.List;
 

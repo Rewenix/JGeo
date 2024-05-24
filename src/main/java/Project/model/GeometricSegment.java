@@ -1,7 +1,7 @@
 package Project.model;
 
 import Project.controller.builders.BuilderUtils;
-import Project.controller.builders.PointProjectionOntoLineBuilder;
+import Project.controller.builders.points.PointProjectionOntoLineBuilder;
 
 public class GeometricSegment extends GeometricLine {
 

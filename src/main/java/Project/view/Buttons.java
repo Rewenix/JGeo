@@ -2,7 +2,18 @@ package Project.view;
 
 import Project.controller.Controller;
 import Project.controller.Shifter;
-import Project.controller.builders.*;
+import Project.controller.builders.circles.CircleThroughThreePointsBuilder;
+import Project.controller.builders.circles.CircleWithCenterAndPointBuilder;
+import Project.controller.builders.circles.IncircleBuilder;
+import Project.controller.builders.intersections.IntersectionBuilder;
+import Project.controller.builders.lines.*;
+import Project.controller.builders.points.CenterOrMidpointBuilder;
+import Project.controller.builders.points.PointBuilder;
+import Project.controller.builders.points.PointProjectionOntoLineBuilder;
+import Project.controller.builders.transforms.inversion.InversionBuilder;
+import Project.controller.builders.transforms.polars.PoleOrPolarBuilder;
+import Project.controller.builders.transforms.symmetry.line.ReflectionAboutLineBuilder;
+import Project.controller.builders.transforms.symmetry.point.ReflectionAboutPointBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -163,6 +174,12 @@ public class Buttons extends VBox {
                 },
                 "Inversion",
                 "Inverts a shape with respect to a circle. Shape and circle need to be drawn first with their method.");
+        registerToggleButton(event -> {
+                    System.out.println("'Incircle' button pressed");
+                    controller.changeActor(new IncircleBuilder());
+                },
+                "Incircle",
+                "Draws an incircle of a triangle. Triangle needs to be drawn first with 'Point' method.");
 
         registerLayout();
     }
@@ -195,9 +212,11 @@ public class Buttons extends VBox {
 
         getChildren().add(scrollPane);
 
-        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment", "Circle(Center, Point)", "Circle(Point, Point, Point)", "Intersection");
+        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment",
+                "Circle(Center, Point)", "Circle(Point, Point, Point)", "Intersection");
 
-        createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)", "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)", "Projection onto Line");
+        createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)",
+                "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)", "Projection onto Line", "Incircle");
 
         createButtonGroup("Transform", "Reflection about Point", "Reflection about Line", "Pole or Polar", "Inversion");
     }
