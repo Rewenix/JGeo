@@ -2,6 +2,7 @@ package Project.controller.builders.intersections;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
+import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.model.*;
 import Project.view.ViewablePlane;
 
@@ -91,6 +92,7 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
         double y3 = y1 + aa * (y2 - y1) / d;
         BasicPoint i1 = new BasicPoint(x3 + h * (y2 - y1) / d, y3 - h * (x2 - x1) / d);
         BasicPoint i2 = new BasicPoint(x3 - h * (y2 - y1) / d, y3 + h * (x2 - x1) / d);
-        return List.of(i1, i2);
+        BasicLine radicalAxis = LineThroughPointsBuilder.getLine(i1, i2);
+        return LineAndCircleIntersectionBuilder.getPoints(radicalAxis, c1);
     }
 }
