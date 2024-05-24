@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ViewablePlane {
-    Plane2D plane;
+    final Plane2D plane;
     private final List<ViewableShape> shapes = new ArrayList<>();
     final Transformation transformation = new Transformation();
-    Pane viewPane;
+    final Pane viewPane;
     static double hitbox = 8; //TODO wczytać z pliku konfiguracyjnego
 
     public ViewablePlane(Plane2D plane, Pane viewPane) {
@@ -20,13 +20,13 @@ public class ViewablePlane {
         this.viewPane = viewPane;
     }
 
-    public ViewablePlane(Plane2D plane) {
+    /*public ViewablePlane(Plane2D plane) {
         this.plane = plane;
     }
 
     public ViewablePlane() {
         this(new Plane2D());
-    }
+    }*/
 
     public Plane2D getPlane() {
         return plane;
@@ -34,14 +34,6 @@ public class ViewablePlane {
 
     public Transformation getTransformation() {
         return transformation;
-    }
-
-    public void setViewPane(Pane viewPane) {
-        this.viewPane = viewPane;
-    }
-
-    public Pane getViewPane() {
-        return viewPane;
     }
 
     public void addViewableShape(ViewableShape shape) {

@@ -15,7 +15,6 @@ public class Controller {
     private final ViewablePlane viewablePlane;
     private final Transformation transformation;
     private Actor selectedActor;
-    // private final Pane viewPane;
 
     public ViewablePlane getViewablePlane() {
         return viewablePlane;
@@ -30,14 +29,12 @@ public class Controller {
     }
 
     public Controller(Pane viewPane) {
-        // this.viewPane = viewPane;
         viewablePlane = new ViewablePlane(plane, viewPane);
         transformation = viewablePlane.getTransformation();
         selectedActor = null;
     }
 
     public void changeActor(Actor actor) {
-        System.out.println("Change actor");
         selectedActor = actor;
         viewablePlane.unclickAll();
     }
@@ -52,7 +49,6 @@ public class Controller {
                     break;
                 }
             if (selectedBuilder.isReady()) {
-                System.out.println("Building shape with builder");
                 selectedBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
                 selectedBuilder.reset();
                 viewablePlane.unclickAll();
@@ -79,7 +75,6 @@ public class Controller {
             double planeX = transformation.toPlaneX(screenX);
             double planeY = transformation.toPlaneY(screenY);
             selectedShifter.setOrigin(planeX, planeY);
-            viewablePlane.updateDrawables();
             return;
         }
     }
