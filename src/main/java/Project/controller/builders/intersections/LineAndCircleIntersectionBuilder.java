@@ -119,9 +119,17 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
             tmp = x2;
             x2 = y2;
             y2 = tmp;
+            if(B > 0) {
+                tmp = x1;
+                x1 = x2;
+                x2 = tmp;
+                tmp = y1;
+                y1 = y2;
+                y2 = tmp;
+            }
         }
 
-        if (B < 0) {
+        else if (B < 0) {
             double tmp = x1;
             x1 = x2;
             x2 = tmp;
