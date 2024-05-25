@@ -20,21 +20,9 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
-        else if (shape instanceof GeometricGenCircle l && l.nowIAm() instanceof GeometricLine ll) {
-            if (line == null) {
-                line = ll;
-                return true;
-            }
-        }
         if (shape instanceof GeometricCircle c) {
             if (circle == null) {
                 circle = c;
-                return true;
-            }
-        }
-        else if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
-            if (circle == null) {
-                circle = cc;
                 return true;
             }
         }
@@ -50,6 +38,11 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
     public void reset() {
         line = null;
         circle = null;
+    }
+
+    @Override
+    public boolean awaitsPoint() {
+        return false;
     }
 
     @Override
@@ -119,7 +112,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
             tmp = x2;
             x2 = y2;
             y2 = tmp;
-            if(B >= 0) {
+            if (B >= 0) {
                 tmp = x1;
                 x1 = x2;
                 x2 = tmp;
@@ -139,5 +132,25 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         }
 
         return List.of(new BasicPoint(x1, y1), new BasicPoint(x2, y2));
+    }
+
+    public List<GeometricPoint> getIntersections() {
+        GeometricPoint intersection1 = new GeometricPoint("Intersection 1");
+        GeometricPoint intersection2 = new GeometricPoint("Intersection 2");
+        GeometricShapeUpdater updater = new GeometricShapeUpdater() {
+            private GeometricLine l = line;
+            private GeometricCircle c = circle;
+
+            @Override
+            public void update() {
+                setPoints(intersection1, intersection2, l, c);
+            }
+        };
+        intersection1.setUpdater(updater);
+        intersection2.setUpdater(updater);
+        intersection1.update();
+        intersection2.update();
+        reset();
+        return List.of(intersection1, intersection2);
     }
 }

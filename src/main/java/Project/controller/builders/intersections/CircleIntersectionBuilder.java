@@ -2,7 +2,6 @@ package Project.controller.builders.intersections;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.model.*;
 import Project.view.ViewablePlane;
 
@@ -24,16 +23,6 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
                 return true;
             }
         }
-        if (shape instanceof GeometricGenCircle c && c.nowIAm() instanceof GeometricCircle cc) {
-            if (a == null) {
-                a = cc;
-                return true;
-            }
-            else if (cc != a) {
-                b = cc;
-                return true;
-            }
-        }
         return false;
     }
 
@@ -46,6 +35,11 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
     public void reset() {
         a = null;
         b = null;
+    }
+
+    @Override
+    public boolean awaitsPoint() {
+        return false;
     }
 
     @Override
@@ -92,7 +86,26 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
         double y3 = y1 + aa * (y2 - y1) / d;
         BasicPoint i1 = new BasicPoint(x3 + h * (y2 - y1) / d, y3 - h * (x2 - x1) / d);
         BasicPoint i2 = new BasicPoint(x3 - h * (y2 - y1) / d, y3 + h * (x2 - x1) / d);
-        BasicLine radicalAxis = LineThroughPointsBuilder.getLine(i1, i2);
-        return LineAndCircleIntersectionBuilder.getPoints(radicalAxis, c1);
+        return List.of(i1, i2);
+    }
+
+    public List<GeometricPoint> getIntersections() {
+        GeometricPoint i1 = new GeometricPoint("Intersection 1");
+        GeometricPoint i2 = new GeometricPoint("Intersection 2");
+        GeometricShapeUpdater updater = new GeometricShapeUpdater() {
+            private GeometricCircle cA = a;
+            private GeometricCircle cB = b;
+
+            @Override
+            public void update() {
+                setPoints(i1, i2, cA, cB);
+            }
+        };
+        i1.setUpdater(updater);
+        i2.setUpdater(updater);
+        i1.update();
+        i2.update();
+        reset();
+        return List.of(i1, i2);
     }
 }

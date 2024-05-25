@@ -43,6 +43,11 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return a == null || b == null || c == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine line = new GeometricLine("Dwusieczna");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

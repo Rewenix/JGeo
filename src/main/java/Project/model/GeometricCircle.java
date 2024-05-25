@@ -29,6 +29,11 @@ public class GeometricCircle extends GeometricShape {
         return circle.isDefined();
     }
 
+    public void makeUndefined() {
+        circle.center.setCoordinates(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        circle.radius = Double.POSITIVE_INFINITY;
+    }
+
     @Override
     public BasicPoint projection(BasicPoint point) {
         BasicLine line = LineThroughPointsBuilder.getLine(circle.center, point);

@@ -47,6 +47,11 @@ public class LineReflectionAboutLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine reflectedLine = new GeometricLine("Odbita prosta");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

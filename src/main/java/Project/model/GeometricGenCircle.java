@@ -1,15 +1,31 @@
 package Project.model;
 
 public class GeometricGenCircle extends GeometricShape {
-    public final GeometricLine line = new GeometricLine();
-    public final GeometricCircle circle = new GeometricCircle();
+    public final GeometricLine line;
+    public final GeometricCircle circle;
 
     public GeometricGenCircle(String name) {
         super(name);
+        this.line = new GeometricLine();
+        this.circle = new GeometricCircle();
     }
 
     public GeometricGenCircle() {
-        super();
+        this("");
+    }
+
+    public GeometricGenCircle(GeometricLine line) {
+        super("");
+        this.line = line;
+        this.circle = new GeometricCircle();
+        circle.makeUndefined();
+    }
+
+    public GeometricGenCircle(GeometricCircle circle) {
+        super("");
+        this.line = new GeometricLine();
+        line.makeUndefined();
+        this.circle = circle;
     }
 
     @Override
@@ -19,6 +35,10 @@ public class GeometricGenCircle extends GeometricShape {
 
     public GeometricShape nowIAm() {
         return circle.isDefined() ? circle : line;
+    }
+
+    public boolean isLine() {
+        return nowIAm() == line;
     }
 
     @Override

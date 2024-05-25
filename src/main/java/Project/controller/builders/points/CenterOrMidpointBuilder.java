@@ -25,6 +25,11 @@ public class CenterOrMidpointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return circleCenterBuilder.awaitsPoint() || midpointBuilder.awaitsPoint();
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         if (circleCenterBuilder.isReady()) {
             circleCenterBuilder.build(viewablePlane, planeX, planeY);

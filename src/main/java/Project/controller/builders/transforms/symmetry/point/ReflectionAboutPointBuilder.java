@@ -43,6 +43,12 @@ public class ReflectionAboutPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return pointReflectionAboutPointBuilder.awaitsPoint() || lineReflectionAboutPointBuilder.awaitsPoint()
+                || circleReflectionAboutPointBuilder.awaitsPoint() || segmentReflectionAboutPointBuilder.awaitsPoint();
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         if (pointReflectionAboutPointBuilder.isReady()) {
             pointReflectionAboutPointBuilder.build(viewablePlane, planeX, planeY);

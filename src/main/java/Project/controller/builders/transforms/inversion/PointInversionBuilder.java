@@ -44,6 +44,11 @@ public class PointInversionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint invertedPoint = new GeometricPoint("punkt po inwersji");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

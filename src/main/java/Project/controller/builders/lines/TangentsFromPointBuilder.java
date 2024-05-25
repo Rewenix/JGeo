@@ -41,6 +41,11 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine tangent1 = new GeometricLine("Tangent1");
         GeometricLine tangent2 = new GeometricLine("Tangent2");

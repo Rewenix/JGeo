@@ -39,6 +39,11 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return b == null || a == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine line = new GeometricLine("Prosta");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

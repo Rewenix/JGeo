@@ -51,6 +51,11 @@ public class CircleInversionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricGenCircle invertedCircle = new GeometricGenCircle();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

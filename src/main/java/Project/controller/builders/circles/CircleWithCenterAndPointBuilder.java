@@ -40,6 +40,11 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricCircle circle = new GeometricCircle("Okrąg");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

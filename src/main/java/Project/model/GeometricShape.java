@@ -6,10 +6,11 @@ public abstract class GeometricShape {
 
     public GeometricShape(String name) {
         this.name = name;
+        //this.updater = () -> {};
     }
 
     public GeometricShape() {
-        this.name = "";
+        this("");
     }
 
     public void setUpdater(GeometricShapeUpdater updater) {

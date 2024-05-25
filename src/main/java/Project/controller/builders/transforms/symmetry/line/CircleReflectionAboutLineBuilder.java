@@ -50,6 +50,11 @@ public class CircleReflectionAboutLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricCircle reflectedCircle = new GeometricCircle("Odbite kolo");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

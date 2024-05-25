@@ -50,6 +50,11 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint projectedPoint = new GeometricPoint("Punkt rzutowany");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

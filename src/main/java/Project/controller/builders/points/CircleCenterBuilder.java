@@ -32,6 +32,11 @@ public class CircleCenterBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint center = new GeometricPoint("Środek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

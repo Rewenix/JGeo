@@ -47,6 +47,11 @@ public class PolarBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine polarLine = new GeometricLine("Polar");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
