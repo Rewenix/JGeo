@@ -1,5 +1,6 @@
 package Project.controller.builders.circles;
 
+import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
@@ -90,7 +91,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     public static BasicCircle getCircle(BasicPoint a, BasicPoint b, BasicPoint c) {
         BasicLine ab = LineThroughPointsBuilder.getLine(a, b);
         double dc = ab.distance(c);
-        if (dc < BuilderUtils.EPSILON) {
+        if (dc < Config.EPSILON) {
             return new BasicCircle(new BasicPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY);
         }
 

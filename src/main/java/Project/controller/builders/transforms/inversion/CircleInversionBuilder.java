@@ -1,5 +1,6 @@
 package Project.controller.builders.transforms.inversion;
 
+import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.circles.CircleThroughThreePointsBuilder;
@@ -87,9 +88,9 @@ public class CircleInversionBuilder implements GeometricShapeBuilder {
         BasicPoint p2 = new BasicPoint(circle.center.x - circle.radius, circle.center.y);
         BasicPoint p3 = new BasicPoint(circle.center.x, circle.center.y + circle.radius);
         List<BasicPoint> points = new ArrayList<>();
-        if (inversionCircle.center.distance(p1) > BuilderUtils.EPSILON) points.add(p1);
-        if (inversionCircle.center.distance(p2) > BuilderUtils.EPSILON) points.add(p2);
-        if (inversionCircle.center.distance(p3) > BuilderUtils.EPSILON) points.add(p3);
+        if (inversionCircle.center.distance(p1) > Config.EPSILON) points.add(p1);
+        if (inversionCircle.center.distance(p2) > Config.EPSILON) points.add(p2);
+        if (inversionCircle.center.distance(p3) > Config.EPSILON) points.add(p3);
         List<BasicPoint> invertedPoints = new ArrayList<>();
         for (BasicPoint point : points) {
             invertedPoints.add(PointInversionBuilder.getPoint(point, inversionCircle));
@@ -105,10 +106,10 @@ public class CircleInversionBuilder implements GeometricShapeBuilder {
         BasicPoint p3 = new BasicPoint(circle.center.x, circle.center.y + circle.radius);
         BasicPoint p4 = new BasicPoint(circle.center.x, circle.center.y - circle.radius);
         List<BasicPoint> points = new ArrayList<>();
-        if (inversionCircle.center.distance(p1) > BuilderUtils.EPSILON) points.add(p1);
-        if (inversionCircle.center.distance(p2) > BuilderUtils.EPSILON) points.add(p2);
-        if (inversionCircle.center.distance(p3) > BuilderUtils.EPSILON) points.add(p3);
-        if (inversionCircle.center.distance(p4) > BuilderUtils.EPSILON) points.add(p4);
+        if (inversionCircle.center.distance(p1) > Config.EPSILON) points.add(p1);
+        if (inversionCircle.center.distance(p2) > Config.EPSILON) points.add(p2);
+        if (inversionCircle.center.distance(p3) > Config.EPSILON) points.add(p3);
+        if (inversionCircle.center.distance(p4) > Config.EPSILON) points.add(p4);
         List<BasicPoint> invertedPoints = new ArrayList<>();
         for (BasicPoint point : points) {
             invertedPoints.add(PointInversionBuilder.getPoint(point, inversionCircle));

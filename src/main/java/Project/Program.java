@@ -12,6 +12,7 @@ public class Program extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("JGeo");
 
+        Config.load();
         View view = new View();
         Controller controller = new Controller(view.drawingPane);
         view.registerController(controller);

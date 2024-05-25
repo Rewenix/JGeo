@@ -1,5 +1,6 @@
 package Project.controller;
 
+import Project.Config;
 import Project.controller.builders.intersections.IntersectionBuilder;
 import Project.controller.builders.points.PointBuilder;
 import Project.model.GeometricGenCircle;
@@ -19,7 +20,6 @@ public class Controller {
     private final ViewablePlane viewablePlane;
     private final Transformation transformation;
     private Actor selectedActor;
-    private static final double ZOOM_SPEED = 0.002; //TODO: wczytywać z pliku konfiguracyjnego
     private final PointBuilder pointBuilder = new PointBuilder();
 
     public ViewablePlane getViewablePlane() {
@@ -96,7 +96,7 @@ public class Controller {
     }
 
     public void handleScrolled(double screenX, double screenY, double scrollAmount) {
-        transformation.changeScale(screenX, screenY, Math.exp(-scrollAmount * ZOOM_SPEED));
+        transformation.changeScale(screenX, screenY, Math.exp(-scrollAmount * Config.ZOOM_SPEED));
         viewablePlane.updateDrawables();
     }
 

@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.Config;
 import Project.controller.Transformation;
 import Project.model.BasicPoint;
 import Project.model.GeometricShape;
@@ -47,7 +48,7 @@ public abstract class ViewableShape {
         BasicPoint p = new BasicPoint(viewablePlane.transformation.toPlaneX(screenX), viewablePlane.transformation.toPlaneY(screenY));
         double distance = getGeometricShape().distance(p);
         double screenDistance = distance / viewablePlane.transformation.scale;
-        return screenDistance <= ViewablePlane.hitbox;
+        return screenDistance <= Config.HITBOX;
     }
 
     public abstract void updateDrawable();

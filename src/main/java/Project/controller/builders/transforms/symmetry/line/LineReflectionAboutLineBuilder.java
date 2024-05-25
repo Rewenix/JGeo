@@ -1,5 +1,6 @@
 package Project.controller.builders.transforms.symmetry.line;
 
+import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
@@ -78,7 +79,7 @@ public class LineReflectionAboutLineBuilder implements GeometricShapeBuilder {
     public static BasicLine getLine(BasicLine line, BasicLine reflectionLine) { // nie znalazlem jakiegos normalnego wzoru wiec taka łopatologia
         BasicPoint p1 = new BasicPoint(1, 1);
         BasicPoint p2 = new BasicPoint(-1, -1);
-        if (Math.abs(line.B) < BuilderUtils.EPSILON) {
+        if (Math.abs(line.B) < Config.EPSILON) {
             p1.x = -(line.C + line.B * p1.y) / line.A;
             p2.x = -(line.C + line.B * p2.y) / line.A;
         }

@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.Config;
 import Project.model.BasicLine;
 import Project.model.GeometricLine;
 import Project.model.GeometricShape;
@@ -10,7 +11,6 @@ public class ViewableLine extends ViewableShape {
     protected final Line drawableShape;
     protected final Line drawableHub;
     protected final GeometricLine geoLine;
-    private static final double D = 5000;// jak daleko wyznaczane są końce na Plane2D
 
     public ViewableLine(String name, ViewablePlane viewablePlane, GeometricLine geoLine) {
         super(name, viewablePlane);
@@ -21,7 +21,7 @@ public class ViewableLine extends ViewableShape {
 
     @Override
     public double getHub() {
-        return 4;
+        return Config.LINE_HUB;
     }
 
     @Override
@@ -39,14 +39,14 @@ public class ViewableLine extends ViewableShape {
         double X1, Y1, X2, Y2;
         BasicLine line = geoLine.line;
         if (Math.abs(line.A) > Math.abs(line.B)) {
-            Y1 = viewablePlane.transformation.toPlaneY(-D);
-            Y2 = viewablePlane.transformation.toPlaneY(D);
+            Y1 = viewablePlane.transformation.toPlaneY(-Config.LINE_LENGTH);
+            Y2 = viewablePlane.transformation.toPlaneY(Config.LINE_LENGTH);
             X1 = -(line.B / line.A) * Y1 - line.C / line.A;
             X2 = -(line.B / line.A) * Y2 - line.C / line.A;
         }
         else {
-            X1 = viewablePlane.transformation.toPlaneX(-D);
-            X2 = viewablePlane.transformation.toPlaneX(D);
+            X1 = viewablePlane.transformation.toPlaneX(-Config.LINE_LENGTH);
+            X2 = viewablePlane.transformation.toPlaneX(Config.LINE_LENGTH);
             Y1 = -(line.A / line.B) * X1 - line.C / line.B;
             Y2 = -(line.A / line.B) * X2 - line.C / line.B;
         }

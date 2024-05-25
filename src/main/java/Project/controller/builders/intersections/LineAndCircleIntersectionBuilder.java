@@ -1,5 +1,6 @@
 package Project.controller.builders.intersections;
 
+import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
@@ -80,7 +81,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
 
     public static List<BasicPoint> getPoints(BasicLine l, BasicCircle circle) {
         BasicPoint projection = PointProjectionOntoLineBuilder.getPoint(circle.center, l);
-        if (Math.abs(projection.distance(circle.center) - circle.radius) <= BuilderUtils.EPSILON) {
+        if (Math.abs(projection.distance(circle.center) - circle.radius) <= Config.EPSILON) {
             return List.of(projection, projection);
         }
 
@@ -89,7 +90,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         double x0 = circle.center.x;
         double y0 = circle.center.y;
         double R = circle.radius;
-        if (Math.abs(l.B) <= BuilderUtils.EPSILON) {
+        if (Math.abs(l.B) <= Config.EPSILON) {
             A = l.B;
             B = l.A;
             x0 = circle.center.y;
@@ -105,7 +106,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         double x2 = (-b - Math.sqrt(delta)) / (2 * a);
         double y2 = (-A * x2 - l.C) / B;
 
-        if (Math.abs(l.B) <= BuilderUtils.EPSILON) {
+        if (Math.abs(l.B) <= Config.EPSILON) {
             double tmp = x1;
             x1 = y1;
             y1 = tmp;

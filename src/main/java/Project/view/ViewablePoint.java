@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.Config;
 import Project.model.BasicPoint;
 import Project.model.GeometricPoint;
 import javafx.scene.paint.Color;
@@ -7,7 +8,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 public class ViewablePoint extends ViewableShape {
-    private static final double R = 4;
     private final Circle drawableShape;
     private final Circle drawableHub;
     private final GeometricPoint geoPoint;
@@ -15,14 +15,14 @@ public class ViewablePoint extends ViewableShape {
     public ViewablePoint(String name, ViewablePlane viewablePlane, GeometricPoint geoPoint) {
         super(name, viewablePlane);
         this.geoPoint = geoPoint;
-        drawableShape = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), R);
-        drawableHub = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), R);
+        drawableShape = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), Config.POINT_RADIUS);
+        drawableHub = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), Config.POINT_RADIUS);
         drawableHub.setFill(Color.TRANSPARENT);
     }
 
     @Override
     public double getHub() {
-        return 8;
+        return Config.POINT_HUB;
     }
 
     @Override

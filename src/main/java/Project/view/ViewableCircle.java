@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.Config;
 import Project.model.BasicCircle;
 import Project.model.GeometricCircle;
 import Project.model.GeometricShape;
@@ -24,7 +25,7 @@ public class ViewableCircle extends ViewableShape {
 
     @Override
     public double getHub() {
-        return 4;
+        return Config.CIRCLE_HUB;
     }
 
     @Override

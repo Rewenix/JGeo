@@ -13,7 +13,6 @@ public class ViewablePlane {
     private final List<ViewableShape> shapes = new ArrayList<>();
     final Transformation transformation = new Transformation();
     final Pane viewPane;
-    static double hitbox = 8; //TODO wczytać z pliku konfiguracyjnego
 
     public ViewablePlane(Plane2D plane, Pane viewPane) {
         this.plane = plane;

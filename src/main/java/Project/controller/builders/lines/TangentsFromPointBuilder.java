@@ -1,5 +1,6 @@
 package Project.controller.builders.lines;
 
+import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
@@ -69,7 +70,7 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         double a = circle.center.x;
         double b = circle.center.y; // (x-a)^2 + (y-b)^2 = r^2
 
-        if (Math.abs(BasicPoint.distance(point, circle.center) - r) <= BuilderUtils.EPSILON) {
+        if (Math.abs(BasicPoint.distance(point, circle.center) - r) <= Config.EPSILON) {
             BasicLine line = LineThroughPointsBuilder.getLine(point, circle.center);
             PerpendicularLineBuilder.setLine(line1, line, point);
             PerpendicularLineBuilder.setLine(line2, line, point);

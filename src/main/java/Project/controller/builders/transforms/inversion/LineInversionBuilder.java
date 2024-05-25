@@ -1,5 +1,6 @@
 package Project.controller.builders.transforms.inversion;
 
+import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.circles.CircleThroughThreePointsBuilder;
@@ -104,10 +105,10 @@ public class LineInversionBuilder implements GeometricShapeBuilder {
         }
 
         List<BasicPoint> pointsNotOnCenter = new ArrayList<>();
-        if (circle.center.distance(p1) > BuilderUtils.EPSILON) pointsNotOnCenter.add(p1);
-        if (circle.center.distance(p2) > BuilderUtils.EPSILON) pointsNotOnCenter.add(p2);
-        if (circle.center.distance(p3) > BuilderUtils.EPSILON) pointsNotOnCenter.add(p3);
-        if (circle.center.distance(p4) > BuilderUtils.EPSILON) pointsNotOnCenter.add(p4);
+        if (circle.center.distance(p1) > Config.EPSILON) pointsNotOnCenter.add(p1);
+        if (circle.center.distance(p2) > Config.EPSILON) pointsNotOnCenter.add(p2);
+        if (circle.center.distance(p3) > Config.EPSILON) pointsNotOnCenter.add(p3);
+        if (circle.center.distance(p4) > Config.EPSILON) pointsNotOnCenter.add(p4);
 
         List<BasicPoint> invertedPoints = new ArrayList<>();
         for (BasicPoint point : pointsNotOnCenter) {

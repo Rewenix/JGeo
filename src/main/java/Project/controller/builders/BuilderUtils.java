@@ -4,7 +4,6 @@ import Project.model.*;
 import Project.view.*;
 
 public class BuilderUtils { // Zobaczymy czy jest to przydatne. Najwyzej sie usunie
-    public static final double EPSILON = 1e-9; // TODO read it from properties
 
     public static void addToPlane(GeometricPoint point, ViewablePlane viewablePlane) {
         point.update();
