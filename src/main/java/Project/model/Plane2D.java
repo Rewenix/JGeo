@@ -1,5 +1,7 @@
 package Project.model;
 
+import Project.controller.LabelBank;
+
 import java.util.ArrayList;
 
 public class Plane2D {
@@ -7,10 +9,18 @@ public class Plane2D {
 
     public void addGeometricShape(GeometricShape shape) {
         shapes.add(shape);
+        if(shape instanceof GeometricPoint)
+            shape.setName(LabelBank.getPointLabel());
+        else
+            shape.setName(LabelBank.getShapeLabel());
     }
 
     public GeometricShape removeLastShape() {
-        if (!shapes.isEmpty()) return shapes.remove(shapes.size() - 1);
+        if (!shapes.isEmpty()) {
+            GeometricShape shape = shapes.remove(shapes.size() - 1);
+            LabelBank.returnLabel(shape.getName());
+            return shape;
+        }
         return null;
     }
 
@@ -18,6 +28,7 @@ public class Plane2D {
         while (!shapes.isEmpty()) {
             removeLastShape();
         }
+        LabelBank.reset();
     }
 
     public void update() {
