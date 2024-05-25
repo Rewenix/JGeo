@@ -1,7 +1,5 @@
 package Project.model;
 
-import Project.controller.LabelBank;
-
 import java.util.ArrayList;
 
 public class Plane2D {
