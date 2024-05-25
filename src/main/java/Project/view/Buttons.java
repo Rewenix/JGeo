@@ -41,8 +41,8 @@ public class Buttons extends VBox {
         scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);    // Wyłączenie pasków przewijania
         scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         scrollPane.setFitToWidth(true);
-        this.setMinWidth(350);
-        this.setMaxWidth(1030);
+        this.setMinWidth(210);
+        this.setMaxWidth(610);
 
         scrollPane.addEventFilter(ScrollEvent.ANY, event -> {
             double deltaY = event.getDeltaY() * 1.5; // Szybkość scrollowania - większy współczynnik tym szybciej.

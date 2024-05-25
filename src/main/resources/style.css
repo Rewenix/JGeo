@@ -10,8 +10,8 @@
     -fx-background-color: transparent;
     -fx-border-color: grey;
     -fx-border-width: 2;
-    -fx-border-radius: 20;
-    -fx-border-insets: 10;
+    -fx-border-radius: 10;
+    -fx-border-insets: 2;
 }
 
 .actor-button:selected{
