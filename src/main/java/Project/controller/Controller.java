@@ -62,14 +62,11 @@ public class Controller {
                     if (viewableIntersection.hasPoint(screenX, screenY)) {
                         pointBuilder.acceptArgument(viewableIntersection.getGeometricShape());
                         viewableIntersection.setOnClicked();
-                        break;
+                        pointBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+                        pointBuilder.reset();
+                        viewablePlane.unclickAll();
+                        return;
                     }
-                }
-                if (pointBuilder.isReady()) {
-                    pointBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
-                    pointBuilder.reset();
-                    viewablePlane.unclickAll();
-                    return;
                 }
             }
             for (ViewableShape clickedShape : clickedShapesList)
