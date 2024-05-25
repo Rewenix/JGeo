@@ -14,6 +14,11 @@
     -fx-border-insets: 2;
 }
 
+.actor-button:hover{
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+
 .actor-button:selected{
     -fx-border-color: blue;
     -fx-text-fill: blue;
@@ -21,4 +26,22 @@
 
 .actor-button-group{
     -fx-background-color: white;
+}
+
+.topbar-button{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-background-insets: 2;
+    -fx-border-color: grey;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-insets: 2;
+}
+
+.topbar-button:hover{
+    -fx-background-color: lightgrey;
+}
+
+.topbar-button:pressed{
+    -fx-border-color: black;
 }
