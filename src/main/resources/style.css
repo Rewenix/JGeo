@@ -5,3 +5,20 @@
 .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
+
+.actor-button{
+    -fx-background-color: transparent;
+    -fx-border-color: grey;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+    -fx-border-insets: 10;
+}
+
+.actor-button:selected{
+    -fx-border-color: blue;
+    -fx-text-fill: blue;
+}
+
+.actor-button-group{
+    -fx-background-color: white;
+}

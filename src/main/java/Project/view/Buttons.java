@@ -21,7 +21,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.HashMap;
@@ -38,9 +40,9 @@ public class Buttons extends VBox {
         scrollPane.setPannable(true);   // Możliwość przewijania myszką.
         scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);    // Wyłączenie pasków przewijania
         scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1 0 1 0px;");   // Jak nie dawałem cyan, w którymś to się robiło szare całe albo na brzegach.
-        buttonsBox.setStyle("-fx-background-color: transparent;");
+        scrollPane.setFitToWidth(true);
+        this.setMinWidth(350);
+        this.setMaxWidth(1030);
 
         scrollPane.addEventFilter(ScrollEvent.ANY, event -> {
             double deltaY = event.getDeltaY() * 1.5; // Szybkość scrollowania - większy współczynnik tym szybciej.
@@ -53,19 +55,6 @@ public class Buttons extends VBox {
 
     public void registerController(Controller controller) {
         // Dodajemy przyciski
-        registerButton(event -> {
-                    System.out.println("'Undo' button pressed");
-                    controller.removeLastShape();
-                },
-                "Undo",
-                "Removes the last drawn shape.");
-        registerButton(event -> {
-                    System.out.println("'Clear' button pressed");
-                    controller.clearShapes();
-                },
-                "Clear",
-                "Clears the drawing pane.");
-
         registerToggleButton(event -> {
                     System.out.println("'Shifter' button pressed");
                     controller.changeActor(new Shifter(controller.getViewablePlane()));
@@ -185,7 +174,8 @@ public class Buttons extends VBox {
     }
 
     private void registerToggleButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {
-        ToggleButton button = new ToggleButton(buttonName);
+        //ToggleButton button = new ToggleButton(buttonName);
+        ActorButton button = new ActorButton(buttonName, "awesomeface.png");
         button.setOnAction(eventHandler);
         Tooltip tip = new Tooltip(description);
         tip.setShowDelay(Duration.millis(100));
@@ -205,11 +195,6 @@ public class Buttons extends VBox {
 
     // Wybór podziału na grupy
     private void registerLayout() {
-        getChildren().addAll(buttonMap.get("Undo"), buttonMap.get("Clear"));
-
-        // Miejsce przerwy między przyciskami
-        VBox.setMargin(scrollPane, new Insets(20, 0, 0, 0));
-
         getChildren().add(scrollPane);
 
         createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment",
@@ -222,16 +207,12 @@ public class Buttons extends VBox {
     }
 
     private void createButtonGroup(String groupName, String... buttonNames) {
-        VBox groupVbox = new VBox();
-
-        Label groupLabel = new Label(groupName);
-        groupVbox.getChildren().add(groupLabel);
-        groupVbox.setStyle("-fx-background-color: transparent;");
+        ActorButtonGroup buttonGroup = new ActorButtonGroup(groupName);
 
         for (String buttonName : buttonNames) {
-            groupVbox.getChildren().add(buttonMap.get(buttonName));
+            buttonGroup.addButton(buttonMap.get(buttonName));
         }
 
-        buttonsBox.getChildren().add(groupVbox);
+        buttonsBox.getChildren().add(buttonGroup);
     }
 }
