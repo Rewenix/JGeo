@@ -83,4 +83,24 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
         BasicPoint i2 = new BasicPoint(x3 - h * (y2 - y1) / d, y3 + h * (x2 - x1) / d);
         return List.of(i1, i2);
     }
+
+    public List<GeometricPoint> getIntersections() {
+        GeometricPoint i1 = new GeometricPoint("Intersection 1");
+        GeometricPoint i2 = new GeometricPoint("Intersection 2");
+        GeometricShapeUpdater updater = new GeometricShapeUpdater() {
+            private GeometricCircle cA = a;
+            private GeometricCircle cB = b;
+
+            @Override
+            public void update() {
+                setPoints(i1, i2, cA, cB);
+            }
+        };
+        i1.setUpdater(updater);
+        i2.setUpdater(updater);
+        i1.update();
+        i2.update();
+        reset();
+        return List.of(i1, i2);
+    }
 }

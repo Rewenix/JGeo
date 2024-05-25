@@ -1,8 +1,12 @@
 package Project.controller.builders.intersections;
 
 import Project.controller.GeometricShapeBuilder;
+import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.view.ViewablePlane;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IntersectionBuilder implements GeometricShapeBuilder {
     private final LineIntersectionBuilder lineIntersectionBuilder = new LineIntersectionBuilder();
@@ -55,5 +59,37 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
         else if (genCircleIntersectionBuilder.isReady()) {
             genCircleIntersectionBuilder.build(viewablePlane, planeX, planeY);
         }
+    }
+
+    public List<GeometricPoint> getIntersections() {
+        if (lineIntersectionBuilder.isReady()) {
+            return lineIntersectionBuilder.getIntersections();
+        }
+        else if (circleIntersectionBuilder.isReady()) {
+            return circleIntersectionBuilder.getIntersections();
+        }
+        else if (lineAndCircleIntersectionBuilder.isReady()) {
+            return lineAndCircleIntersectionBuilder.getIntersections();
+        }
+        else if (genCircleIntersectionBuilder.isReady()) {
+            return genCircleIntersectionBuilder.getIntersections();
+        }
+        return List.of();
+    }
+
+    public static List<GeometricPoint> getIntersections(List<GeometricShape> list) {
+        IntersectionBuilder builder = new IntersectionBuilder();
+        List<GeometricPoint> intersections = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                if (builder.acceptArgument(list.get(i)) && builder.acceptArgument(list.get(j))) {
+                    if (builder.isReady()) {
+                        intersections.addAll(builder.getIntersections());
+                    }
+                }
+                builder.reset();
+            }
+        }
+        return intersections;
     }
 }

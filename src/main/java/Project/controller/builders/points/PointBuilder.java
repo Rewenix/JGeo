@@ -28,6 +28,10 @@ public class PointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
+        if (shape instanceof GeometricPoint point) { // might not work
+            BuilderUtils.addToPlane(point, viewablePlane);
+            return;
+        }
         GeometricPoint point = new GeometricPoint("", planeX, planeY);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             GeometricShape pShape = shape;

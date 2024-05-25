@@ -5,6 +5,8 @@ import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.ViewablePlane;
 
+import java.util.List;
+
 public class LineIntersectionBuilder implements GeometricShapeBuilder {
     private GeometricLine a = null;
     private GeometricLine b = null;
@@ -72,5 +74,22 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
     public static BasicPoint getPoint(BasicLine lA, BasicLine lB) {
         return new BasicPoint((lA.B * lB.C - lB.B * lA.C) / (lA.A * lB.B - lB.A * lA.B),
                 (lA.C * lB.A - lB.C * lA.A) / (lA.A * lB.B - lB.A * lA.B));
+    }
+
+    public List<GeometricPoint> getIntersections() {
+        GeometricPoint intersection = new GeometricPoint("Przecięcie");
+        GeometricShapeUpdater updater = new GeometricShapeUpdater() {
+            private GeometricLine lA = a;
+            private GeometricLine lB = b;
+
+            @Override
+            public void update() {
+                setPoint(intersection, lA, lB);
+            }
+        };
+        intersection.setUpdater(updater);
+        intersection.update();
+        reset();
+        return List.of(intersection);
     }
 }

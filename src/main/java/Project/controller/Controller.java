@@ -1,6 +1,9 @@
 package Project.controller;
 
+import Project.controller.builders.intersections.IntersectionBuilder;
+import Project.controller.builders.points.PointBuilder;
 import Project.model.GeometricGenCircle;
+import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import Project.view.ViewablePlane;
@@ -8,6 +11,7 @@ import Project.view.ViewablePoint;
 import Project.view.ViewableShape;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -44,6 +48,30 @@ public class Controller {
         if (selectedActor == null) return;
         if (selectedActor instanceof GeometricShapeBuilder selectedBuilder) {
             List<ViewableShape> clickedShapesList = viewablePlane.getClickedShapesList(screenX, screenY);
+            if (selectedActor instanceof PointBuilder pointBuilder) {
+                List<GeometricShape> clickedShapes = new ArrayList<>();
+                for (ViewableShape clickedShape : clickedShapesList)
+                    clickedShapes.add(clickedShape.getGeometricShape());
+
+                List<GeometricPoint> intersections = IntersectionBuilder.getIntersections(clickedShapes);
+                List<ViewableShape> viewableIntersections = new ArrayList<>();
+                for (GeometricPoint intersection : intersections) {
+                    viewableIntersections.add(new ViewablePoint("", viewablePlane, intersection));
+                }
+                for (ViewableShape viewableIntersection : viewableIntersections) {
+                    if (viewableIntersection.hasPoint(screenX, screenY)) {
+                        pointBuilder.acceptArgument(viewableIntersection.getGeometricShape());
+                        viewableIntersection.setOnClicked();
+                        break;
+                    }
+                }
+                if (pointBuilder.isReady()) {
+                    pointBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+                    pointBuilder.reset();
+                    viewablePlane.unclickAll();
+                    return;
+                }
+            }
             for (ViewableShape clickedShape : clickedShapesList)
                 if (selectedBuilder.acceptArgument(clickedShape.getGeometricShape())) {
                     clickedShape.setOnClicked();
@@ -80,7 +108,7 @@ public class Controller {
         }
     }
 
-    public void handleScrolled(double screenX, double screenY, double scrollAmount){
+    public void handleScrolled(double screenX, double screenY, double scrollAmount) {
         transformation.changeScale(screenX, screenY, Math.exp(-scrollAmount * ZOOM_SPEED));
         viewablePlane.updateDrawables();
     }
