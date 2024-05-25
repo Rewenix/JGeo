@@ -34,7 +34,8 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
 
     @Override
     public boolean isReady() {
-        return lineIntersectionBuilder.isReady() || circleIntersectionBuilder.isReady() || lineAndCircleIntersectionBuilder.isReady() || genCircleIntersectionBuilder.isReady();
+        return lineIntersectionBuilder.isReady() || circleIntersectionBuilder.isReady()
+                || lineAndCircleIntersectionBuilder.isReady() || genCircleIntersectionBuilder.isReady();
     }
 
     @Override
@@ -43,6 +44,12 @@ public class IntersectionBuilder implements GeometricShapeBuilder {
         circleIntersectionBuilder.reset();
         lineAndCircleIntersectionBuilder.reset();
         genCircleIntersectionBuilder.reset();
+    }
+
+    @Override
+    public boolean awaitsPoint() {
+        return lineIntersectionBuilder.awaitsPoint() || circleIntersectionBuilder.awaitsPoint()
+                || lineAndCircleIntersectionBuilder.awaitsPoint() || genCircleIntersectionBuilder.awaitsPoint();
     }
 
     @Override

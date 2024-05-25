@@ -37,6 +37,11 @@ public class InversionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return pointInversionBuilder.awaitsPoint() || lineInversionBuilder.awaitsPoint() || circleInversionBuilder.awaitsPoint();
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         if (pointInversionBuilder.isReady()) {
             pointInversionBuilder.build(viewablePlane, planeX, planeY);

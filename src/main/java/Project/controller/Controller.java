@@ -20,6 +20,7 @@ public class Controller {
     private final Transformation transformation;
     private Actor selectedActor;
     private static final double ZOOM_SPEED = 0.002; //TODO: wczytywać z pliku konfiguracyjnego
+    private final PointBuilder pointBuilder = new PointBuilder();
 
     public ViewablePlane getViewablePlane() {
         return viewablePlane;
@@ -47,33 +48,22 @@ public class Controller {
     public void handleNormalClick(double screenX, double screenY) {
         if (selectedActor == null) return;
         if (selectedActor instanceof GeometricShapeBuilder selectedBuilder) {
+            boolean accepted = false;
             List<ViewableShape> clickedShapesList = viewablePlane.getClickedShapesList(screenX, screenY);
-            if (selectedActor instanceof PointBuilder pointBuilder) {
-                List<GeometricShape> clickedShapes = new ArrayList<>();
-                for (ViewableShape clickedShape : clickedShapesList)
-                    clickedShapes.add(clickedShape.getGeometricShape());
-
-                List<GeometricPoint> intersections = IntersectionBuilder.getIntersections(clickedShapes);
-                List<ViewableShape> viewableIntersections = new ArrayList<>();
-                for (GeometricPoint intersection : intersections) {
-                    viewableIntersections.add(new ViewablePoint("", viewablePlane, intersection));
-                }
-                for (ViewableShape viewableIntersection : viewableIntersections) {
-                    if (viewableIntersection.hasPoint(screenX, screenY)) {
-                        pointBuilder.acceptArgument(viewableIntersection.getGeometricShape());
-                        viewableIntersection.setOnClicked();
-                        pointBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
-                        pointBuilder.reset();
-                        viewablePlane.unclickAll();
-                        return;
-                    }
-                }
+            if (selectedBuilder instanceof PointBuilder) {
+                getPoint(clickedShapesList, screenX, screenY);
+                return;
             }
             for (ViewableShape clickedShape : clickedShapesList)
                 if (selectedBuilder.acceptArgument(clickedShape.getGeometricShape())) {
                     clickedShape.setOnClicked();
+                    accepted = true;
                     break;
                 }
+            if (!accepted && selectedBuilder.awaitsPoint()) {
+                GeometricPoint point = getPoint(clickedShapesList, screenX, screenY);
+                selectedBuilder.acceptArgument(point);
+            }
             if (selectedBuilder.isReady()) {
                 selectedBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
                 selectedBuilder.reset();
@@ -122,5 +112,36 @@ public class Controller {
     public void clearShapes() {
         plane.clear();
         viewablePlane.clear();
+    }
+
+    private GeometricPoint getPoint(List<ViewableShape> clickedShapesList, double screenX, double screenY) {
+        GeometricPoint point = null;
+        List<GeometricShape> clickedShapes = new ArrayList<>();
+        for (ViewableShape clickedShape : clickedShapesList)
+            clickedShapes.add(clickedShape.getGeometricShape());
+
+        List<GeometricPoint> intersections = IntersectionBuilder.getIntersections(clickedShapes);
+        List<ViewablePoint> viewableIntersections = new ArrayList<>();
+        for (GeometricPoint intersection : intersections) {
+            viewableIntersections.add(new ViewablePoint("", viewablePlane, intersection));
+        }
+        for (ViewablePoint viewableIntersection : viewableIntersections) {
+            if (viewableIntersection.hasPoint(screenX, screenY)) {
+                viewablePlane.addViewableShape(viewableIntersection);
+                point = viewableIntersection.getGeometricShape();
+                return point;
+            }
+        }
+        for (ViewableShape clickedShape : clickedShapesList) {
+            if (clickedShape.hasPoint(screenX, screenY)) {
+                pointBuilder.acceptArgument(clickedShape.getGeometricShape());
+                clickedShape.setOnClicked();
+                point = pointBuilder.buildPoint(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+                pointBuilder.reset();
+                viewablePlane.unclickAll();
+                return point;
+            }
+        }
+        return pointBuilder.buildPoint(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
     }
 }

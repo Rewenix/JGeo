@@ -27,22 +27,31 @@ public class PointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return shape == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        if (shape instanceof GeometricPoint point) { // might not work
-            BuilderUtils.addToPlane(point, viewablePlane);
-            return;
+        buildPoint(viewablePlane, planeX, planeY);
+    }
+
+    public GeometricPoint buildPoint(ViewablePlane viewablePlane, double planeX, double planeY) {
+        if (shape instanceof GeometricPoint point) {
+            return point;
         }
-        GeometricPoint point = new GeometricPoint("", planeX, planeY);
+        GeometricPoint point = new GeometricPoint(planeX, planeY);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             GeometricShape pShape = shape;
 
             @Override
             public void update() {
-                if (pShape == null) return;
-                point.setCoordinates(pShape.projection(point.point));
+                if (pShape != null) point.setCoordinates(pShape.projection(point.point));
             }
         };
         point.setUpdater(updater);
         BuilderUtils.addToPlane(point, viewablePlane);
+        reset();
+        return point;
     }
 }

@@ -42,6 +42,11 @@ public class IncircleBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return c == null || b == null || a == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricCircle incircle = new GeometricCircle("Incircle");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

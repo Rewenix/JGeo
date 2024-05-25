@@ -1,15 +1,17 @@
 package Project.controller.builders.intersections;
 
+import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.ViewablePlane;
 
 import java.util.List;
 
-public class GenCircleIntersectionBuilder {
+public class GenCircleIntersectionBuilder implements GeometricShapeBuilder {
     private GeometricGenCircle a = null;
     private GeometricGenCircle b = null;
 
+    @Override
     public boolean acceptArgument(GeometricShape shape) {
         if (shape instanceof GeometricGenCircle g) {
             if (a == null) {
@@ -28,15 +30,23 @@ public class GenCircleIntersectionBuilder {
         return false;
     }
 
+    @Override
     public boolean isReady() {
         return a != null && b != null;
     }
 
+    @Override
     public void reset() {
         a = null;
         b = null;
     }
 
+    @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint i1 = new GeometricPoint("Intersection 1");
         GeometricPoint i2 = new GeometricPoint("Intersection 2");

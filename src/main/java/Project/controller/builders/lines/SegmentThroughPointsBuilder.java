@@ -19,8 +19,6 @@ public class SegmentThroughPointsBuilder extends LineThroughPointsBuilder {
 
             @Override
             public void update() {
-//                segment.segment.p1 = pA.point;
-//                segment.segment.p2 = pB.point;
                 segment.segment.setCoordinates(pA.point, pB.point);
                 segment.setCoordinates(segment.segment);
             }

@@ -41,6 +41,11 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint intersection1 = new GeometricPoint("Intersection 1");
         GeometricPoint intersection2 = new GeometricPoint("Intersection 2");

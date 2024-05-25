@@ -47,6 +47,11 @@ public class PoleBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint pole = new GeometricPoint("Pole");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

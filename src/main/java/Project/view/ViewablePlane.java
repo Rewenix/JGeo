@@ -29,6 +29,7 @@ public class ViewablePlane {
     }
 
     public void addViewableShape(ViewableShape shape) {
+        plane.addGeometricShape(shape.getGeometricShape());
         shapes.add(shape);
         shape.setViewPane(viewPane);
         shape.updateDrawable();

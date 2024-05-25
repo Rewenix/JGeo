@@ -38,6 +38,11 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint i1 = new GeometricPoint("Intersection 1");
         GeometricPoint i2 = new GeometricPoint("Intersection 2");

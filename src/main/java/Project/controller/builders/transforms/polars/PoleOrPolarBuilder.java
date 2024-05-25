@@ -40,4 +40,9 @@ public class PoleOrPolarBuilder implements GeometricShapeBuilder {
             poleBuilder.build(viewablePlane, planeX, planeY);
         }
     }
+
+    @Override
+    public boolean awaitsPoint() {
+        return polarBuilder.awaitsPoint() || poleBuilder.awaitsPoint();
+    }
 }

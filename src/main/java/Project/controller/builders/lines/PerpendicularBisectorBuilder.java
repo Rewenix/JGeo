@@ -39,6 +39,11 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return b == null || a == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine line = new GeometricLine("Symetralna");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

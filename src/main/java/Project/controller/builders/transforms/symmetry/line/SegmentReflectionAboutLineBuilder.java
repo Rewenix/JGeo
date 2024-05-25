@@ -50,6 +50,11 @@ public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder 
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return false;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricSegment reflectedSegment = new GeometricSegment("Odbity odcinek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

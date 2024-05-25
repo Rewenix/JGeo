@@ -39,6 +39,11 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return reflectionPoint == null || point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint reflectedPoint = new GeometricPoint("Punkt odbity");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

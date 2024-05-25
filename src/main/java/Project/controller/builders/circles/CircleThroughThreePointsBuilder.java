@@ -44,6 +44,11 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return c == null || b == null || a == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricGenCircle genCircle = new GeometricGenCircle("Okrąg uogólniony");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

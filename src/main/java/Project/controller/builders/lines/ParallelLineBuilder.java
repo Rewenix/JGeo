@@ -41,6 +41,11 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return point == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine parallelLine = new GeometricLine("Prosta równoległa");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

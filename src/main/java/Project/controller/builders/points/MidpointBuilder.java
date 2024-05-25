@@ -42,6 +42,11 @@ public class MidpointBuilder implements GeometricShapeBuilder {
     }
 
     @Override
+    public boolean awaitsPoint() {
+        return a == null || b == null;
+    }
+
+    @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint midpoint = new GeometricPoint("Środek");
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
