@@ -15,6 +15,8 @@ public class Program extends Application {
         View view = new View();
         Controller controller = new Controller(view.drawingPane);
         view.registerController(controller);
+
+        //BetterView view = new BetterView();
         Scene scene = new Scene(view, 800, 600);
         scene.getStylesheets().add("style.css");
 
