@@ -8,14 +8,6 @@ import java.util.List;
 public class GeometricCircle extends GeometricShape {
     public final BasicCircle circle = new BasicCircle();
 
-    public GeometricCircle(String name) {
-        super(name);
-    }
-
-    public GeometricCircle() {
-        super();
-    }
-
     @Override
     public double distance(BasicPoint point) {
         return Math.abs(circle.center.distance(point) - circle.radius);

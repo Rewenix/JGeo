@@ -4,25 +4,18 @@ public class GeometricGenCircle extends GeometricShape {
     public final GeometricLine line;
     public final GeometricCircle circle;
 
-    public GeometricGenCircle(String name) {
-        super(name);
+    public GeometricGenCircle() {
         this.line = new GeometricLine();
         this.circle = new GeometricCircle();
     }
 
-    public GeometricGenCircle() {
-        this("");
-    }
-
     public GeometricGenCircle(GeometricLine line) {
-        super("");
         this.line = line;
         this.circle = new GeometricCircle();
         circle.makeUndefined();
     }
 
     public GeometricGenCircle(GeometricCircle circle) {
-        super("");
         this.line = new GeometricLine();
         line.makeUndefined();
         this.circle = circle;

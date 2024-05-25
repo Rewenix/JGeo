@@ -5,14 +5,6 @@ import Project.controller.builders.points.PointProjectionOntoLineBuilder;
 public class GeometricLine extends GeometricShape {
     public final BasicLine line = new BasicLine();
 
-    public GeometricLine(String name) {
-        super(name);
-    }
-
-    public GeometricLine() {
-        super();
-    }
-
     public void setCoordinates(BasicLine line) {
         this.line.setCoordinates(line);
     }

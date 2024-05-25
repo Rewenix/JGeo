@@ -7,14 +7,6 @@ public class GeometricSegment extends GeometricLine {
 
     public final BasicSegment segment = new BasicSegment();
 
-    public GeometricSegment(String name) {
-        super(name);
-    }
-
-    public GeometricSegment() {
-        super();
-    }
-
     public void setCoordinates(BasicSegment segment) {
         this.segment.setCoordinates(segment);
         this.line.setCoordinates(segment);
