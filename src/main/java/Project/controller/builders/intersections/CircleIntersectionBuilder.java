@@ -44,8 +44,8 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint i1 = new GeometricPoint("Intersection 1");
-        GeometricPoint i2 = new GeometricPoint("Intersection 2");
+        GeometricPoint i1 = new GeometricPoint();
+        GeometricPoint i2 = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle cA = a;
             private GeometricCircle cB = b;
@@ -90,8 +90,8 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     public List<GeometricPoint> getIntersections() {
-        GeometricPoint i1 = new GeometricPoint("Intersection 1");
-        GeometricPoint i2 = new GeometricPoint("Intersection 2");
+        GeometricPoint i1 = new GeometricPoint();
+        GeometricPoint i2 = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle cA = a;
             private GeometricCircle cB = b;

@@ -12,7 +12,7 @@ import Project.view.ViewablePlane;
 public class SegmentThroughPointsBuilder extends LineThroughPointsBuilder {
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricSegment segment = new GeometricSegment("Odcinek");
+        GeometricSegment segment = new GeometricSegment();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

@@ -46,7 +46,7 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricCircle circle = new GeometricCircle("Okrąg");
+        GeometricCircle circle = new GeometricCircle();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pCenter = center;
             private GeometricPoint pPoint = point;

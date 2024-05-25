@@ -56,7 +56,7 @@ public class CircleReflectionAboutLineBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricCircle reflectedCircle = new GeometricCircle("Odbite kolo");
+        GeometricCircle reflectedCircle = new GeometricCircle();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle pCircle = circle;
             private GeometricLine pLine = line;

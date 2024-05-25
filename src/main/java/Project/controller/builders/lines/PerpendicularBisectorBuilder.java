@@ -45,7 +45,7 @@ public class PerpendicularBisectorBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricLine line = new GeometricLine("Symetralna");
+        GeometricLine line = new GeometricLine();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

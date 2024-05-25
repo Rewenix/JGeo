@@ -50,7 +50,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricGenCircle genCircle = new GeometricGenCircle("Okrąg uogólniony");
+        GeometricGenCircle genCircle = new GeometricGenCircle();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

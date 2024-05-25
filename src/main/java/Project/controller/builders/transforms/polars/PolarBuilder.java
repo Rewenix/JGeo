@@ -53,7 +53,7 @@ public class PolarBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricLine polarLine = new GeometricLine("Polar");
+        GeometricLine polarLine = new GeometricLine();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pPoint = point;
             private GeometricCircle pCircle = circle;

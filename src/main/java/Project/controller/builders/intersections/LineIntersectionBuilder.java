@@ -54,7 +54,7 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint intersection = new GeometricPoint("Przecięcie");
+        GeometricPoint intersection = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine lA = a;
             private GeometricLine lB = b;
@@ -82,7 +82,7 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
     }
 
     public List<GeometricPoint> getIntersections() {
-        GeometricPoint intersection = new GeometricPoint("Przecięcie");
+        GeometricPoint intersection = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine lA = a;
             private GeometricLine lB = b;

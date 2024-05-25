@@ -48,7 +48,7 @@ public class IncircleBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricCircle incircle = new GeometricCircle("Incircle");
+        GeometricCircle incircle = new GeometricCircle();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
