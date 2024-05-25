@@ -12,19 +12,19 @@ public class ActorButton extends ToggleButton {
 
     public ActorButton(String text, String imagePath){
         ImageView imageView = new ImageView(new Image(imagePath));
-        imageView.setFitWidth(60);
-        imageView.setFitHeight(60);
+        imageView.setFitWidth(70);
+        imageView.setFitHeight(70);
         this.wrapTextProperty().setValue(true);
         this.textAlignmentProperty().setValue(TextAlignment.CENTER);
         this.setText(text);
-        this.setFont(new Font(7));
+        this.setFont(new Font(10));
         this.setGraphic(imageView);
         this.setContentDisplay(ContentDisplay.TOP);
         this.setAlignment(Pos.TOP_CENTER);
-        this.setMinWidth(100);
-        this.setMaxWidth(100);
-        this.setMinHeight(100);
-        this.setMaxHeight(100);
+        this.setMinWidth(120);
+        this.setMaxWidth(120);
+        this.setMinHeight(120);
+        this.setMaxHeight(120);
         this.getStyleClass().add("actor-button");
     }
 

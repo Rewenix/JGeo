@@ -21,6 +21,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -41,8 +42,12 @@ public class Buttons extends VBox {
         scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);    // Wyłączenie pasków przewijania
         scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         scrollPane.setFitToWidth(true);
-        this.setMinWidth(210);
-        this.setMaxWidth(610);
+        this.setMinWidth(250);
+        this.setMaxWidth(730);
+        this.setMaxHeight(Double.MAX_VALUE);
+        scrollPane.setMaxHeight(Double.MAX_VALUE);
+        setVgrow(scrollPane, Priority.ALWAYS);
+        buttonsBox.setMaxHeight(Double.MAX_VALUE);
 
         scrollPane.addEventFilter(ScrollEvent.ANY, event -> {
             double deltaY = event.getDeltaY() * 1.5; // Szybkość scrollowania - większy współczynnik tym szybciej.

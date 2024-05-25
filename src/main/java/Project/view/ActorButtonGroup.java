@@ -22,6 +22,8 @@ public class ActorButtonGroup extends BorderPane {
         this.setTop(nameBox);
         this.setCenter(buttons);
         this.setMaxWidth(Double.MAX_VALUE);
+        this.setMaxHeight(Double.MAX_VALUE);
+        buttons.setMaxHeight(Double.MAX_VALUE);
         this.getStyleClass().add("actor-button-group");
     }
 
