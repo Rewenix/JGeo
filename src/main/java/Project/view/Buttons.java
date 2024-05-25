@@ -64,7 +64,7 @@ public class Buttons extends VBox {
                     System.out.println("'Shifter' button pressed");
                     controller.changeActor(new Shifter(controller.getViewablePlane()));
                 },
-                "Shifter", "test.png",
+                "Shifter", "shifter.png",
                 "Shifts a point or the plane. If a point is selected, it will be moved to the selected place.");
         registerToggleButton(event -> {
                     System.out.println("'Point' button pressed");
