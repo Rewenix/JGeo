@@ -26,9 +26,6 @@ public class PointLabel {
     private double xOffset;
     private double yOffset;
 
-    // Those values should always be positive.
-    // Choice of subtraction or addition is done below and takes into account radiusProperty().
-
     public PointLabel(Shape shape, GeometricShape point) {
         if (!(shape instanceof Circle tmpCircle))
             throw new IllegalArgumentException("PointLabel must be constructed with a ViewablePoint");
