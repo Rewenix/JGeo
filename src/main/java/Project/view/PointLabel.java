@@ -19,6 +19,8 @@ public class PointLabel {
     private final Label label;
     private final Circle circle;
     private final GeometricShape point; // So that name can be updated
+    private double xOffset;
+    private double yOffset;
 
     // Those values should always be positive.
     // Choice of subtraction or addition is done below and takes into account radiusProperty().

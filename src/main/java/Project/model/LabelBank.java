@@ -32,26 +32,36 @@ public class LabelBank {
         return shapeBank.getLabel();
     }
 
-    public static void returnLabel(String label) {
+    private static PointOrShapeBank whoseResponsibility(String label) {
         try {
             if (label.substring(1).isEmpty() || label.substring(1).matches("[1-9][0-9]*")) {
                 if (Character.isUpperCase(label.charAt(0)))
-                    pointBank.acceptReturned(label);
+                    return pointBank;
                 else if (Character.isLowerCase(label.charAt(0)))
-                    shapeBank.acceptReturned(label);
+                    return shapeBank;
             }
         } catch (Exception e) { }
+        return null;
     }
 
-    public static void takeLabel(String label) {
-        try {
-            if (label.substring(1).isEmpty() || label.substring(1).matches("[1-9][0-9]*")) {
-                if (Character.isUpperCase(label.charAt(0)))
-                    pointBank.acceptTaken(label);
-                else if (Character.isLowerCase(label.charAt(0)))
-                    shapeBank.acceptTaken(label);
-            }
-        } catch (Exception e) { }
+    public static void returnPointLabel(String label) {
+        if(whoseResponsibility(label) == pointBank)
+            pointBank.acceptReturned(label);
+    }
+
+    public static void returnShapeLabel(String label) {
+        if(whoseResponsibility(label) == shapeBank)
+            shapeBank.acceptReturned(label);
+    }
+
+    public static void takePointLabel(String label) {
+        if(whoseResponsibility(label) == pointBank)
+            pointBank.acceptTaken(label);
+    }
+
+    public static void takeShapeLabel(String label) {
+        if(whoseResponsibility(label) == shapeBank)
+            shapeBank.acceptTaken(label);
     }
 
     private static class PointOrShapeBank {
@@ -102,13 +112,13 @@ public class LabelBank {
 
     /*public static void main(String[] args) {
         for(int i = 0; i < 30; i++) {
-            System.out.println(getPointLabel());
+            System.out.println(getShapeLabel());
         }
         System.out.println();
-        returnLabel("A1");
-        System.out.println(getPointLabel());
-        takeLabel("E1");
-        // returnLabel("E1");
-        System.out.println(getPointLabel());
+        returnShapeLabel("a1");
+        System.out.println(getShapeLabel());
+        takeShapeLabel("e1");
+        // returnShapeLabel("e1");
+        System.out.println(getShapeLabel());
     }*/
 }
