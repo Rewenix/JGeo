@@ -20,13 +20,11 @@ public class TopBar extends HBox {
 
     public void registerController(Controller controller){
         registerButton(event -> {
-                    System.out.println("'Undo' button pressed");
                     controller.removeLastShape();
                 },
                 "Undo",
                 "Removes the last drawn shape.");
         registerButton(event -> {
-                    System.out.println("'Clear' button pressed");
                     controller.clearShapes();
                 },
                 "Clear",

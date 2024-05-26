@@ -13,6 +13,8 @@ public class Config {
     public static double POINT_HUB;
     public static double LINE_HUB;
     public static double CIRCLE_HUB;
+    public static double MAX_SCALE;
+    public static double MIN_SCALE;
     private static Properties properties;
 
     public static void load(){
@@ -33,5 +35,7 @@ public class Config {
         POINT_HUB = Double.parseDouble(properties.getProperty("pointHub", "8"));
         LINE_HUB = Double.parseDouble(properties.getProperty("lineHub", "4"));
         CIRCLE_HUB = Double.parseDouble(properties.getProperty("circleHub", "4"));
+        MAX_SCALE = Double.parseDouble(properties.getProperty("maxScale", "1000"));
+        MIN_SCALE = Double.parseDouble(properties.getProperty("minScale", "0.001"));
     }
 }
