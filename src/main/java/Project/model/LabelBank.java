@@ -40,27 +40,28 @@ public class LabelBank {
                 else if (Character.isLowerCase(label.charAt(0)))
                     return shapeBank;
             }
-        } catch (Exception e) { }
+        }
+        catch (Exception e) {}
         return null;
     }
 
     public static void returnPointLabel(String label) {
-        if(whoseResponsibility(label) == pointBank)
+        if (whoseResponsibility(label) == pointBank)
             pointBank.acceptReturned(label);
     }
 
     public static void returnShapeLabel(String label) {
-        if(whoseResponsibility(label) == shapeBank)
+        if (whoseResponsibility(label) == shapeBank)
             shapeBank.acceptReturned(label);
     }
 
     public static void takePointLabel(String label) {
-        if(whoseResponsibility(label) == pointBank)
+        if (whoseResponsibility(label) == pointBank)
             pointBank.acceptTaken(label);
     }
 
     public static void takeShapeLabel(String label) {
-        if(whoseResponsibility(label) == shapeBank)
+        if (whoseResponsibility(label) == shapeBank)
             shapeBank.acceptTaken(label);
     }
 
@@ -71,34 +72,35 @@ public class LabelBank {
         private String lastLabel = ".-1";   // Last returned label from the usual iterator
 
         PointOrShapeBank(boolean isPoint) {
-            this.iterator = Stream.iterate(new String[]{isPoint ? "A" : "a", "0"}, p -> {
+            this.iterator = Stream.iterate(new String[] { isPoint ? "A" : "a", "0" }, p -> {
                 char c = p[0].charAt(0);
                 String num = p[1];
                 if (c == (isPoint ? 'Z' : 'z')) {
                     c = isPoint ? 'A' : 'a';
                     num = String.valueOf(Integer.parseInt(num) + 1);
-                } else {
+                }
+                else {
                     c++;
                 }
-                return new String[]{String.valueOf(c), num};
+                return new String[] { String.valueOf(c), num };
             }).map(p -> p[0] + (Integer.parseInt(p[1]) > 0 ? p[1] : "")).iterator();
         }
 
         void acceptReturned(String label) {
-            if(comparator.compare(label, lastLabel) <= 0)
+            if (comparator.compare(label, lastLabel) <= 0)
                 returned.add(label);
             taken.remove(label);
         }
 
         void acceptTaken(String label) {
-            if(comparator.compare(label, lastLabel) > 0)
+            if (comparator.compare(label, lastLabel) > 0)
                 taken.add(label);
             returned.remove(label);
         }
 
         String getLabel() {
             String label;
-            if(!returned.isEmpty())
+            if (!returned.isEmpty())
                 label = returned.pollFirst();
             else {
                 do {

@@ -1,6 +1,5 @@
 package Project;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -17,13 +16,14 @@ public class Config {
     public static double MIN_SCALE;
     private static Properties properties;
 
-    public static void load(){
+    public static void load() {
         properties = new Properties();
-        try{
+        try {
             InputStream in = Config.class.getClassLoader().getResourceAsStream("default.properties");
             properties.load(in);
             in.close();
-        }catch (Exception e){
+        }
+        catch (Exception e) {
             System.err.println(e);
         }
         //default values in case default.properties is missing

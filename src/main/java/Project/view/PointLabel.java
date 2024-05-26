@@ -31,7 +31,7 @@ public class PointLabel {
     static double defaultYOffset = 15;
 
     public PointLabel(Shape shape, GeometricShape point) {
-        if(!(shape instanceof Circle tmpCircle))
+        if (!(shape instanceof Circle tmpCircle))
             throw new IllegalArgumentException("PointLabel must be constructed with a ViewablePoint");
         this.circle = tmpCircle;
         this.point = point;

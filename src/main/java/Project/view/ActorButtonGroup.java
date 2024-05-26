@@ -2,7 +2,6 @@ package Project.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -13,7 +12,7 @@ public class ActorButtonGroup extends BorderPane {
     private final Label groupName;
     private final FlowPane buttons;
 
-    public ActorButtonGroup(String name){
+    public ActorButtonGroup(String name) {
         groupName = new Label(name);
         groupName.setFont(new Font(30));
         HBox nameBox = new HBox(groupName);
@@ -27,7 +26,7 @@ public class ActorButtonGroup extends BorderPane {
         this.getStyleClass().add("actor-button-group");
     }
 
-    public void addButton(ButtonBase button){
+    public void addButton(ButtonBase button) {
         buttons.getChildren().add(button);
     }
 

@@ -10,14 +10,15 @@ import javafx.scene.text.TextAlignment;
 
 public class ActorButton extends ToggleButton {
 
-    public ActorButton(String text, String imagePath){
+    public ActorButton(String text, String imagePath) {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(70);
         imageView.setFitHeight(70);
         this.setGraphic(imageView);
-        try{
+        try {
             imageView.setImage(new Image(imagePath));
-        }catch (Exception ignored){
+        }
+        catch (Exception ignored) {
 
         }
         this.wrapTextProperty().setValue(true);
@@ -33,7 +34,7 @@ public class ActorButton extends ToggleButton {
         this.getStyleClass().add("actor-button");
     }
 
-    public void fire(){
+    public void fire() {
         super.fire();
         this.setSelected(true);
     }

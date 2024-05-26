@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 public class DrawingPane extends Pane {
 
-    public DrawingPane(){
+    public DrawingPane() {
         this.setStyle("-fx-background-color: white");
         Rectangle rect = new Rectangle(this.widthProperty().get(), this.heightProperty().get());
         this.setClip(rect);
@@ -18,7 +18,7 @@ public class DrawingPane extends Pane {
         });
     }
 
-    public void registerController(Controller controller){
+    public void registerController(Controller controller) {
         this.setOnMousePressed(event -> {
             controller.handleNormalClick(event.getX(), event.getY());
         });

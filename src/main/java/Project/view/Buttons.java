@@ -16,15 +16,12 @@ import Project.controller.builders.transforms.symmetry.line.ReflectionAboutLineB
 import Project.controller.builders.transforms.symmetry.point.ReflectionAboutPointBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.HashMap;
@@ -93,7 +90,7 @@ public class Buttons extends VBox {
         registerToggleButton(event -> {
                     controller.changeActor(new CircleThroughThreePointsBuilder());
                 },
-                "Circle(Point, Point, Point)",  "circlePoints.png",
+                "Circle(Point, Point, Point)", "circlePoints.png",
                 "Draws a circle through three points. Points need to be drawn first with 'Point' method.");
         registerToggleButton(event -> {
                     controller.changeActor(new PerpendicularLineBuilder());

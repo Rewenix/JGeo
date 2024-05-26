@@ -12,13 +12,13 @@ import javafx.util.Duration;
 
 public class TopBar extends HBox {
 
-    public TopBar(){
+    public TopBar() {
         setAlignment(Pos.CENTER_LEFT);
         setMinHeight(50);
         this.setStyle("-fx-background-color: cyan");
     }
 
-    public void registerController(Controller controller){
+    public void registerController(Controller controller) {
         registerButton(event -> {
                     controller.removeLastShape();
                 },

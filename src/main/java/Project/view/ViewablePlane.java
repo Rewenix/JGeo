@@ -32,7 +32,7 @@ public class ViewablePlane {
     public void addViewableShape(ViewableShape shape) {
         shapes.add(shape);
         shape.setViewPane(viewPane);
-        if(shape instanceof ViewablePoint point)
+        if (shape instanceof ViewablePoint point)
             labelManager.addPointLabel(point);
     }
 
@@ -50,7 +50,7 @@ public class ViewablePlane {
         if (!shapes.isEmpty()) {
             ViewableShape shape = shapes.remove(shapes.size() - 1);
             shape.drop();
-            if(shape instanceof ViewablePoint point)
+            if (shape instanceof ViewablePoint point)
                 labelManager.removePointLabel(point);
         }
     }
