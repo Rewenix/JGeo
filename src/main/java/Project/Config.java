@@ -14,6 +14,8 @@ public class Config {
     public static double CIRCLE_HUB;
     public static double MAX_SCALE;
     public static double MIN_SCALE;
+    public static double LABEL_DEFAULT_X_OFFSET;
+    public static double LABEL_DEFAULT_Y_OFFSET;
     private static Properties properties;
 
     public static void load() {
@@ -37,5 +39,7 @@ public class Config {
         CIRCLE_HUB = Double.parseDouble(properties.getProperty("circleHub", "4"));
         MAX_SCALE = Double.parseDouble(properties.getProperty("maxScale", "1000"));
         MIN_SCALE = Double.parseDouble(properties.getProperty("minScale", "0.001"));
+        LABEL_DEFAULT_X_OFFSET = Double.parseDouble(properties.getProperty("labelDefaultXOffset", "5"));
+        LABEL_DEFAULT_Y_OFFSET = Double.parseDouble(properties.getProperty("labelDefaultYOffset", "15"));
     }
 }

@@ -1,5 +1,6 @@
 package Project.view;
 
+import Project.Config;
 import Project.model.GeometricShape;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -27,8 +28,6 @@ public class PointLabel {
 
     // Those values should always be positive.
     // Choice of subtraction or addition is done below and takes into account radiusProperty().
-    static double defaultXOffset = 5;
-    static double defaultYOffset = 15;
 
     public PointLabel(Shape shape, GeometricShape point) {
         if (!(shape instanceof Circle tmpCircle))
@@ -45,13 +44,13 @@ public class PointLabel {
         NumberBinding safeXBinding = Bindings
                 .when(isNaNBinding)
                 .then(Double.POSITIVE_INFINITY)
-                .otherwise(circle.centerXProperty().add(circle.radiusProperty().add(defaultXOffset)));
+                .otherwise(circle.centerXProperty().add(circle.radiusProperty().add(Config.LABEL_DEFAULT_X_OFFSET)));
         label.layoutXProperty().bind(safeXBinding);
 
         NumberBinding safeYBinding = Bindings
                 .when(isNaNBinding)
                 .then(Double.POSITIVE_INFINITY)
-                .otherwise(circle.centerYProperty().subtract(circle.radiusProperty().add(defaultYOffset)));
+                .otherwise(circle.centerYProperty().subtract(circle.radiusProperty().add(Config.LABEL_DEFAULT_Y_OFFSET)));
         label.layoutYProperty().bind(safeYBinding);
     }
 
