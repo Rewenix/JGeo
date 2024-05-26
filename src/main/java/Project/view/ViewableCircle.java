@@ -13,8 +13,8 @@ public class ViewableCircle extends ViewableShape {
     private final Circle drawableHub;
     private final GeometricCircle geoCircle;
 
-    public ViewableCircle(String name, ViewablePlane viewablePlane, GeometricCircle geoCircle) {
-        super(name, viewablePlane);
+    public ViewableCircle(ViewablePlane viewablePlane, GeometricCircle geoCircle) {
+        super(viewablePlane);
         this.geoCircle = geoCircle;
         drawableShape = new Circle();
         drawableShape.setFill(Color.TRANSPARENT);

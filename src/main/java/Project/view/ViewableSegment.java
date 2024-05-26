@@ -7,8 +7,8 @@ import javafx.scene.shape.StrokeLineJoin;
 public class ViewableSegment extends ViewableLine {
     private final GeometricSegment geoSegment;
 
-    public ViewableSegment(String name, ViewablePlane viewablePlane, GeometricSegment geoSegment) {
-        super(name, viewablePlane, geoSegment);
+    public ViewableSegment(ViewablePlane viewablePlane, GeometricSegment geoSegment) {
+        super(viewablePlane, geoSegment);
         this.geoSegment = geoSegment;
         drawableHub.setStrokeLineJoin(StrokeLineJoin.ROUND);
     }

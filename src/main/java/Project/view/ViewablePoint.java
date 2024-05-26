@@ -12,8 +12,8 @@ public class ViewablePoint extends ViewableShape {
     private final Circle drawableHub;
     private final GeometricPoint geoPoint;
 
-    public ViewablePoint(String name, ViewablePlane viewablePlane, GeometricPoint geoPoint) {
-        super(name, viewablePlane);
+    public ViewablePoint(ViewablePlane viewablePlane, GeometricPoint geoPoint) {
+        super(viewablePlane);
         this.geoPoint = geoPoint;
         drawableShape = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), Config.POINT_RADIUS);
         drawableHub = new Circle(getTransformation().toScreenX(geoPoint.point.x), getTransformation().toScreenY(geoPoint.point.y), Config.POINT_RADIUS);

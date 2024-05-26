@@ -123,7 +123,7 @@ public class Controller {
         List<GeometricPoint> intersections = IntersectionBuilder.getIntersections(clickedShapes);
         List<ViewablePoint> viewableIntersections = new ArrayList<>();
         for (GeometricPoint intersection : intersections) {
-            viewableIntersections.add(new ViewablePoint("", viewablePlane, intersection));
+            viewableIntersections.add(new ViewablePoint(viewablePlane, intersection));
         }
         for (ViewablePoint viewableIntersection : viewableIntersections) {
             if (viewableIntersection.hasPoint(screenX, screenY)) {

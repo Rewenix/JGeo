@@ -12,8 +12,8 @@ public class ViewableLine extends ViewableShape {
     protected final Line drawableHub;
     protected final GeometricLine geoLine;
 
-    public ViewableLine(String name, ViewablePlane viewablePlane, GeometricLine geoLine) {
-        super(name, viewablePlane);
+    public ViewableLine(ViewablePlane viewablePlane, GeometricLine geoLine) {
+        super(viewablePlane);
         this.geoLine = geoLine;
         drawableShape = new Line();
         drawableHub = new Line();

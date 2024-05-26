@@ -11,11 +11,9 @@ import javafx.scene.shape.Shape;
 import java.util.Comparator;
 
 public abstract class ViewableShape {
-    public final String name;
     final ViewablePlane viewablePlane;
 
-    public ViewableShape(String name, ViewablePlane viewablePlane) {
-        this.name = name;
+    public ViewableShape(ViewablePlane viewablePlane) {
         this.viewablePlane = viewablePlane;
     }
 
