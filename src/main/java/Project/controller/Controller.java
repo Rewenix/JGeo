@@ -127,8 +127,8 @@ public class Controller {
         }
         for (ViewablePoint viewableIntersection : viewableIntersections) {
             if (viewableIntersection.hasPoint(screenX, screenY)) {
-                viewablePlane.addViewableShape(viewableIntersection);
                 viewablePlane.getPlane().addGeometricShape(viewableIntersection.getGeometricShape());
+                viewablePlane.addViewableShape(viewableIntersection);
                 point = viewableIntersection.getGeometricShape();
                 return point;
             }
