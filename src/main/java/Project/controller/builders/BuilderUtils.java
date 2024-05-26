@@ -5,10 +5,12 @@ import Project.view.*;
 
 public class BuilderUtils { // Zobaczymy czy jest to przydatne. Najwyzej sie usunie
 
-    public static void addToPlane(GeometricPoint point, ViewablePlane viewablePlane) {
+    public static ViewableShape addToPlane(GeometricPoint point, ViewablePlane viewablePlane) {
         point.update();
         viewablePlane.getPlane().addGeometricShape(point);
-        viewablePlane.addViewableShape(new ViewablePoint(viewablePlane, point));
+        ViewableShape viewablePoint = new ViewablePoint(viewablePlane, point);
+        viewablePlane.addViewableShape(viewablePoint);
+        return viewablePoint;
     }
 
     public static void addToPlane(GeometricLine line, ViewablePlane viewablePlane) {

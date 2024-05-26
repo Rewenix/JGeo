@@ -6,6 +6,7 @@ import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
 import Project.view.ViewablePlane;
+import Project.view.ViewableShape;
 
 public class PointBuilder implements GeometricShapeBuilder {
     private GeometricShape shape;
@@ -36,9 +37,9 @@ public class PointBuilder implements GeometricShapeBuilder {
         buildPoint(viewablePlane, planeX, planeY);
     }
 
-    public GeometricPoint buildPoint(ViewablePlane viewablePlane, double planeX, double planeY) {
+    public ViewableShape buildPoint(ViewablePlane viewablePlane, double planeX, double planeY) {
         if (shape instanceof GeometricPoint point) {
-            return point;
+            return null;
         }
         GeometricPoint point = new GeometricPoint(planeX, planeY);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
@@ -50,8 +51,8 @@ public class PointBuilder implements GeometricShapeBuilder {
             }
         };
         point.setUpdater(updater);
-        BuilderUtils.addToPlane(point, viewablePlane);
+        ViewableShape viewablePoint = BuilderUtils.addToPlane(point, viewablePlane);
         reset();
-        return point;
+        return viewablePoint;
     }
 }

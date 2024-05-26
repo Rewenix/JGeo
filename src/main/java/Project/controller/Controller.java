@@ -61,8 +61,9 @@ public class Controller {
                     break;
                 }
             if (!accepted && selectedBuilder.awaitsPoint()) {
-                GeometricPoint point = getPoint(clickedShapesList, screenX, screenY);
-                selectedBuilder.acceptArgument(point);
+                ViewableShape viewablePoint = getPoint(clickedShapesList, screenX, screenY);
+                if(selectedBuilder.acceptArgument(viewablePoint.getGeometricShape()))
+                    viewablePoint.setOnClicked();
             }
             if (selectedBuilder.isReady()) {
                 selectedBuilder.build(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
@@ -114,8 +115,7 @@ public class Controller {
         viewablePlane.clear();
     }
 
-    private GeometricPoint getPoint(List<ViewableShape> clickedShapesList, double screenX, double screenY) {
-        GeometricPoint point = null;
+    private ViewableShape getPoint(List<ViewableShape> clickedShapesList, double screenX, double screenY) {
         List<GeometricShape> clickedShapes = new ArrayList<>();
         for (ViewableShape clickedShape : clickedShapesList)
             clickedShapes.add(clickedShape.getGeometricShape());
@@ -129,18 +129,19 @@ public class Controller {
             if (viewableIntersection.hasPoint(screenX, screenY)) {
                 viewablePlane.getPlane().addGeometricShape(viewableIntersection.getGeometricShape());
                 viewablePlane.addViewableShape(viewableIntersection);
-                point = viewableIntersection.getGeometricShape();
-                return point;
+                return viewableIntersection;
             }
         }
         for (ViewableShape clickedShape : clickedShapesList) {
             if (clickedShape.hasPoint(screenX, screenY)) {
                 pointBuilder.acceptArgument(clickedShape.getGeometricShape());
                 clickedShape.setOnClicked();
-                point = pointBuilder.buildPoint(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+                ViewableShape viewablePoint = pointBuilder.buildPoint(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+                if(viewablePoint == null)
+                    viewablePoint = clickedShape;
                 pointBuilder.reset();
                 viewablePlane.unclickAll();
-                return point;
+                return viewablePoint;
             }
         }
         return pointBuilder.buildPoint(viewablePlane, transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
