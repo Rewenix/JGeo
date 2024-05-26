@@ -48,34 +48,8 @@ public class GenCircleIntersectionBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint i1 = new GeometricPoint();
-        GeometricPoint i2 = new GeometricPoint();
-        GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private final GeometricGenCircle gA = a;
-            private final GeometricGenCircle gB = b;
-
-            @Override
-            public void update() {
-                if (!gA.isLine()) {
-                    if (!gB.isLine())
-                        CircleIntersectionBuilder.setPoints(i1, i2, gA.circle, gB.circle);
-                    else
-                        LineAndCircleIntersectionBuilder.setPoints(i1, i2, gB.line, gA.circle);
-                }
-                else {
-                    if (!gB.isLine())
-                        LineAndCircleIntersectionBuilder.setPoints(i1, i2, gA.line, gB.circle);
-                    else {
-                        LineIntersectionBuilder.setPoint(i1, gA.line, gB.line);
-                        LineIntersectionBuilder.setPoint(i2, gA.line, gB.line);
-                    }
-                }
-            }
-        };
-        i1.setUpdater(updater);
-        i2.setUpdater(updater);
-        BuilderUtils.addToPlane(i1, viewablePlane);
-        BuilderUtils.addToPlane(i2, viewablePlane);
+        for(GeometricPoint i : getIntersections())
+            BuilderUtils.addToPlane(i, viewablePlane);
     }
 
 
