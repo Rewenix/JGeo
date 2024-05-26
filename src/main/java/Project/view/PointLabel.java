@@ -1,6 +1,9 @@
 package Project.view;
 
 import Project.model.GeometricShape;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.NumberBinding;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -34,8 +37,22 @@ public class PointLabel {
         this.point = point;
         label = new Label(point.getName());
         label.setStyle("-fx-font-size: 12px;");
-        label.layoutXProperty().bind(circle.centerXProperty().add(circle.radiusProperty().add(defaultXOffset)));
-        label.layoutYProperty().bind(circle.centerYProperty().subtract(circle.radiusProperty().add(defaultYOffset)));
+
+        BooleanBinding isNaNBinding = Bindings.createBooleanBinding(() ->
+                        Double.isNaN(circle.centerXProperty().getValue()) || Double.isNaN(circle.centerYProperty().getValue()) || Double.isNaN(circle.radiusProperty().getValue()),
+                circle.centerXProperty(), circle.centerYProperty(), circle.radiusProperty());
+
+        NumberBinding safeXBinding = Bindings
+                .when(isNaNBinding)
+                .then(Double.POSITIVE_INFINITY)
+                .otherwise(circle.centerXProperty().add(circle.radiusProperty().add(defaultXOffset)));
+        label.layoutXProperty().bind(safeXBinding);
+
+        NumberBinding safeYBinding = Bindings
+                .when(isNaNBinding)
+                .then(Double.POSITIVE_INFINITY)
+                .otherwise(circle.centerYProperty().subtract(circle.radiusProperty().add(defaultYOffset)));
+        label.layoutYProperty().bind(safeYBinding);
     }
 
     public Label getLabel() {
