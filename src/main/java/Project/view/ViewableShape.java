@@ -42,6 +42,7 @@ public abstract class ViewableShape {
         getDrawableHub().setStrokeWidth(getHub());
         viewPane.getChildren().addAll(getDrawableShape(), getDrawableHub());
         getDrawableHub().toBack();
+        updateDrawable();
     }
 
     public boolean hasPoint(double screenX, double screenY) { // to chyba ma sens
