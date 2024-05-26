@@ -13,10 +13,12 @@ public class ViewablePlane {
     private final List<ViewableShape> shapes = new ArrayList<>();
     final Transformation transformation = new Transformation();
     final Pane viewPane;
+    final LabelManager labelManager;
 
     public ViewablePlane(Plane2D plane, Pane viewPane) {
         this.plane = plane;
         this.viewPane = viewPane;
+        labelManager = new LabelManager(viewPane);
     }
 
     public Plane2D getPlane() {
@@ -30,6 +32,8 @@ public class ViewablePlane {
     public void addViewableShape(ViewableShape shape) {
         shapes.add(shape);
         shape.setViewPane(viewPane);
+        if(shape instanceof ViewablePoint point)
+            labelManager.addPointLabel(point);
     }
 
     public void updateDrawables() {
@@ -43,8 +47,12 @@ public class ViewablePlane {
     }
 
     public void removeLastShape() {
-        if (!shapes.isEmpty())
-            shapes.remove(shapes.size() - 1).drop();
+        if (!shapes.isEmpty()) {
+            ViewableShape shape = shapes.remove(shapes.size() - 1);
+            shape.drop();
+            if(shape instanceof ViewablePoint point)
+                labelManager.removePointLabel(point);
+        }
     }
 
     public void clear() {
