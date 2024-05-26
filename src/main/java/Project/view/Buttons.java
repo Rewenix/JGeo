@@ -61,97 +61,97 @@ public class Buttons extends VBox {
                     controller.changeActor(new Shifter(controller.getViewablePlane()));
                 },
                 "Shifter", "shifter.png",
-                "Shifts a point or the plane. If a point is selected, it will be moved to the selected place.");
+                "Shift shape or plane.");
         registerToggleButton(event -> {
                     controller.changeActor(new PointBuilder());
                 },
                 "Point", "point.png",
-                "Draws a point where selected.");
+                "Select position or shape.");
         registerToggleButton(event -> {
                     controller.changeActor(new LineThroughPointsBuilder());
                 },
                 "Line", "line.png",
-                "Draw a line through two selected points. Points need to be drawn first with 'Point' method.");
+                "Select two points or positions.");
         registerToggleButton(event -> {
                     controller.changeActor(new SegmentThroughPointsBuilder());
                 },
                 "Segment", "segment.png",
-                "Draw a segment through two selected points. Points need to be drawn first with 'Point' method.");
+                "Select two points or positions.");
         registerToggleButton(event -> {
                     controller.changeActor(new CircleWithCenterAndPointBuilder());
                 },
-                "Circle(Center, Point)", "circleCenter.png",
-                "Draws a circle with a center and a point. Points need to be drawn first with 'Point' method.");
+                "Circle with center", "circleCenter.png",
+                "Select center point, then point on circle.");
         registerToggleButton(event -> {
                     controller.changeActor(new CenterOrMidpointBuilder());
                 },
                 "Midpoint or Center", "midpoint.png",
-                "Draws a midpoint of two points or a circle center. Points and circle need to be drawn first with 'Point' or 'Circle' method.");
+                "Select two points or a circle.");
         registerToggleButton(event -> {
                     controller.changeActor(new CircleThroughThreePointsBuilder());
                 },
-                "Circle(Point, Point, Point)", "circlePoints.png",
-                "Draws a circle through three points. Points need to be drawn first with 'Point' method.");
+                "Circle through 3 points", "circlePoints.png",
+                "Select three points.");
         registerToggleButton(event -> {
                     controller.changeActor(new PerpendicularLineBuilder());
                 },
-                "Perpendicular Line(Line, Point)", "perpendicularLine.png",
-                "Draws a perpendicular line to a selected line through a selected point. Points and lines need to be drawn first with 'Point' method.");
+                "Perpendicular Line", "perpendicularLine.png",
+                "Select perpendicular line and point.");
         registerToggleButton(event -> {
                     controller.changeActor(new ParallelLineBuilder());
                 },
-                "Parallel Line(Line, Point)", "parallelLine.png",
-                "Draws a parallel line to a selected line through a selected point. Points and lines need to be drawn first with 'Point' method.");
+                "Parallel Line", "parallelLine.png",
+                "Select parallel line and point.");
         registerToggleButton(event -> {
                     controller.changeActor(new PerpendicularBisectorBuilder());
                 },
                 "Perpendicular Bisector", "perpendicularBisector.png",
-                "Draws a perpendicular bisector of two points. Points need to be drawn first with 'Point' method.");
+                "Select two points.");
         registerToggleButton(event -> {
                     controller.changeActor(new AngleBisectorThreePointsBuilder());
                 },
                 "Angle Bisector", "angleBisector.png",
-                "Draws an angle bisector of three points. Points need to be drawn first with 'Point' method.");
+                "Select three points.");
         registerToggleButton(event -> {
                     controller.changeActor(new TangentsFromPointBuilder());
                 },
-                "Tangents(Point, Circle)", "tangents.png",
-                "Draws tangents to a circle through a selected point. Points and a circle need to be drawn first with 'Point' method.");
+                "Tangents", "tangents.png",
+                "Select point and circle.");
         registerToggleButton(event -> {
                     controller.changeActor(new IntersectionBuilder());
                 },
                 "Intersection", "intersection.png",
-                "Draws an intersection of two shapes. shapes need to be drawn first with their method.");
+                "Select two shapes.");
         registerToggleButton(event -> {
                     controller.changeActor(new ReflectionAboutPointBuilder());
                 },
                 "Reflection about Point", "reflectionPoint.png",
-                "Reflects a shape about a selected point. Shape and point need to be drawn first with their method.");
+                "Select shape and point");
         registerToggleButton(event -> {
                     controller.changeActor(new ReflectionAboutLineBuilder());
                 },
                 "Reflection about Line", "reflectionLine.png",
-                "Reflects a shape about a selected line. Shape and line need to be drawn first with their method.");
+                "Select shape and line.");
         registerToggleButton(event -> {
                     controller.changeActor(new PointProjectionOntoLineBuilder());
                 },
                 "Projection onto Line", "projection.png",
-                "Projects a point onto a selected line. Point and line need to be drawn first with their method.");
+                "Select point and line.");
         registerToggleButton(event -> {
                     controller.changeActor(new PoleOrPolarBuilder());
                 },
                 "Pole or Polar", "polar.png",
-                "Draws a pole or a polar of a point with respect to a circle. Point and circle need to be drawn first with their method.");
+                "Select point or line and circle");
         registerToggleButton(event -> {
                     controller.changeActor(new InversionBuilder());
                 },
                 "Inversion", "inversion.png",
-                "Inverts a shape with respect to a circle. Shape and circle need to be drawn first with their method.");
+                "Select shape and circle");
         registerToggleButton(event -> {
                     controller.changeActor(new IncircleBuilder());
                 },
                 "Incircle", "incircle.png",
-                "Draws an incircle of a triangle. Triangle needs to be drawn first with 'Point' method.");
+                "Select three points");
 
         registerLayout();
     }
@@ -181,10 +181,10 @@ public class Buttons extends VBox {
         getChildren().add(scrollPane);
 
         createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment",
-                "Circle(Center, Point)", "Circle(Point, Point, Point)", "Intersection");
+                "Circle with center", "Circle through 3 points", "Intersection");
 
-        createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line(Line, Point)", "Parallel Line(Line, Point)",
-                "Perpendicular Bisector", "Angle Bisector", "Tangents(Point, Circle)", "Projection onto Line", "Incircle");
+        createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line", "Parallel Line",
+                "Perpendicular Bisector", "Angle Bisector", "Tangents", "Projection onto Line", "Incircle");
 
         createButtonGroup("Transform", "Reflection about Point", "Reflection about Line", "Pole or Polar", "Inversion");
     }
