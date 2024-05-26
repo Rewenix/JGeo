@@ -60,7 +60,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
             @Override
             public void update() {
                 setCircle(genCircle.circle, pA, pB, pC);
-                if (!genCircle.circle.isDefined()) {
+                if (!genCircle.circle.isDefined() && pC.isDefined()) {
                     LineThroughPointsBuilder.setLine(genCircle.line, pA.point, pB.point);
                 }
                 else {
