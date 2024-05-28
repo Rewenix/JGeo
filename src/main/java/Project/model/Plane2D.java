@@ -17,9 +17,9 @@ public class Plane2D {
         if (!shapes.isEmpty()) {
             GeometricShape shape = shapes.remove(shapes.size() - 1);
             if (shape instanceof GeometricPoint)
-                LabelBank.returnPointLabel(shape.getName());
+                LabelBank.returnLabel(shape.getName());
             else
-                LabelBank.returnShapeLabel(shape.getName());
+                LabelBank.returnLabel(shape.getName());
             return shape;
         }
         return null;

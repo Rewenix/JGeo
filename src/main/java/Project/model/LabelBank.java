@@ -1,27 +1,30 @@
 package Project.model;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.TreeSet;
+import javafx.util.Pair;
+
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class LabelBank {
-    protected static final Comparator<String> comparator = (a, b) -> {
-        int aNum = !a.substring(1).isEmpty() ? Integer.parseInt(a.substring(1)) : 0;
-        int bNum = !b.substring(1).isEmpty() ? Integer.parseInt(b.substring(1)) : 0;
+    protected static final Comparator<Pair<Character, Integer>> comparator = (a, b) -> {
+        int aNum = a.getValue();
+        int bNum = b.getValue();
         if (aNum != bNum) {
             return aNum - bNum;
         }
-        return a.charAt(0) - b.charAt(0);
+        return a.getKey() - b.getKey();
     };
 
-    private static PointOrShapeBank pointBank = new PointOrShapeBank(true);
-    private static PointOrShapeBank shapeBank = new PointOrShapeBank(false);
+    private static final Map<String, SmallBank> owners = new HashMap<>();
+
+    private static SmallBank pointBank = new SmallBank(c -> Character.toString(c));
+    private static SmallBank shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
 
     // To be invoked upon clearing plane
     public static void reset() {
-        pointBank = new PointOrShapeBank(true);
-        shapeBank = new PointOrShapeBank(false);
+        pointBank = new SmallBank(c -> Character.toString(c));
+        shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
     }
 
     public static String getPointLabel() {
@@ -32,83 +35,95 @@ public class LabelBank {
         return shapeBank.getLabel();
     }
 
-    private static PointOrShapeBank whoseResponsibility(String label) {
-        try {
-            if (label.substring(1).isEmpty() || label.substring(1).matches("[1-9][0-9]*")) {
-                if (Character.isUpperCase(label.charAt(0)))
-                    return pointBank;
-                else if (Character.isLowerCase(label.charAt(0)))
-                    return shapeBank;
-            }
+    private static Pair<String, Integer> parseLabel(String label) {
+        // Find last letter and this should be the start of the number
+        int i = label.length() - 1;
+        while (i >= 0 && Character.isDigit(label.charAt(i))) {
+            i--;
         }
-        catch (Exception e) {}
-        return null;
+        i++;
+        // Take into account the case where there is no number
+        if (i == label.length())
+            return new Pair<>(label, 0);
+        return new Pair<>(label.substring(0, i), Integer.parseInt(label.substring(i)));
     }
 
-    public static void returnPointLabel(String label) {
-        if (whoseResponsibility(label) == pointBank)
-            pointBank.acceptReturned(label);
+    public static void returnLabel(String label) {
+        Pair<String, Integer> pair = parseLabel(label);
+        if(owners.containsKey(pair.getKey()))
+            owners.get(pair.getKey()).acceptReturned(pair);
     }
 
-    public static void returnShapeLabel(String label) {
-        if (whoseResponsibility(label) == shapeBank)
-            shapeBank.acceptReturned(label);
+    public static void takeLabel(String label) {
+        Pair<String, Integer> pair = parseLabel(label);
+        if(owners.containsKey(pair.getKey()))
+            owners.get(pair.getKey()).acceptTaken(pair);
     }
 
-    public static void takePointLabel(String label) {
-        if (whoseResponsibility(label) == pointBank)
-            pointBank.acceptTaken(label);
-    }
+    private static class SmallBank {
+        private final Iterator<Pair<Character, Integer>> iterator;
+        private final TreeSet<Pair<Character, Integer>> returned = new TreeSet<>(comparator); // Returned and available
+        private final TreeSet<Pair<Character, Integer>> taken = new TreeSet<>(comparator); // Taken out of order
+//        private final Map<Character, String> labelMap = new HashMap<>();
+        private final Map<String, Character> delabelMap = new HashMap<>();
+        private final Function<Character, String> lambda;
+        private Pair<Character, Integer> lastPair = new Pair<>('.', -1);   // Last returned label from the usual iterator
 
-    public static void takeShapeLabel(String label) {
-        if (whoseResponsibility(label) == shapeBank)
-            shapeBank.acceptTaken(label);
-    }
-
-    private static class PointOrShapeBank {
-        private final Iterator<String> iterator;
-        private final TreeSet<String> returned = new TreeSet<>(comparator); // Returned and available
-        private final TreeSet<String> taken = new TreeSet<>(comparator); // Taken out of order
-        private String lastLabel = ".-1";   // Last returned label from the usual iterator
-
-        PointOrShapeBank(boolean isPoint) {
-            this.iterator = Stream.iterate(new String[] { isPoint ? "A" : "a", "0" }, p -> {
-                char c = p[0].charAt(0);
-                String num = p[1];
-                if (c == (isPoint ? 'Z' : 'z')) {
-                    c = isPoint ? 'A' : 'a';
-                    num = String.valueOf(Integer.parseInt(num) + 1);
+        // Lambda functions should be reasonable
+        // Namely, their images should be pairwise disjoint, they should be injective on capital letters
+//        // and their images should not contain numbers
+        SmallBank(Function<Character, String> labelChoice) {
+            this.lambda = labelChoice;
+            this.iterator = Stream.iterate(new Pair<>('A', 0), p -> {
+                char c = p.getKey();
+                int num = p.getValue();
+                if (c == 'Z') {
+                    c = 'A';
+                    num++;
                 }
                 else {
                     c++;
                 }
-                return new String[] { String.valueOf(c), num };
-            }).map(p -> p[0] + (Integer.parseInt(p[1]) > 0 ? p[1] : "")).iterator();
+                return new Pair<>(c, num);
+            }).iterator();
+            for (char c = 'A'; c <= 'Z'; c++) {
+                String str = lambda.apply(c);
+                delabelMap.put(str, c);
+                owners.put(str, this);
+            }
         }
 
-        void acceptReturned(String label) {
-            if (comparator.compare(label, lastLabel) <= 0)
-                returned.add(label);
-            taken.remove(label);
+        void acceptReturned(Pair<String, Integer> label) {
+            if(delabelMap.containsKey(label.getKey())) {
+                Pair<Character, Integer> pair = new Pair<>(delabelMap.get(label.getKey()), label.getValue());
+                if (comparator.compare(pair, lastPair) <= 0)
+                    returned.add(pair);
+                taken.remove(label);
+            }
         }
 
-        void acceptTaken(String label) {
-            if (comparator.compare(label, lastLabel) > 0)
-                taken.add(label);
-            returned.remove(label);
+        void acceptTaken(Pair<String, Integer> label) {
+            if(delabelMap.containsKey(label.getKey())) {
+                Pair<Character, Integer> pair = new Pair<>(delabelMap.get(label.getKey()), label.getValue());
+                if (comparator.compare(pair, lastPair) > 0)
+                    taken.add(pair);
+                returned.remove(pair);
+            }
         }
 
         String getLabel() {
-            String label;
+            Pair<Character, Integer> pair;
             if (!returned.isEmpty())
-                label = returned.pollFirst();
+                pair = returned.pollFirst();
             else {
                 do {
-                    label = iterator.next();
-                } while (taken.contains(label));
-                lastLabel = label;
+                    pair = iterator.next();
+                } while (taken.contains(pair));
+                lastPair = pair;
             }
-            return label;
+            if(pair.getValue() > 0)
+                return lambda.apply(pair.getKey()) + pair.getValue();
+            return lambda.apply(pair.getKey());
         }
     }
 
