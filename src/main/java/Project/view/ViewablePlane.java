@@ -61,45 +61,22 @@ public class ViewablePlane {
     }
 
     public List<ViewableShape> getClickedShapesList(double screenX, double screenY) {
-        List<ViewableShape> clickedShapes = new ArrayList<>();
-        for (ViewableShape shape : shapes)
-            if (shape.hasPoint(screenX, screenY))
-                clickedShapes.add(shape);
-
-        clickedShapes.sort(ViewableShape.getPriorityComparator());
-        return clickedShapes;
+        return getClickedShapesList(screenX, screenY, shape -> true);
     }
 
     public List<ViewableShape> getClickedShapesList(double screenX, double screenY, Predicate<ViewableShape> predicate) {
-        List<ViewableShape> clickedShapes = new ArrayList<>();
-        for (ViewableShape shape : shapes)
-            if (predicate.test(shape) && shape.hasPoint(screenX, screenY))
-                clickedShapes.add(shape);
-
-        clickedShapes.sort(ViewableShape.getPriorityComparator());
-        return clickedShapes;
+        return shapes.stream()
+                .filter(shape -> shape.hasPoint(screenX, screenY) && predicate.test(shape))
+                .sorted(ViewableShape.getPriorityComparator())
+                .toList();
     }
 
     public ViewableShape getClickedShape(double screenX, double screenY) {
-        for (ViewableShape shape : shapes) {
-            if (shape instanceof ViewablePoint point && point.hasPoint(screenX, screenY)) {
-                return shape;
-            }
-        }
-        for (ViewableShape shape : shapes) {
-            if (shape.hasPoint(screenX, screenY)) {
-                return shape;
-            }
-        }
-        return null;
+        return getClickedShape(screenX, screenY, shape -> true);
     }
 
     public ViewableShape getClickedShape(double screenX, double screenY, Predicate<ViewableShape> predicate) {
-        for (ViewableShape shape : shapes) {
-            if (predicate.test(shape) && shape.hasPoint(screenX, screenY)) {
-                return shape;
-            }
-        }
-        return null;
+        return getClickedShapesList(screenX, screenY, predicate).stream()
+                .findFirst().orElse(null);
     }
 }
