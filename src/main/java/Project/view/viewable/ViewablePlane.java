@@ -1,7 +1,8 @@
-package Project.view;
+package Project.view.viewable;
 
 import Project.controller.Transformation;
 import Project.model.Plane2D;
+import Project.view.labels.LabelManager;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;

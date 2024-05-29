@@ -3,7 +3,7 @@ package Project.controller.builders.points;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;

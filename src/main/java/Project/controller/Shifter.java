@@ -1,8 +1,7 @@
 package Project.controller;
 
 import Project.model.GeometricPoint;
-import Project.model.Plane2D;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class Shifter implements Actor {
     private final ViewablePlane viewablePlane;

@@ -3,7 +3,7 @@ package Project.controller.builders.transforms.inversion;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class PointInversionBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;

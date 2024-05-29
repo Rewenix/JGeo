@@ -2,7 +2,7 @@ package Project.controller.builders.transforms.inversion;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricShape;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class InversionBuilder implements GeometricShapeBuilder {
     private final PointInversionBuilder pointInversionBuilder = new PointInversionBuilder();

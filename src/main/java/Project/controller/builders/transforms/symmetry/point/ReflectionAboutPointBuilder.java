@@ -2,7 +2,7 @@ package Project.controller.builders.transforms.symmetry.point;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricShape;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class ReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private final PointReflectionAboutPointBuilder pointReflectionAboutPointBuilder = new PointReflectionAboutPointBuilder();

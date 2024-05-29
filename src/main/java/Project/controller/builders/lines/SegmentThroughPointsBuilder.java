@@ -4,7 +4,7 @@ import Project.controller.builders.BuilderUtils;
 import Project.model.GeometricPoint;
 import Project.model.GeometricSegment;
 import Project.model.GeometricShapeUpdater;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 /**
  * A builder class for creating a segment through two points.

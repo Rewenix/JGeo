@@ -6,7 +6,7 @@ import Project.model.BasicPoint;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 /**
  * A builder class for creating a midpoint between two points.

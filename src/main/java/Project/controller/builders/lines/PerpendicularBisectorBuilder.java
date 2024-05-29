@@ -4,7 +4,7 @@ import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.points.MidpointBuilder;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 /**
  * A builder class for creating a perpendicular bisector of two points.

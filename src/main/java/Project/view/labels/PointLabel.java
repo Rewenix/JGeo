@@ -1,4 +1,4 @@
-package Project.view;
+package Project.view.labels;
 
 import Project.Config;
 import Project.model.GeometricShape;

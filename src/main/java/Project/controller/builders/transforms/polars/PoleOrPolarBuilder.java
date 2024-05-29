@@ -2,7 +2,7 @@ package Project.controller.builders.transforms.polars;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricShape;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class PoleOrPolarBuilder implements GeometricShapeBuilder {
     private final PolarBuilder polarBuilder = new PolarBuilder();

@@ -6,7 +6,7 @@ import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.controller.builders.lines.PerpendicularLineBuilder;
 import Project.controller.builders.transforms.inversion.PointInversionBuilder;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class PolarBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;

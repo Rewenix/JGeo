@@ -1,7 +1,7 @@
 package Project.controller;
 
 import Project.model.GeometricShape;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public interface GeometricShapeBuilder extends Actor {
 

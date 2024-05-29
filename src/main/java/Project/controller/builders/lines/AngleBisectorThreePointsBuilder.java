@@ -3,7 +3,7 @@ package Project.controller.builders.lines;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 /**
  * A builder class for creating an angle bisector using three points.

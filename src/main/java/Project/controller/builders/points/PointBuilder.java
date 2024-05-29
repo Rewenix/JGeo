@@ -5,8 +5,8 @@ import Project.controller.builders.BuilderUtils;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
-import Project.view.ViewablePlane;
-import Project.view.ViewableShape;
+import Project.view.viewable.ViewablePlane;
+import Project.view.viewable.ViewableShape;
 
 public class PointBuilder implements GeometricShapeBuilder {
     private GeometricShape shape;

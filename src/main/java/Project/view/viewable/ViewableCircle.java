@@ -1,4 +1,4 @@
-package Project.view;
+package Project.view.viewable;
 
 import Project.Config;
 import Project.model.BasicCircle;

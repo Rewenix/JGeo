@@ -6,7 +6,7 @@ import Project.model.BasicPoint;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
     private GeometricPoint point = null;

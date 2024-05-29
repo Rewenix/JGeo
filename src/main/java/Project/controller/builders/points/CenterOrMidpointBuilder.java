@@ -2,7 +2,7 @@ package Project.controller.builders.points;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricShape;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class CenterOrMidpointBuilder implements GeometricShapeBuilder {
     private final CircleCenterBuilder circleCenterBuilder = new CircleCenterBuilder();

@@ -4,7 +4,7 @@ import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 /**
  * A builder class for constructing tangent lines from a point to a circle.

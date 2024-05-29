@@ -3,7 +3,7 @@ package Project.controller.builders.intersections;
 import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 import java.util.ArrayList;
 import java.util.List;

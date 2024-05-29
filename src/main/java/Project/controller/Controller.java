@@ -7,9 +7,9 @@ import Project.model.GeometricGenCircle;
 import Project.model.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
-import Project.view.ViewablePlane;
-import Project.view.ViewablePoint;
-import Project.view.ViewableShape;
+import Project.view.viewable.ViewablePlane;
+import Project.view.viewable.ViewablePoint;
+import Project.view.viewable.ViewableShape;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;

@@ -5,7 +5,7 @@ import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class LineReflectionAboutLineBuilder implements GeometricShapeBuilder {
     private GeometricLine line = null;

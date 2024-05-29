@@ -3,7 +3,7 @@ package Project.controller.builders.circles;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
-import Project.view.ViewablePlane;
+import Project.view.viewable.ViewablePlane;
 
 public class IncircleBuilder implements GeometricShapeBuilder {
     private GeometricPoint a = null;
