@@ -11,9 +11,11 @@ public class LabelBank {
     private final Function<GeometricShape, Integer> bankChoice;
     private final List<SmallBank> banks;
 
-    // Lambdas should be reasonable
-    // Namely, they should be injective on capital letters
-    public LabelBank(Function<GeometricShape, Integer> bankChoice, List<Function<Character, String>> lambdas) {
+    // First argument should be choice of label generator functions
+    // They should be injective on capital letters
+
+    // Second argument should specify which GeoShape should take from which bank
+    public LabelBank(List<Function<Character, String>> lambdas, Function<GeometricShape, Integer> bankChoice) {
         this.bankChoice = bankChoice;
         this.banks = lambdas.stream()
                 .map(SmallBank::new)

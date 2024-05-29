@@ -5,11 +5,12 @@ import java.util.List;
 
 public class Plane2D {
     private final ArrayList<GeometricShape> shapes = new ArrayList<>();
-    private final LabelBank labelBank = new LabelBank(shape -> {
-        if (shape instanceof GeometricPoint)
-            return 0;
-        return 1;
-    }, List.of(c -> Character.toString(c), c -> Character.toString(Character.toLowerCase(c))));
+    private final LabelBank labelBank = new LabelBank(List.of(c -> Character.toString(c), c -> Character.toString(Character.toLowerCase(c))),
+            shape -> {
+                if (shape instanceof GeometricPoint)
+                    return 0;
+                return 1;
+            });
 
     public void addGeometricShape(GeometricShape shape) {
         shapes.add(shape);
