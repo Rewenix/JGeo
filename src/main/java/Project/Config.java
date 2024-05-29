@@ -31,7 +31,7 @@ public class Config {
         //default values in case default.properties is missing
         EPSILON = Double.parseDouble(properties.getProperty("epsilon", "1e-9"));
         LINE_LENGTH = Double.parseDouble(properties.getProperty("lineLength", "5000"));
-        HITBOX = Double.parseDouble(properties.getProperty("hitbox", "8"));
+        HITBOX = Double.parseDouble(properties.getProperty("hitbox", "10"));
         ZOOM_SPEED = Double.parseDouble(properties.getProperty("zoomSpeed", "0.002"));
         POINT_RADIUS = Double.parseDouble(properties.getProperty("pointRadius", "4"));
         POINT_HUB = Double.parseDouble(properties.getProperty("pointHub", "8"));
