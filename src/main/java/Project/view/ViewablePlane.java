@@ -76,7 +76,8 @@ public class ViewablePlane {
     }
 
     public ViewableShape getClickedShape(double screenX, double screenY, Predicate<ViewableShape> predicate) {
-        return getClickedShapesList(screenX, screenY, predicate).stream()
-                .findFirst().orElse(null);
+        return shapes.stream()
+                .filter(shape -> shape.hasPoint(screenX, screenY) && predicate.test(shape))
+                .min(ViewableShape.getPriorityComparator()).orElse(null);
     }
 }
