@@ -7,19 +7,12 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class LabelBank {
-    protected static final Comparator<Pair<Character, Integer>> comparator = (a, b) -> {
-        int aNum = a.getValue();
-        int bNum = b.getValue();
-        if (aNum != bNum) {
-            return aNum - bNum;
-        }
-        return a.getKey() - b.getKey();
-    };
-
     private static final Map<String, SmallBank> owners = new HashMap<>();
 
-    private static SmallBank pointBank = new SmallBank(c -> Character.toString(c));
-    private static SmallBank shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
+    private static SmallBank pointBank;
+    private static SmallBank shapeBank;
+
+    static { reset(); }
 
     // To be invoked upon clearing plane
     public static void reset() {
@@ -27,12 +20,11 @@ public class LabelBank {
         shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
     }
 
-    public static String getPointLabel() {
-        return pointBank.getLabel();
-    }
-
-    public static String getShapeLabel() {
-        return shapeBank.getLabel();
+    public static void assignLabel(GeometricShape shape) {
+        if (shape instanceof GeometricPoint)
+            shape.setName(pointBank.getLabel());
+        else
+            shape.setName(shapeBank.getLabel());
     }
 
     private static Pair<String, Integer> parseLabel(String label) {
@@ -64,14 +56,12 @@ public class LabelBank {
         private final Iterator<Pair<Character, Integer>> iterator;
         private final TreeSet<Pair<Character, Integer>> returned = new TreeSet<>(comparator); // Returned and available
         private final TreeSet<Pair<Character, Integer>> taken = new TreeSet<>(comparator); // Taken out of order
-//        private final Map<Character, String> labelMap = new HashMap<>();
         private final Map<String, Character> delabelMap = new HashMap<>();
         private final Function<Character, String> lambda;
         private Pair<Character, Integer> lastPair = new Pair<>('.', -1);   // Last returned label from the usual iterator
 
         // Lambda functions should be reasonable
         // Namely, their images should be pairwise disjoint, they should be injective on capital letters
-//        // and their images should not contain numbers
         SmallBank(Function<Character, String> labelChoice) {
             this.lambda = labelChoice;
             this.iterator = Stream.iterate(new Pair<>('A', 0), p -> {
@@ -86,6 +76,7 @@ public class LabelBank {
                 }
                 return new Pair<>(c, num);
             }).iterator();
+
             for (char c = 'A'; c <= 'Z'; c++) {
                 String str = lambda.apply(c);
                 delabelMap.put(str, c);
@@ -98,7 +89,7 @@ public class LabelBank {
                 Pair<Character, Integer> pair = new Pair<>(delabelMap.get(label.getKey()), label.getValue());
                 if (comparator.compare(pair, lastPair) <= 0)
                     returned.add(pair);
-                taken.remove(label);
+                taken.remove(pair);
             }
         }
 
@@ -125,17 +116,26 @@ public class LabelBank {
                 return lambda.apply(pair.getKey()) + pair.getValue();
             return lambda.apply(pair.getKey());
         }
+
+        private static final Comparator<Pair<Character, Integer>> comparator = (a, b) -> {
+            int aNum = a.getValue();
+            int bNum = b.getValue();
+            if (aNum != bNum) {
+                return aNum - bNum;
+            }
+            return a.getKey() - b.getKey();
+        };
     }
 
     /*public static void main(String[] args) {
         for(int i = 0; i < 30; i++) {
-            System.out.println(getShapeLabel());
+            System.out.println(pointBank.getLabel());
         }
         System.out.println();
-        returnShapeLabel("a1");
-        System.out.println(getShapeLabel());
-        takeShapeLabel("e1");
-        // returnShapeLabel("e1");
-        System.out.println(getShapeLabel());
+        returnLabel("A1");
+        System.out.println(pointBank.getLabel());
+        takeLabel("E1");
+        returnLabel("E1");
+        System.out.println(pointBank.getLabel());
     }*/
 }

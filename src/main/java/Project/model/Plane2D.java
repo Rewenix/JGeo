@@ -7,19 +7,13 @@ public class Plane2D {
 
     public void addGeometricShape(GeometricShape shape) {
         shapes.add(shape);
-        if (shape instanceof GeometricPoint)
-            shape.setName(LabelBank.getPointLabel());
-        else
-            shape.setName(LabelBank.getShapeLabel());
+        LabelBank.assignLabel(shape);
     }
 
     public GeometricShape removeLastShape() {
         if (!shapes.isEmpty()) {
             GeometricShape shape = shapes.remove(shapes.size() - 1);
-            if (shape instanceof GeometricPoint)
-                LabelBank.returnLabel(shape.getName());
-            else
-                LabelBank.returnLabel(shape.getName());
+            LabelBank.returnLabel(shape.getName());
             return shape;
         }
         return null;
