@@ -4,25 +4,30 @@ import javafx.util.Pair;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LabelBank {
-    private final Map<String, SmallBank> owners = new HashMap<>();
+    private final Function<GeometricShape, Integer> bankChoice;
+    private final List<SmallBank> banks;
 
-    private final SmallBank pointBank = new SmallBank(c -> Character.toString(c));
-    private final SmallBank shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
+    // Lambdas should be reasonable
+    // Namely, they should be injective on capital letters
+    public LabelBank(Function<GeometricShape, Integer> bankChoice, List<Function<Character, String>> lambdas) {
+        this.bankChoice = bankChoice;
+        this.banks = lambdas.stream()
+                .map(SmallBank::new)
+                .collect(Collectors.toList());
+    }
 
     // To be invoked upon clearing plane
     public void reset() {
-        pointBank.reset();
-        shapeBank.reset();
+        for(SmallBank bank : banks)
+            bank.reset();
     }
 
     public void assignLabel(GeometricShape shape) {
-        if (shape instanceof GeometricPoint)
-            shape.setName(pointBank.getLabel());
-        else
-            shape.setName(shapeBank.getLabel());
+        shape.setName(banks.get(bankChoice.apply(shape)).getLabel());
     }
 
     private static Pair<String, Integer> parseLabel(String label) {
@@ -38,19 +43,15 @@ public class LabelBank {
         return new Pair<>(label.substring(0, i), Integer.parseInt(label.substring(i)));
     }
 
-    public void returnLabel(String label) {
-        Pair<String, Integer> pair = parseLabel(label);
-        if(owners.containsKey(pair.getKey()))
-            owners.get(pair.getKey()).acceptReturned(pair);
+    public void returnLabel(GeometricShape shape) {
+        banks.get(bankChoice.apply(shape)).acceptReturned(parseLabel(shape.getName()));
     }
 
-    public void takeLabel(String label) {
-        Pair<String, Integer> pair = parseLabel(label);
-        if(owners.containsKey(pair.getKey()))
-            owners.get(pair.getKey()).acceptTaken(pair);
+    public void takeLabel(GeometricShape shape) {
+        banks.get(bankChoice.apply(shape)).acceptTaken(parseLabel(shape.getName()));
     }
 
-    private class SmallBank {
+    private static class SmallBank {
         private Iterator<Pair<Character, Integer>> iterator;
         private final TreeSet<Pair<Character, Integer>> returned = new TreeSet<>(comparator); // Returned and available
         private final TreeSet<Pair<Character, Integer>> taken = new TreeSet<>(comparator); // Taken out of order
@@ -78,8 +79,6 @@ public class LabelBank {
             lastPair = new Pair<>('.', -1);
         }
 
-        // Functions should be reasonable
-        // Namely, their images should be pairwise disjoint, they should be injective on capital letters
         SmallBank(Function<Character, String> lambda) {
             initialize();
 
@@ -88,10 +87,7 @@ public class LabelBank {
                 String str = lambda.apply(c);
                 if (delabelMap.containsKey(str))
                     System.err.println("Lambda is not injective.");
-                if (owners.containsKey(str))
-                    System.err.println("Lambdas are not pairwise disjoint.");
                 delabelMap.put(str, c);
-                owners.put(str, this);
             }
         }
 
@@ -143,16 +139,4 @@ public class LabelBank {
             taken.clear();
         }
     }
-
-    /*public static void main(String[] args) {
-        for(int i = 0; i < 30; i++) {
-            System.out.println(pointBank.getLabel());
-        }
-        System.out.println();
-        returnLabel("A1");
-        System.out.println(pointBank.getLabel());
-        takeLabel("E1");
-        returnLabel("E1");
-        System.out.println(pointBank.getLabel());
-    }*/
 }
