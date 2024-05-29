@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 public class Plane2D {
     private final ArrayList<GeometricShape> shapes = new ArrayList<>();
+    private final LabelBank labelBank = new LabelBank();
 
     public void addGeometricShape(GeometricShape shape) {
         shapes.add(shape);
-        LabelBank.assignLabel(shape);
+        labelBank.assignLabel(shape);
     }
 
     public GeometricShape removeLastShape() {
         if (!shapes.isEmpty()) {
             GeometricShape shape = shapes.remove(shapes.size() - 1);
-            LabelBank.returnLabel(shape.getName());
+            labelBank.returnLabel(shape.getName());
             return shape;
         }
         return null;
@@ -23,7 +24,7 @@ public class Plane2D {
         while (!shapes.isEmpty()) {
             removeLastShape();
         }
-        LabelBank.reset();
+        labelBank.reset();
     }
 
     public void update() {

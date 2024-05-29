@@ -7,18 +7,18 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class LabelBank {
-    private static final Map<String, SmallBank> owners = new HashMap<>();
+    private final Map<String, SmallBank> owners = new HashMap<>();
 
-    private static final SmallBank pointBank = new SmallBank(c -> Character.toString(c));
-    private static final SmallBank shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
+    private final SmallBank pointBank = new SmallBank(c -> Character.toString(c));
+    private final SmallBank shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
 
     // To be invoked upon clearing plane
-    public static void reset() {
+    public void reset() {
         pointBank.reset();
         shapeBank.reset();
     }
 
-    public static void assignLabel(GeometricShape shape) {
+    public void assignLabel(GeometricShape shape) {
         if (shape instanceof GeometricPoint)
             shape.setName(pointBank.getLabel());
         else
@@ -38,19 +38,19 @@ public class LabelBank {
         return new Pair<>(label.substring(0, i), Integer.parseInt(label.substring(i)));
     }
 
-    public static void returnLabel(String label) {
+    public void returnLabel(String label) {
         Pair<String, Integer> pair = parseLabel(label);
         if(owners.containsKey(pair.getKey()))
             owners.get(pair.getKey()).acceptReturned(pair);
     }
 
-    public static void takeLabel(String label) {
+    public void takeLabel(String label) {
         Pair<String, Integer> pair = parseLabel(label);
         if(owners.containsKey(pair.getKey()))
             owners.get(pair.getKey()).acceptTaken(pair);
     }
 
-    private static class SmallBank {
+    private class SmallBank {
         private Iterator<Pair<Character, Integer>> iterator;
         private final TreeSet<Pair<Character, Integer>> returned = new TreeSet<>(comparator); // Returned and available
         private final TreeSet<Pair<Character, Integer>> taken = new TreeSet<>(comparator); // Taken out of order
