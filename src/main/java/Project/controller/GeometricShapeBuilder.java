@@ -9,8 +9,6 @@ public interface GeometricShapeBuilder extends Actor {
 
     boolean isReady();
 
-    void reset();
-
     void build(ViewablePlane viewablePlane, double planeX, double planeY);
 
     boolean awaitsPoint();

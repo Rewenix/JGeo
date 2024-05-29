@@ -16,6 +16,11 @@ public class Shifter implements Actor {
         this.transformation = viewablePlane.getTransformation();
     }
 
+    @Override
+    public void reset() {
+        point = null;
+    }
+
     public void setPoint(GeometricPoint point) {
         this.point = point;
     }

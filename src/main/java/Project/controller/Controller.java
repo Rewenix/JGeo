@@ -102,6 +102,8 @@ public class Controller {
     }
 
     public void removeLastShape() {
+        if(selectedActor != null)
+            selectedActor.reset();
         GeometricShape removedShape = plane.removeLastShape();
         if (removedShape != null) {
             viewablePlane.removeLastShape();
@@ -111,6 +113,8 @@ public class Controller {
     }
 
     public void clearShapes() {
+        if(selectedActor != null)
+            selectedActor.reset();
         plane.clear();
         viewablePlane.clear();
     }
