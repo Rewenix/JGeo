@@ -9,15 +9,13 @@ import java.util.stream.Stream;
 public class LabelBank {
     private static final Map<String, SmallBank> owners = new HashMap<>();
 
-    private static SmallBank pointBank;
-    private static SmallBank shapeBank;
-
-    static { reset(); }
+    private static final SmallBank pointBank = new SmallBank(c -> Character.toString(c));
+    private static final SmallBank shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
 
     // To be invoked upon clearing plane
     public static void reset() {
-        pointBank = new SmallBank(c -> Character.toString(c));
-        shapeBank = new SmallBank(c -> Character.toString(Character.toLowerCase(c)));
+        pointBank.reset();
+        shapeBank.reset();
     }
 
     public static void assignLabel(GeometricShape shape) {
@@ -53,18 +51,15 @@ public class LabelBank {
     }
 
     private static class SmallBank {
-        private final Iterator<Pair<Character, Integer>> iterator;
+        private Iterator<Pair<Character, Integer>> iterator;
         private final TreeSet<Pair<Character, Integer>> returned = new TreeSet<>(comparator); // Returned and available
         private final TreeSet<Pair<Character, Integer>> taken = new TreeSet<>(comparator); // Taken out of order
         private final Map<String, Character> delabelMap = new HashMap<>();
         private final Function<Character, String> lambda;
-        private Pair<Character, Integer> lastPair = new Pair<>('.', -1);   // Last returned label from the usual iterator
+        private Pair<Character, Integer> lastPair;   // Last returned label from the usual iterator
 
-        // Lambda functions should be reasonable
-        // Namely, their images should be pairwise disjoint, they should be injective on capital letters
-        SmallBank(Function<Character, String> labelChoice) {
-            this.lambda = labelChoice;
-            this.iterator = Stream.iterate(new Pair<>('A', 0), p -> {
+        private static Iterator<Pair<Character, Integer>> getStandardIterator() {
+            return Stream.iterate(new Pair<>('A', 0), p -> {
                 char c = p.getKey();
                 int num = p.getValue();
                 if (c == 'Z') {
@@ -76,9 +71,25 @@ public class LabelBank {
                 }
                 return new Pair<>(c, num);
             }).iterator();
+        }
 
+        private void initialize() {
+            iterator = getStandardIterator();
+            lastPair = new Pair<>('.', -1);
+        }
+
+        // Functions should be reasonable
+        // Namely, their images should be pairwise disjoint, they should be injective on capital letters
+        SmallBank(Function<Character, String> lambda) {
+            initialize();
+
+            this.lambda = lambda;
             for (char c = 'A'; c <= 'Z'; c++) {
                 String str = lambda.apply(c);
+                if (delabelMap.containsKey(str))
+                    System.err.println("Lambda is not injective.");
+                if (owners.containsKey(str))
+                    System.err.println("Lambdas are not pairwise disjoint.");
                 delabelMap.put(str, c);
                 owners.put(str, this);
             }
@@ -125,6 +136,12 @@ public class LabelBank {
             }
             return a.getKey() - b.getKey();
         };
+
+        void reset() {
+            initialize();
+            returned.clear();
+            taken.clear();
+        }
     }
 
     /*public static void main(String[] args) {
