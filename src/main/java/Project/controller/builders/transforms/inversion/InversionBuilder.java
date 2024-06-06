@@ -4,53 +4,38 @@ import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricShape;
 import Project.view.viewable.ViewablePlane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InversionBuilder implements GeometricShapeBuilder {
-    private final PointInversionBuilder pointInversionBuilder = new PointInversionBuilder();
-    private final LineInversionBuilder lineInversionBuilder = new LineInversionBuilder();
-    private final CircleInversionBuilder circleInversionBuilder = new CircleInversionBuilder();
+    private final List<GeometricShapeBuilder> builders = List.of(new PointInversionBuilder(), new LineInversionBuilder(),
+            new CircleInversionBuilder());
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
-        boolean accepted = false;
-        if (pointInversionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (lineInversionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (circleInversionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        return accepted;
+        List<Boolean> results = new ArrayList<>();
+        builders.forEach(builder -> results.add(builder.acceptArgument(shape)));
+        return results.contains(true);
     }
 
     @Override
     public boolean isReady() {
-        return pointInversionBuilder.isReady() || lineInversionBuilder.isReady() || circleInversionBuilder.isReady();
+        return builders.stream().anyMatch(GeometricShapeBuilder::isReady);
     }
 
     @Override
     public void reset() {
-        pointInversionBuilder.reset();
-        lineInversionBuilder.reset();
-        circleInversionBuilder.reset();
+        builders.forEach(GeometricShapeBuilder::reset);
     }
 
     @Override
     public boolean awaitsPoint() {
-        return pointInversionBuilder.awaitsPoint() || lineInversionBuilder.awaitsPoint() || circleInversionBuilder.awaitsPoint();
+        return builders.stream().anyMatch(GeometricShapeBuilder::awaitsPoint);
     }
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        if (pointInversionBuilder.isReady()) {
-            pointInversionBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (lineInversionBuilder.isReady()) {
-            lineInversionBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (circleInversionBuilder.isReady()) {
-            circleInversionBuilder.build(viewablePlane, planeX, planeY);
-        }
+        builders.stream().filter(GeometricShapeBuilder::isReady).findFirst()
+                .ifPresent(builder -> builder.build(viewablePlane, planeX, planeY));
     }
 }

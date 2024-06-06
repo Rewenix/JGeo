@@ -4,64 +4,39 @@ import Project.controller.GeometricShapeBuilder;
 import Project.model.GeometricShape;
 import Project.view.viewable.ViewablePlane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReflectionAboutLineBuilder implements GeometricShapeBuilder {
-    private final PointReflectionAboutLineBuilder pointReflectionAboutLineBuilder = new PointReflectionAboutLineBuilder();
-    private final SegmentReflectionAboutLineBuilder segmentReflectionAboutLineBuilder = new SegmentReflectionAboutLineBuilder();
-    private final LineReflectionAboutLineBuilder lineReflectionAboutLineBuilder = new LineReflectionAboutLineBuilder();
-    private final CircleReflectionAboutLineBuilder circleReflectionAboutLineBuilder = new CircleReflectionAboutLineBuilder();
+    private final List<GeometricShapeBuilder> builders = List.of(new PointReflectionAboutLineBuilder(),
+            new SegmentReflectionAboutLineBuilder(), new LineReflectionAboutLineBuilder(),
+            new CircleReflectionAboutLineBuilder());
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
-        boolean accepted = false;
-        if (pointReflectionAboutLineBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (segmentReflectionAboutLineBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (lineReflectionAboutLineBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (circleReflectionAboutLineBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        return accepted;
+        List<Boolean> results = new ArrayList<>();
+        builders.forEach(builder -> results.add(builder.acceptArgument(shape)));
+        return results.contains(true);
     }
 
     @Override
     public boolean isReady() {
-        return pointReflectionAboutLineBuilder.isReady() || segmentReflectionAboutLineBuilder.isReady()
-                || lineReflectionAboutLineBuilder.isReady() || circleReflectionAboutLineBuilder.isReady();
+        return builders.stream().anyMatch(GeometricShapeBuilder::isReady);
     }
 
     @Override
     public void reset() {
-        pointReflectionAboutLineBuilder.reset();
-        segmentReflectionAboutLineBuilder.reset();
-        lineReflectionAboutLineBuilder.reset();
-        circleReflectionAboutLineBuilder.reset();
+        builders.forEach(GeometricShapeBuilder::reset);
     }
 
     @Override
     public boolean awaitsPoint() {
-        return pointReflectionAboutLineBuilder.awaitsPoint() || segmentReflectionAboutLineBuilder.awaitsPoint()
-                || lineReflectionAboutLineBuilder.awaitsPoint() || circleReflectionAboutLineBuilder.awaitsPoint();
+        return builders.stream().anyMatch(GeometricShapeBuilder::awaitsPoint);
     }
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        if (pointReflectionAboutLineBuilder.isReady()) {
-            pointReflectionAboutLineBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (segmentReflectionAboutLineBuilder.isReady()) {
-            segmentReflectionAboutLineBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (lineReflectionAboutLineBuilder.isReady()) {
-            lineReflectionAboutLineBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (circleReflectionAboutLineBuilder.isReady()) {
-            circleReflectionAboutLineBuilder.build(viewablePlane, planeX, planeY);
-        }
+        builders.stream().filter(GeometricShapeBuilder::isReady).findFirst()
+                .ifPresent(builder -> builder.build(viewablePlane, planeX, planeY));
     }
-
 }

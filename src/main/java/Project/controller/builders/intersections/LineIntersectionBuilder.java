@@ -1,13 +1,12 @@
 package Project.controller.builders.intersections;
 
-import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
 
-public class LineIntersectionBuilder implements GeometricShapeBuilder {
+public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricLine a = null;
     private GeometricLine b = null;
 
@@ -81,6 +80,7 @@ public class LineIntersectionBuilder implements GeometricShapeBuilder {
                 (lA.C * lB.A - lB.C * lA.A) / (lA.A * lB.B - lB.A * lA.B));
     }
 
+    @Override
     public List<GeometricPoint> getIntersections() {
         GeometricPoint intersection = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {

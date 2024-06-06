@@ -1,13 +1,12 @@
 package Project.controller.builders.intersections;
 
-import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
 
-public class CircleIntersectionBuilder implements GeometricShapeBuilder {
+public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricCircle a = null;
     private GeometricCircle b = null;
 
@@ -89,6 +88,7 @@ public class CircleIntersectionBuilder implements GeometricShapeBuilder {
         return List.of(i1, i2);
     }
 
+    @Override
     public List<GeometricPoint> getIntersections() {
         GeometricPoint i1 = new GeometricPoint();
         GeometricPoint i2 = new GeometricPoint();

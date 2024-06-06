@@ -9,79 +9,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IntersectionBuilder implements GeometricShapeBuilder {
-    private final LineIntersectionBuilder lineIntersectionBuilder = new LineIntersectionBuilder();
-    private final CircleIntersectionBuilder circleIntersectionBuilder = new CircleIntersectionBuilder();
-    private final LineAndCircleIntersectionBuilder lineAndCircleIntersectionBuilder = new LineAndCircleIntersectionBuilder();
-    private final GenCircleIntersectionBuilder genCircleIntersectionBuilder = new GenCircleIntersectionBuilder();
+    private final List<GeometricIntersectionBuilder> builders = List.of(new LineIntersectionBuilder(), new CircleIntersectionBuilder(),
+            new LineAndCircleIntersectionBuilder(), new GenCircleIntersectionBuilder());
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
-        boolean accepted = false;
-        if (lineIntersectionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (circleIntersectionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (lineAndCircleIntersectionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        if (genCircleIntersectionBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
-        return accepted;
+        List<Boolean> results = new ArrayList<>();
+        builders.forEach(builder -> results.add(builder.acceptArgument(shape)));
+        return results.contains(true);
     }
 
     @Override
     public boolean isReady() {
-        return lineIntersectionBuilder.isReady() || circleIntersectionBuilder.isReady()
-                || lineAndCircleIntersectionBuilder.isReady() || genCircleIntersectionBuilder.isReady();
+        return builders.stream().anyMatch(GeometricShapeBuilder::isReady);
     }
 
     @Override
     public void reset() {
-        lineIntersectionBuilder.reset();
-        circleIntersectionBuilder.reset();
-        lineAndCircleIntersectionBuilder.reset();
-        genCircleIntersectionBuilder.reset();
+        builders.forEach(GeometricShapeBuilder::reset);
     }
 
     @Override
     public boolean awaitsPoint() {
-        return lineIntersectionBuilder.awaitsPoint() || circleIntersectionBuilder.awaitsPoint()
-                || lineAndCircleIntersectionBuilder.awaitsPoint() || genCircleIntersectionBuilder.awaitsPoint();
+        return builders.stream().anyMatch(GeometricShapeBuilder::awaitsPoint);
     }
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        if (lineIntersectionBuilder.isReady()) {
-            lineIntersectionBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (circleIntersectionBuilder.isReady()) {
-            circleIntersectionBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (lineAndCircleIntersectionBuilder.isReady()) {
-            lineAndCircleIntersectionBuilder.build(viewablePlane, planeX, planeY);
-        }
-        else if (genCircleIntersectionBuilder.isReady()) {
-            genCircleIntersectionBuilder.build(viewablePlane, planeX, planeY);
-        }
+        builders.stream().filter(GeometricShapeBuilder::isReady).findFirst()
+                .ifPresent(builder -> builder.build(viewablePlane, planeX, planeY));
     }
 
     public List<GeometricPoint> getIntersections() {
-        if (lineIntersectionBuilder.isReady()) {
-            return lineIntersectionBuilder.getIntersections();
+        for (GeometricIntersectionBuilder builder : builders) {
+            if (builder.isReady()) {
+                return builder.getIntersections();
+            }
         }
-        else if (circleIntersectionBuilder.isReady()) {
-            return circleIntersectionBuilder.getIntersections();
-        }
-        else if (lineAndCircleIntersectionBuilder.isReady()) {
-            return lineAndCircleIntersectionBuilder.getIntersections();
-        }
-        else if (genCircleIntersectionBuilder.isReady()) {
-            return genCircleIntersectionBuilder.getIntersections();
-        }
-        return List.of();
+        return new ArrayList<>();
     }
 
     public static List<GeometricPoint> getIntersections(List<GeometricShape> list) {

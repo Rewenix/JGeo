@@ -1,7 +1,6 @@
 package Project.controller.builders.intersections;
 
 import Project.Config;
-import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
 import Project.model.*;
@@ -9,7 +8,7 @@ import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
 
-public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
+public class LineAndCircleIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricLine line = null;
     private GeometricCircle circle = null;
 
@@ -135,6 +134,7 @@ public class LineAndCircleIntersectionBuilder implements GeometricShapeBuilder {
         return List.of(new BasicPoint(x1, y1), new BasicPoint(x2, y2));
     }
 
+    @Override
     public List<GeometricPoint> getIntersections() {
         GeometricPoint intersection1 = new GeometricPoint();
         GeometricPoint intersection2 = new GeometricPoint();

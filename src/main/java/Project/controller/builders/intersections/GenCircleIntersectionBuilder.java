@@ -1,13 +1,12 @@
 package Project.controller.builders.intersections;
 
-import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
 
-public class GenCircleIntersectionBuilder implements GeometricShapeBuilder {
+public class GenCircleIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricGenCircle a = null;
     private GeometricGenCircle b = null;
 
@@ -48,11 +47,12 @@ public class GenCircleIntersectionBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        for(GeometricPoint i : getIntersections())
+        for (GeometricPoint i : getIntersections())
             BuilderUtils.addToPlane(i, viewablePlane);
     }
 
 
+    @Override
     public List<GeometricPoint> getIntersections() {
         GeometricPoint i1 = new GeometricPoint();
         GeometricPoint i2 = new GeometricPoint();
