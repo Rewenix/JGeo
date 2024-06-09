@@ -8,10 +8,6 @@ import java.util.List;
 public class GeometricCircle extends GeometricShape {
     public final BasicCircle circle = new BasicCircle();
 
-    public GeometricCircle() {
-        super();
-    }
-
     public GeometricCircle(GeometricShape ...parents) {
         super(parents);
     }
