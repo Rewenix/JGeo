@@ -51,9 +51,9 @@ public class Shifter implements Actor {
     @Override
     public void handleClick(ViewablePlane viewablePlane, double screenX, double screenY) {
         viewablePlane.unclickAll();
-        if (viewablePlane.getClickedShape(screenX, screenY) instanceof ViewablePoint point) {
-            setPoint(point.getGeometricShape());
-            point.setOnClicked();
+        if (viewablePlane.getClickedShape(screenX, screenY) instanceof ViewablePoint viewablePoint) {
+            setPoint(viewablePoint.getGeometricShape());
+            viewablePoint.setOnClicked();
             return;
         }
         setPoint(null);

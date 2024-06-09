@@ -13,18 +13,9 @@ public class Controller {
     private final ViewablePlane viewablePlane;
     private final Transformation transformation;
     private Actor selectedActor;
-    private final PointBuilder pointBuilder = new PointBuilder();
 
     public ViewablePlane getViewablePlane() {
         return viewablePlane;
-    }
-
-    public Plane2D getPlane() {
-        return plane;
-    }
-
-    public Transformation getTransformation() {
-        return transformation;
     }
 
     public Controller(Pane viewPane) {

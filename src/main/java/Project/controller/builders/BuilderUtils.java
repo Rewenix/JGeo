@@ -3,7 +3,7 @@ package Project.controller.builders;
 import Project.model.geometricshapes.*;
 import Project.view.viewable.*;
 
-public class BuilderUtils { // Zobaczymy czy jest to przydatne. Najwyzej sie usunie
+public class BuilderUtils {
 
     public static ViewableShape addToPlane(GeometricPoint point, ViewablePlane viewablePlane) {
         point.update();
