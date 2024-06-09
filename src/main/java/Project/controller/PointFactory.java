@@ -17,8 +17,9 @@ public class PointFactory {
     public static ViewableShape createPoint(ViewablePlane viewablePlane, List<ViewableShape> clickedShapesList, double screenX, double screenY) {
         Transformation transformation = viewablePlane.getTransformation();
         List<GeometricShape> clickedShapes = new ArrayList<>();
-        for (ViewableShape clickedShape : clickedShapesList)
+        for (ViewableShape clickedShape : clickedShapesList) {
             clickedShapes.add(clickedShape.getGeometricShape());
+        }
 
         List<GeometricPoint> intersections = IntersectionBuilder.getIntersections(clickedShapes);
         List<ViewablePoint> viewableIntersections = new ArrayList<>();

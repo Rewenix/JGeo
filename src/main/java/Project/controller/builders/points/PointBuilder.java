@@ -1,12 +1,15 @@
 package Project.controller.builders.points;
 
 import Project.controller.GeometricShapeBuilder;
+import Project.controller.PointFactory;
 import Project.controller.builders.BuilderUtils;
 import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
 import Project.view.viewable.ViewablePlane;
 import Project.view.viewable.ViewableShape;
+
+import java.util.List;
 
 public class PointBuilder implements GeometricShapeBuilder {
     private GeometricShape shape;
@@ -42,8 +45,8 @@ public class PointBuilder implements GeometricShapeBuilder {
             return null;
         }
         GeometricPoint point;
-        if(shape == null)
-           point = new GeometricPoint(planeX, planeY);
+        if (shape == null)
+            point = new GeometricPoint(planeX, planeY);
         else
             point = new GeometricPoint(planeX, planeY, shape);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
@@ -58,5 +61,11 @@ public class PointBuilder implements GeometricShapeBuilder {
         ViewableShape viewablePoint = BuilderUtils.addToPlane(point, viewablePlane);
         reset();
         return viewablePoint;
+    }
+
+    @Override
+    public void handleClick(ViewablePlane viewablePlane, double screenX, double screenY) {
+        List<ViewableShape> clickedShapesList = viewablePlane.getClickedShapesList(screenX, screenY);
+        PointFactory.createPoint(viewablePlane, clickedShapesList, screenX, screenY);
     }
 }

@@ -10,7 +10,7 @@ public abstract class GeometricShape {
     protected GeometricShapeUpdater updater;
     private final List<GeometricShape> parents;
 
-    public GeometricShape(GeometricShape ...parents) {
+    public GeometricShape(GeometricShape... parents) {
         this.parents = List.of(parents);
     }
 
@@ -18,9 +18,11 @@ public abstract class GeometricShape {
         this.updater = updater;
     }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {this.name = name;}
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public void update() {
         updater.update();

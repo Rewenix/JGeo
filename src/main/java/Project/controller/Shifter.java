@@ -4,7 +4,7 @@ import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 import Project.view.viewable.ViewablePoint;
 
-public class Shifter implements Actor { // TODO consider splitting this class into two classes.
+public class Shifter implements Actor {
     private final ViewablePlane viewablePlane;
     private final Transformation transformation;
     protected GeometricPoint point = null;
