@@ -1,6 +1,7 @@
 package Project.view;
 
 import Project.controller.Controller;
+import Project.controller.GeometricShapeRemover;
 import Project.controller.Shifter;
 import Project.controller.builders.circles.CircleThroughThreePointsBuilder;
 import Project.controller.builders.circles.CircleWithCenterAndPointBuilder;
@@ -152,6 +153,11 @@ public class Buttons extends VBox {
                 },
                 "Incircle", "incircle.png",
                 "Select three points");
+        registerToggleButton(event -> {
+                    controller.changeActor(new GeometricShapeRemover());
+                },
+                "Delete", "awesomeface.png",
+                "Select shpe to delete");
 
         registerLayout();
     }
@@ -180,7 +186,7 @@ public class Buttons extends VBox {
     private void registerLayout() {
         getChildren().add(scrollPane);
 
-        createButtonGroup("Basic", "Shifter", "Point", "Line", "Segment",
+        createButtonGroup("Basic", "Shifter", "Delete", "Point", "Line", "Segment",
                 "Circle with center", "Circle through 3 points", "Intersection");
 
         createButtonGroup("Construct", "Midpoint or Center", "Perpendicular Line", "Parallel Line",
