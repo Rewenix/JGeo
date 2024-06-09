@@ -35,11 +35,6 @@ public abstract class GeometricShape {
     public abstract boolean isDefined();
 
     public boolean hasParentIn(Set<GeometricShape> shapes) {
-        for (GeometricShape parent : parents) {
-            if (shapes.contains(parent)) {
-                return true;
-            }
-        }
-        return false;
+        return parents.stream().anyMatch(shapes::contains);
     }
 }
