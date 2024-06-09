@@ -60,10 +60,8 @@ public class Shifter implements Actor { // TODO consider splitting this class in
         setOrigin(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
     }
 
-    public void handleDragged(double screenX, double screenY) { // TODO: Check if I haven't angered Java gods.
-        double planeX = transformation.toPlaneX(screenX);
-        double planeY = transformation.toPlaneY(screenY);
-        shift(planeX, planeY);
-        setOrigin(planeX, planeY);
+    public void handleDragged(double screenX, double screenY) {
+        shift(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+        setOrigin(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
     }
 }
