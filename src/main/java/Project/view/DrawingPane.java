@@ -20,7 +20,7 @@ public class DrawingPane extends Pane {
 
     public void registerController(Controller controller) {
         this.setOnMousePressed(event -> {
-            controller.handleNormalClick(event.getX(), event.getY());
+            controller.handleClick(event.getX(), event.getY());
         });
 
         this.setOnMouseDragged(event -> {

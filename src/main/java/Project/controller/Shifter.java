@@ -2,8 +2,9 @@ package Project.controller;
 
 import Project.model.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
+import Project.view.viewable.ViewablePoint;
 
-public class Shifter implements Actor {
+public class Shifter implements Actor { // TODO consider splitting this class into two classes.
     private final ViewablePlane viewablePlane;
     private final Transformation transformation;
     protected GeometricPoint point = null;
@@ -13,11 +14,6 @@ public class Shifter implements Actor {
     public Shifter(ViewablePlane viewablePlane) {
         this.viewablePlane = viewablePlane;
         this.transformation = viewablePlane.getTransformation();
-    }
-
-    @Override
-    public void reset() {
-        point = null;
     }
 
     public void setPoint(GeometricPoint point) {
@@ -50,5 +46,24 @@ public class Shifter implements Actor {
     public void shiftPlane(double planeX, double planeY) {
         transformation.offsetX = offsetXOnEntry - planeX + vectorOriginX;
         transformation.offsetY = offsetYOnEntry - planeY + vectorOriginY;
+    }
+
+    @Override
+    public void handleClick(ViewablePlane viewablePlane, double screenX, double screenY) {
+        viewablePlane.unclickAll();
+        if (viewablePlane.getClickedShape(screenX, screenY) instanceof ViewablePoint point) {
+            setPoint(point.getGeometricShape());
+            point.setOnClicked();
+            return;
+        }
+        setPoint(null);
+        setOrigin(transformation.toPlaneX(screenX), transformation.toPlaneY(screenY));
+    }
+
+    public void handleDragged(double screenX, double screenY) { // TODO: Check if I haven't angered Java gods.
+        double planeX = transformation.toPlaneX(screenX);
+        double planeY = transformation.toPlaneY(screenY);
+        shift(planeX, planeY);
+        setOrigin(planeX, planeY);
     }
 }
