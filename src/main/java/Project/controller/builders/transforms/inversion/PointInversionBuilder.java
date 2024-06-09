@@ -63,6 +63,7 @@ public class PointInversionBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                invertedPoint.isMovable = false;
                 setPoint(invertedPoint, pPoint, pCircle);
             }
         };

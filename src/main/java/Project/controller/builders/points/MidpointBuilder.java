@@ -55,6 +55,7 @@ public class MidpointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                midpoint.isMovable = false;
                 setPoint(midpoint, pA, pB);
             }
         };

@@ -56,6 +56,8 @@ public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
 
             @Override
             public void update() {
+                i1.isMovable = false;
+                i2.isMovable = false;
                 setPoints(i1, i2, cA, cB);
             }
         };
@@ -103,6 +105,8 @@ public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
 
             @Override
             public void update() {
+                i1.isMovable = false;
+                i2.isMovable = false;
                 setPoints(i1, i2, cA, cB);
             }
         };

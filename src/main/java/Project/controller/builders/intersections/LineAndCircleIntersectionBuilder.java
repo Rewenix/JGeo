@@ -62,6 +62,8 @@ public class LineAndCircleIntersectionBuilder implements GeometricIntersectionBu
 
             @Override
             public void update() {
+                intersection1.isMovable = false;
+                intersection2.isMovable = false;
                 setPoints(intersection1, intersection2, l, c);
             }
         };
@@ -151,6 +153,8 @@ public class LineAndCircleIntersectionBuilder implements GeometricIntersectionBu
 
             @Override
             public void update() {
+                intersection1.isMovable = false;
+                intersection2.isMovable = false;
                 setPoints(intersection1, intersection2, l, c);
             }
         };

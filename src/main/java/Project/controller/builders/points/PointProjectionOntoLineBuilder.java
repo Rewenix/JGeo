@@ -69,6 +69,7 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                projectedPoint.isMovable = false;
                 setPoint(projectedPoint, pPoint, pLine);
             }
         };

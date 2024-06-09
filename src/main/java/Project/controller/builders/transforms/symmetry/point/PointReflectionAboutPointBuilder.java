@@ -52,6 +52,7 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                reflectedPoint.isMovable = false;
                 setPoint(reflectedPoint, pPoint, pReflectionPoint);
             }
         };

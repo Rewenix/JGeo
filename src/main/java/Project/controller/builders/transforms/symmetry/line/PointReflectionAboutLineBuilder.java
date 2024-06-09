@@ -70,6 +70,7 @@ public class PointReflectionAboutLineBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                reflectedPoint.isMovable = false;
                 setPoint(reflectedPoint, pPoint, pLine);
             }
         };

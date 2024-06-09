@@ -67,6 +67,8 @@ public class GenCircleIntersectionBuilder implements GeometricIntersectionBuilde
 
             @Override
             public void update() {
+                i1.isMovable = false;
+                i2.isMovable = false;
                 if (!gA.isLine()) {
                     if (!gB.isLine())
                         CircleIntersectionBuilder.setPoints(i1, i2, gA.circle, gB.circle);

@@ -49,6 +49,7 @@ public class CircleCenterBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                center.isMovable = false;
                 setPoint(center, c);
             }
         };

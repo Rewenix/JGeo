@@ -66,6 +66,7 @@ public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
 
             @Override
             public void update() {
+                intersection.isMovable = false;
                 setPoint(intersection, lA, lB);
             }
         };
@@ -95,6 +96,7 @@ public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
 
             @Override
             public void update() {
+                intersection.isMovable = false;
                 setPoint(intersection, lA, lB);
             }
         };

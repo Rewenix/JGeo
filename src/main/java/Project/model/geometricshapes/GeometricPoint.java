@@ -5,6 +5,7 @@ import Project.model.basicshapes.BasicPoint;
 
 public class GeometricPoint extends GeometricShape {
     public final BasicPoint point = new BasicPoint();
+    public boolean isMovable = true;
 
     public GeometricPoint(double x, double y, GeometricShape... parents) {
         super(parents);

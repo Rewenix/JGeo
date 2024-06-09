@@ -68,6 +68,7 @@ public class PoleBuilder implements GeometricShapeBuilder {
 
             @Override
             public void update() {
+                pole.isMovable = false;
                 setPoint(pole, pLine, pCircle);
             }
         };
