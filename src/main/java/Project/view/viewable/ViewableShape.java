@@ -2,8 +2,8 @@ package Project.view.viewable;
 
 import Project.Config;
 import Project.controller.Transformation;
-import Project.model.basicshapes.BasicPoint;
 import Project.model.GeometricShape;
+import Project.model.basicshapes.BasicPoint;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;

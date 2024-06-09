@@ -1,8 +1,8 @@
 package Project.controller.builders.intersections;
 
 import Project.controller.GeometricShapeBuilder;
-import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.ArrayList;

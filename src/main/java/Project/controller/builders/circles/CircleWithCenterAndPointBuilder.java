@@ -2,7 +2,8 @@ package Project.controller.builders.circles;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricCircle;
@@ -52,8 +53,8 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricCircle circle = new GeometricCircle(center, point);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pCenter = center;
-            private GeometricPoint pPoint = point;
+            private final GeometricPoint pCenter = center;
+            private final GeometricPoint pPoint = point;
 
             @Override
             public void update() {

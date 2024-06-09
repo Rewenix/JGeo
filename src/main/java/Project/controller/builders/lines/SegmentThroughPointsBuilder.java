@@ -1,9 +1,9 @@
 package Project.controller.builders.lines;
 
 import Project.controller.builders.BuilderUtils;
+import Project.model.GeometricShapeUpdater;
 import Project.model.geometricshapes.GeometricPoint;
 import Project.model.geometricshapes.GeometricSegment;
-import Project.model.GeometricShapeUpdater;
 import Project.view.viewable.ViewablePlane;
 
 /**
@@ -14,8 +14,8 @@ public class SegmentThroughPointsBuilder extends LineThroughPointsBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricSegment segment = new GeometricSegment(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pA = a;
-            private GeometricPoint pB = b;
+            private final GeometricPoint pA = a;
+            private final GeometricPoint pB = b;
 
             @Override
             public void update() {

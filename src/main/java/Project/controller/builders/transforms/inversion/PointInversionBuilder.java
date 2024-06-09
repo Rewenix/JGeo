@@ -2,7 +2,8 @@ package Project.controller.builders.transforms.inversion;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricCircle;
@@ -57,8 +58,8 @@ public class PointInversionBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint invertedPoint = new GeometricPoint(point, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pPoint = point;
-            private GeometricCircle pCircle = circle;
+            private final GeometricPoint pPoint = point;
+            private final GeometricCircle pCircle = circle;
 
             @Override
             public void update() {

@@ -2,17 +2,17 @@ package Project.model.geometricshapes;
 
 import Project.controller.builders.intersections.LineAndCircleIntersectionBuilder;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
+import Project.model.GeometricShape;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
-import Project.model.GeometricShape;
 
 import java.util.List;
 
 public class GeometricCircle extends GeometricShape {
     public final BasicCircle circle = new BasicCircle();
 
-    public GeometricCircle(GeometricShape ...parents) {
+    public GeometricCircle(GeometricShape... parents) {
         super(parents);
     }
 

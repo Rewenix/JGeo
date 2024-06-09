@@ -2,7 +2,8 @@ package Project.controller.builders.lines;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricLine;
@@ -51,8 +52,8 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine line = new GeometricLine(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pA = a;
-            private GeometricPoint pB = b;
+            private final GeometricPoint pA = a;
+            private final GeometricPoint pB = b;
 
             @Override
             public void update() {

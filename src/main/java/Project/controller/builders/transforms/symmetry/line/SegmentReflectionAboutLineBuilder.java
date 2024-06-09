@@ -2,7 +2,8 @@ package Project.controller.builders.transforms.symmetry.line;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicSegment;
 import Project.model.geometricshapes.GeometricGenCircle;
@@ -63,8 +64,8 @@ public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder 
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricSegment reflectedSegment = new GeometricSegment(segment, line);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricSegment pSegment = segment;
-            private GeometricLine pLine = line;
+            private final GeometricSegment pSegment = segment;
+            private final GeometricLine pLine = line;
 
             @Override
             public void update() {

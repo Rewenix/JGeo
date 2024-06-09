@@ -2,7 +2,8 @@ package Project.controller.builders.transforms.symmetry.point;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricCircle;
@@ -57,8 +58,8 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricCircle reflectedCircle = new GeometricCircle(circle, reflectionPoint);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricCircle pCircle = circle;
-            private GeometricPoint pReflectionPoint = reflectionPoint;
+            private final GeometricCircle pCircle = circle;
+            private final GeometricPoint pReflectionPoint = reflectionPoint;
 
             @Override
             public void update() {

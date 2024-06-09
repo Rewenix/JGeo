@@ -41,9 +41,9 @@ public class Plane2D {
     public Set<GeometricShape> removeShape(GeometricShape shape) {
         Set<GeometricShape> dropped = new HashSet<>();
         for (GeometricShape currentShape : shapes)
-            if(currentShape.equals(shape) || currentShape.hasParentIn(dropped)) {
+            if (currentShape.equals(shape) || currentShape.hasParentIn(dropped)) {
                 dropped.add(currentShape);
-                if(currentShape instanceof GeometricGenCircle genCircle) {
+                if (currentShape instanceof GeometricGenCircle genCircle) {
                     dropped.add(genCircle.getLine());
                     dropped.add(genCircle.getCircle());
                 }

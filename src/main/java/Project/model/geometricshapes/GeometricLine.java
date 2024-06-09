@@ -1,14 +1,14 @@
 package Project.model.geometricshapes;
 
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
+import Project.model.GeometricShape;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
-import Project.model.GeometricShape;
 
 public class GeometricLine extends GeometricShape {
     public final BasicLine line = new BasicLine();
 
-    public GeometricLine(GeometricShape ...parents) {
+    public GeometricLine(GeometricShape... parents) {
         super(parents);
     }
 

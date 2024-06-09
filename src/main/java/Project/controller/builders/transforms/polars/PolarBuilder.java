@@ -5,7 +5,8 @@ import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.controller.builders.lines.PerpendicularLineBuilder;
 import Project.controller.builders.transforms.inversion.PointInversionBuilder;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
@@ -62,8 +63,8 @@ public class PolarBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine polarLine = new GeometricLine(point, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pPoint = point;
-            private GeometricCircle pCircle = circle;
+            private final GeometricPoint pPoint = point;
+            private final GeometricCircle pCircle = circle;
 
             @Override
             public void update() {

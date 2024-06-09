@@ -2,7 +2,8 @@ package Project.controller.builders.lines;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricGenCircle;
@@ -54,8 +55,8 @@ public class ParallelLineBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine parallelLine = new GeometricLine(line, point);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricLine pLine = line;
-            private GeometricPoint pPoint = point;
+            private final GeometricLine pLine = line;
+            private final GeometricPoint pPoint = point;
 
             @Override
             public void update() {

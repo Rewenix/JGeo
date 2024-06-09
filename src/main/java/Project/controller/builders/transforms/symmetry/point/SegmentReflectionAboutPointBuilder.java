@@ -2,7 +2,8 @@ package Project.controller.builders.transforms.symmetry.point;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.basicshapes.BasicSegment;
 import Project.model.geometricshapes.GeometricPoint;
@@ -50,8 +51,8 @@ public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricSegment reflectedSegment = new GeometricSegment(segment, reflectionPoint);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricSegment pSegment = segment;
-            private GeometricPoint pReflectionPoint = reflectionPoint;
+            private final GeometricSegment pSegment = segment;
+            private final GeometricPoint pReflectionPoint = reflectionPoint;
 
             @Override
             public void update() {

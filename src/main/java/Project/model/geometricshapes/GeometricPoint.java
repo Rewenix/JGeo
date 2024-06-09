@@ -1,17 +1,17 @@
 package Project.model.geometricshapes;
 
-import Project.model.basicshapes.BasicPoint;
 import Project.model.GeometricShape;
+import Project.model.basicshapes.BasicPoint;
 
 public class GeometricPoint extends GeometricShape {
     public final BasicPoint point = new BasicPoint();
 
-    public GeometricPoint(double x, double y, GeometricShape ...parents) {
+    public GeometricPoint(double x, double y, GeometricShape... parents) {
         super(parents);
         point.setCoordinates(x, y);
     }
 
-    public GeometricPoint(GeometricShape ...parents) {
+    public GeometricPoint(GeometricShape... parents) {
         this(0, 0, parents);
     }
 

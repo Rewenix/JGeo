@@ -3,9 +3,9 @@ package Project.controller.builders.points;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.PointFactory;
 import Project.controller.builders.BuilderUtils;
-import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 import Project.view.viewable.ViewableShape;
 
@@ -50,7 +50,7 @@ public class PointBuilder implements GeometricShapeBuilder {
         else
             point = new GeometricPoint(planeX, planeY, shape);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            GeometricShape pShape = shape;
+            final GeometricShape pShape = shape;
 
             @Override
             public void update() {

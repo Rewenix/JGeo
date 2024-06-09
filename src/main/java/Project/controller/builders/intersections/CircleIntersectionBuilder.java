@@ -1,7 +1,8 @@
 package Project.controller.builders.intersections;
 
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricCircle;
@@ -50,8 +51,8 @@ public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
         GeometricPoint i1 = new GeometricPoint(a, b);
         GeometricPoint i2 = new GeometricPoint(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricCircle cA = a;
-            private GeometricCircle cB = b;
+            private final GeometricCircle cA = a;
+            private final GeometricCircle cB = b;
 
             @Override
             public void update() {
@@ -97,8 +98,8 @@ public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
         GeometricPoint i1 = new GeometricPoint();
         GeometricPoint i2 = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricCircle cA = a;
-            private GeometricCircle cB = b;
+            private final GeometricCircle cA = a;
+            private final GeometricCircle cB = b;
 
             @Override
             public void update() {

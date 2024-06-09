@@ -3,7 +3,8 @@ package Project.controller.builders.transforms.symmetry.line;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricGenCircle;
@@ -64,8 +65,8 @@ public class PointReflectionAboutLineBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint reflectedPoint = new GeometricPoint(point, line);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pPoint = point;
-            private GeometricLine pLine = line;
+            private final GeometricPoint pPoint = point;
+            private final GeometricLine pLine = line;
 
             @Override
             public void update() {

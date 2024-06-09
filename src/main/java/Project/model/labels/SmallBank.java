@@ -47,7 +47,7 @@ class SmallBank {
     }
 
     void acceptReturned(Pair<String, Integer> label) {
-        if(delabelMap.containsKey(label.getKey())) {
+        if (delabelMap.containsKey(label.getKey())) {
             Pair<Character, Integer> pair = new Pair<>(delabelMap.get(label.getKey()), label.getValue());
             if (comparator.compare(pair, lastPair) <= 0)
                 returned.add(pair);
@@ -56,7 +56,7 @@ class SmallBank {
     }
 
     void acceptTaken(Pair<String, Integer> label) {
-        if(delabelMap.containsKey(label.getKey())) {
+        if (delabelMap.containsKey(label.getKey())) {
             Pair<Character, Integer> pair = new Pair<>(delabelMap.get(label.getKey()), label.getValue());
             if (comparator.compare(pair, lastPair) > 0)
                 taken.add(pair);
@@ -74,7 +74,7 @@ class SmallBank {
             } while (taken.contains(pair));
             lastPair = pair;
         }
-        if(pair.getValue() > 0)
+        if (pair.getValue() > 0)
             return lambda.apply(pair.getKey()) + pair.getValue();
         return lambda.apply(pair.getKey());
     }

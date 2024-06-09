@@ -3,7 +3,8 @@ package Project.controller.builders.lines;
 import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
@@ -58,8 +59,8 @@ public class TangentsFromPointBuilder implements GeometricShapeBuilder {
         GeometricLine tangent1 = new GeometricLine(point, circle);
         GeometricLine tangent2 = new GeometricLine(point, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint p = point;
-            private GeometricCircle c = circle;
+            private final GeometricPoint p = point;
+            private final GeometricCircle c = circle;
 
             @Override
             public void update() {

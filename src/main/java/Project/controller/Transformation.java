@@ -4,6 +4,7 @@ import Project.Config;
 
 public class Transformation {
     public double offsetX = 0, offsetY = 0, scale = 1;
+
     public double toPlaneX(double screenX) {
         return screenX * scale + offsetX;
     }
@@ -20,13 +21,14 @@ public class Transformation {
         return -(planeY - offsetY) / scale;
     }
 
-    public void changeScale(double screenX, double screenY, double mul){
+    public void changeScale(double screenX, double screenY, double mul) {
         double planeX = toPlaneX(screenX);
         double planeY = toPlaneY(screenY);
         scale = scale * mul;
-        if(scale < Config.MIN_SCALE){
+        if (scale < Config.MIN_SCALE) {
             scale = Config.MIN_SCALE;
-        }else if(scale > Config.MAX_SCALE){
+        }
+        else if (scale > Config.MAX_SCALE) {
             scale = Config.MAX_SCALE;
         }
         offsetX = planeX - scale * screenX;

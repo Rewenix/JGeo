@@ -3,7 +3,8 @@ package Project.controller.builders.intersections;
 import Project.Config;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
@@ -56,8 +57,8 @@ public class LineAndCircleIntersectionBuilder implements GeometricIntersectionBu
         GeometricPoint intersection1 = new GeometricPoint(line, circle);
         GeometricPoint intersection2 = new GeometricPoint(line, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricLine l = line;
-            private GeometricCircle c = circle;
+            private final GeometricLine l = line;
+            private final GeometricCircle c = circle;
 
             @Override
             public void update() {
@@ -145,8 +146,8 @@ public class LineAndCircleIntersectionBuilder implements GeometricIntersectionBu
         GeometricPoint intersection1 = new GeometricPoint();
         GeometricPoint intersection2 = new GeometricPoint();
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricLine l = line;
-            private GeometricCircle c = circle;
+            private final GeometricLine l = line;
+            private final GeometricCircle c = circle;
 
             @Override
             public void update() {

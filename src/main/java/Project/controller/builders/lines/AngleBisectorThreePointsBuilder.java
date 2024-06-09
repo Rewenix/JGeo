@@ -2,7 +2,8 @@ package Project.controller.builders.lines;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricLine;
 import Project.model.geometricshapes.GeometricPoint;
@@ -54,9 +55,9 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine line = new GeometricLine(a, b, c);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pA = a;
-            private GeometricPoint pB = b;
-            private GeometricPoint pC = c;
+            private final GeometricPoint pA = a;
+            private final GeometricPoint pB = b;
+            private final GeometricPoint pC = c;
 
             @Override
             public void update() {

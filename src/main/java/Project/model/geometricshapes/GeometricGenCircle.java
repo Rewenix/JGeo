@@ -1,13 +1,13 @@
 package Project.model.geometricshapes;
 
-import Project.model.basicshapes.BasicPoint;
 import Project.model.GeometricShape;
+import Project.model.basicshapes.BasicPoint;
 
 public class GeometricGenCircle extends GeometricShape {
     public final GeometricLine line;
     public final GeometricCircle circle;
 
-    public GeometricGenCircle(GeometricShape ...parents) {
+    public GeometricGenCircle(GeometricShape... parents) {
         super(parents);
         this.line = new GeometricLine();
         this.circle = new GeometricCircle();

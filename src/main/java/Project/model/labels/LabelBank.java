@@ -3,7 +3,8 @@ package Project.model.labels;
 import Project.model.GeometricShape;
 import javafx.util.Pair;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -22,7 +23,7 @@ public class LabelBank {
 
     // To be invoked upon clearing plane
     public void reset() {
-        for(SmallBank bank : banksMap.values())
+        for (SmallBank bank : banksMap.values())
             bank.reset();
     }
 

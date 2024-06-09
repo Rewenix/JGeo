@@ -2,10 +2,10 @@ package Project.controller.builders.points;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.basicshapes.BasicPoint;
-import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
+import Project.model.basicshapes.BasicPoint;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 
 /**
@@ -50,8 +50,8 @@ public class MidpointBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint midpoint = new GeometricPoint(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pA = a;
-            private GeometricPoint pB = b;
+            private final GeometricPoint pA = a;
+            private final GeometricPoint pB = b;
 
             @Override
             public void update() {

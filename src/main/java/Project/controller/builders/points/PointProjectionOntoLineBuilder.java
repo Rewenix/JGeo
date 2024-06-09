@@ -2,7 +2,8 @@ package Project.controller.builders.points;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricGenCircle;
@@ -63,8 +64,8 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint projectedPoint = new GeometricPoint(point, line);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pPoint = point;
-            private GeometricLine pLine = line;
+            private final GeometricPoint pPoint = point;
+            private final GeometricLine pLine = line;
 
             @Override
             public void update() {

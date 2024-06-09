@@ -10,10 +10,7 @@ public class PoleOrPolarBuilder implements GeometricShapeBuilder {
 
     @Override
     public boolean acceptArgument(GeometricShape shape) {
-        boolean accepted = false;
-        if (polarBuilder.acceptArgument(shape)) {
-            accepted = true;
-        }
+        boolean accepted = polarBuilder.acceptArgument(shape);
         if (poleBuilder.acceptArgument(shape)) {
             accepted = true;
         }

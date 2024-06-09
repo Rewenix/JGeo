@@ -3,8 +3,7 @@ package Project.view;
 import Project.controller.Controller;
 import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.BorderPane;
 
 public class View extends BorderPane {
     private final Buttons buttons = new Buttons();

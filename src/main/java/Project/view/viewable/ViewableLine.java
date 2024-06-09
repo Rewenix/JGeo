@@ -1,9 +1,9 @@
 package Project.view.viewable;
 
 import Project.Config;
+import Project.model.GeometricShape;
 import Project.model.basicshapes.BasicLine;
 import Project.model.geometricshapes.GeometricLine;
-import Project.model.GeometricShape;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 

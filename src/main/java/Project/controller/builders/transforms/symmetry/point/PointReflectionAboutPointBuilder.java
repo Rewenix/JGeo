@@ -2,10 +2,10 @@ package Project.controller.builders.transforms.symmetry.point;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.basicshapes.BasicPoint;
-import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
+import Project.model.basicshapes.BasicPoint;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 
 public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
@@ -47,8 +47,8 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricPoint reflectedPoint = new GeometricPoint(point, reflectionPoint);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricPoint pPoint = point;
-            private GeometricPoint pReflectionPoint = reflectionPoint;
+            private final GeometricPoint pPoint = point;
+            private final GeometricPoint pReflectionPoint = reflectionPoint;
 
             @Override
             public void update() {

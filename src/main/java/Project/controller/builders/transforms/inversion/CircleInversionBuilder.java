@@ -5,7 +5,8 @@ import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.circles.CircleThroughThreePointsBuilder;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicCircle;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
@@ -65,8 +66,8 @@ public class CircleInversionBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricGenCircle invertedCircle = new GeometricGenCircle(circle, inversionCircle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricCircle pCircle = circle;
-            private GeometricCircle pInversionCircle = inversionCircle;
+            private final GeometricCircle pCircle = circle;
+            private final GeometricCircle pInversionCircle = inversionCircle;
 
             @Override
             public void update() {

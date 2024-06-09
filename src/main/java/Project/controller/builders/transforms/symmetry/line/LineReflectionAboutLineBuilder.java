@@ -4,7 +4,8 @@ import Project.Config;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
-import Project.model.*;
+import Project.model.GeometricShape;
+import Project.model.GeometricShapeUpdater;
 import Project.model.basicshapes.BasicLine;
 import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricGenCircle;
@@ -60,8 +61,8 @@ public class LineReflectionAboutLineBuilder implements GeometricShapeBuilder {
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
         GeometricLine reflectedLine = new GeometricLine(line, reflectionLine);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
-            private GeometricLine pLine = line;
-            private GeometricLine pReflectionLine = reflectionLine;
+            private final GeometricLine pLine = line;
+            private final GeometricLine pReflectionLine = reflectionLine;
 
             @Override
             public void update() {
