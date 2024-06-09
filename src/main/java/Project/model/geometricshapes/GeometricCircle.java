@@ -2,9 +2,9 @@ package Project.model.geometricshapes;
 
 import Project.controller.builders.intersections.LineAndCircleIntersectionBuilder;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
-import Project.model.BasicCircle;
-import Project.model.BasicLine;
-import Project.model.BasicPoint;
+import Project.model.basicshapes.BasicCircle;
+import Project.model.basicshapes.BasicLine;
+import Project.model.basicshapes.BasicPoint;
 import Project.model.GeometricShape;
 
 import java.util.List;

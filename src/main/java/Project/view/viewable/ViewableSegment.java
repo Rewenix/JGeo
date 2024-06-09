@@ -1,6 +1,6 @@
 package Project.view.viewable;
 
-import Project.model.BasicSegment;
+import Project.model.basicshapes.BasicSegment;
 import Project.model.geometricshapes.GeometricSegment;
 import javafx.scene.shape.StrokeLineJoin;
 

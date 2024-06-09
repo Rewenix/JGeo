@@ -1,6 +1,6 @@
 package Project.model.geometricshapes;
 
-import Project.model.BasicPoint;
+import Project.model.basicshapes.BasicPoint;
 import Project.model.GeometricShape;
 
 public class GeometricPoint extends GeometricShape {

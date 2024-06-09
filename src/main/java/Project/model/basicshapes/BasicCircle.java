@@ -1,4 +1,4 @@
-package Project.model;
+package Project.model.basicshapes;
 
 import Project.Config;
 import Project.controller.builders.lines.LineThroughPointsBuilder;

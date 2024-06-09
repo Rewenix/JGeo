@@ -1,7 +1,7 @@
 package Project.view.viewable;
 
 import Project.Config;
-import Project.model.BasicCircle;
+import Project.model.basicshapes.BasicCircle;
 import Project.model.geometricshapes.GeometricCircle;
 import Project.model.GeometricShape;
 import javafx.scene.paint.Color;

@@ -3,6 +3,8 @@ package Project.controller.builders.transforms.symmetry.point;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
+import Project.model.basicshapes.BasicPoint;
+import Project.model.basicshapes.BasicSegment;
 import Project.model.geometricshapes.GeometricPoint;
 import Project.model.geometricshapes.GeometricSegment;
 import Project.view.viewable.ViewablePlane;

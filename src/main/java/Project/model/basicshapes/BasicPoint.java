@@ -1,4 +1,4 @@
-package Project.model;
+package Project.model.basicshapes;
 
 public class BasicPoint {
     public double x, y;

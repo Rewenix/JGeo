@@ -2,6 +2,8 @@ package Project.controller.builders.intersections;
 
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
+import Project.model.basicshapes.BasicLine;
+import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricGenCircle;
 import Project.model.geometricshapes.GeometricLine;
 import Project.model.geometricshapes.GeometricPoint;

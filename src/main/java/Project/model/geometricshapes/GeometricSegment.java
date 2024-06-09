@@ -2,8 +2,8 @@ package Project.model.geometricshapes;
 
 import Project.Config;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
-import Project.model.BasicPoint;
-import Project.model.BasicSegment;
+import Project.model.basicshapes.BasicPoint;
+import Project.model.basicshapes.BasicSegment;
 import Project.model.GeometricShape;
 
 public class GeometricSegment extends GeometricLine {

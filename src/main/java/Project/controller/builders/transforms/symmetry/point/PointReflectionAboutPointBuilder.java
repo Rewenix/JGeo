@@ -2,7 +2,7 @@ package Project.controller.builders.transforms.symmetry.point;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.BasicPoint;
+import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;

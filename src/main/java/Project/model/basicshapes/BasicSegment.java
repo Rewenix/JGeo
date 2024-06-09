@@ -1,4 +1,4 @@
-package Project.model;
+package Project.model.basicshapes;
 
 public class BasicSegment extends BasicLine {
     public BasicPoint p1, p2;

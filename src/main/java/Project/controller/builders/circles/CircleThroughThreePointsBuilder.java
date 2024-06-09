@@ -4,6 +4,8 @@ import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.model.*;
+import Project.model.basicshapes.BasicCircle;
+import Project.model.basicshapes.BasicPoint;
 import Project.model.geometricshapes.GeometricCircle;
 import Project.model.geometricshapes.GeometricGenCircle;
 import Project.model.geometricshapes.GeometricPoint;

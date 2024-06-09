@@ -1,5 +1,7 @@
 package Project.model;
 
+import Project.model.basicshapes.BasicPoint;
+
 import java.util.List;
 import java.util.Set;
 

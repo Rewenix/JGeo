@@ -1,4 +1,4 @@
-package Project.model;
+package Project.model.basicshapes;
 
 public class BasicLine {
     public double A, B, C; // Ax + By + C = 0
