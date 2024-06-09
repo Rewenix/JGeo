@@ -1,4 +1,7 @@
-package Project.model;
+package Project.model.geometricshapes;
+
+import Project.model.BasicPoint;
+import Project.model.GeometricShape;
 
 public class GeometricGenCircle extends GeometricShape {
     public final GeometricLine line;
@@ -31,11 +34,11 @@ public class GeometricGenCircle extends GeometricShape {
         return circle.isDefined() ? circle : line;
     }
 
-    protected GeometricCircle getCircle() {
+    public GeometricCircle getCircle() {
         return circle;
     }
 
-    protected GeometricLine getLine() {
+    public GeometricLine getLine() {
         return line;
     }
 

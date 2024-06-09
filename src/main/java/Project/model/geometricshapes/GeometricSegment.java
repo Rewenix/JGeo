@@ -1,13 +1,16 @@
-package Project.model;
+package Project.model.geometricshapes;
 
 import Project.Config;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
+import Project.model.BasicPoint;
+import Project.model.BasicSegment;
+import Project.model.GeometricShape;
 
 public class GeometricSegment extends GeometricLine {
 
     public final BasicSegment segment = new BasicSegment();
 
-    public GeometricSegment(GeometricShape ...parents) {
+    public GeometricSegment(GeometricShape...parents) {
         super(parents);
     }
 

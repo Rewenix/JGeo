@@ -2,7 +2,7 @@ package Project.controller;
 
 import Project.controller.builders.intersections.IntersectionBuilder;
 import Project.controller.builders.points.PointBuilder;
-import Project.model.GeometricPoint;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.view.viewable.ViewablePlane;
 import Project.view.viewable.ViewablePoint;

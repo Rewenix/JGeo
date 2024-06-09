@@ -3,10 +3,9 @@ package Project.controller.builders.circles;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
+import Project.model.geometricshapes.GeometricCircle;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * A builder class for creating a circle with a center point and another point

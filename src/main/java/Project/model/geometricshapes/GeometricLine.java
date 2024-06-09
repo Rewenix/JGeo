@@ -1,6 +1,9 @@
-package Project.model;
+package Project.model.geometricshapes;
 
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
+import Project.model.BasicLine;
+import Project.model.BasicPoint;
+import Project.model.GeometricShape;
 
 public class GeometricLine extends GeometricShape {
     public final BasicLine line = new BasicLine();

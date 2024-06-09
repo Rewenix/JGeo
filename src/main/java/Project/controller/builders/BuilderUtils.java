@@ -1,6 +1,6 @@
 package Project.controller.builders;
 
-import Project.model.*;
+import Project.model.geometricshapes.*;
 import Project.view.viewable.*;
 
 public class BuilderUtils { // Zobaczymy czy jest to przydatne. Najwyzej sie usunie

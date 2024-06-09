@@ -1,8 +1,8 @@
 package Project.controller.builders.lines;
 
 import Project.controller.builders.BuilderUtils;
-import Project.model.GeometricPoint;
-import Project.model.GeometricSegment;
+import Project.model.geometricshapes.GeometricPoint;
+import Project.model.geometricshapes.GeometricSegment;
 import Project.model.GeometricShapeUpdater;
 import Project.view.viewable.ViewablePlane;
 

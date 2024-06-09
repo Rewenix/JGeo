@@ -3,6 +3,9 @@ package Project.controller.builders.transforms.symmetry.line;
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
+import Project.model.geometricshapes.GeometricGenCircle;
+import Project.model.geometricshapes.GeometricLine;
+import Project.model.geometricshapes.GeometricSegment;
 import Project.view.viewable.ViewablePlane;
 
 public class SegmentReflectionAboutLineBuilder implements GeometricShapeBuilder {

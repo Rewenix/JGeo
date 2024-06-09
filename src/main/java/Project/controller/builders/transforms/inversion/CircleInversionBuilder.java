@@ -6,6 +6,8 @@ import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.circles.CircleThroughThreePointsBuilder;
 import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.model.*;
+import Project.model.geometricshapes.GeometricCircle;
+import Project.model.geometricshapes.GeometricGenCircle;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package Project.controller.builders.points;
 
 import Project.controller.GeometricShapeBuilder;
 import Project.controller.builders.BuilderUtils;
-import Project.model.GeometricPoint;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.model.GeometricShape;
 import Project.model.GeometricShapeUpdater;
 import Project.view.viewable.ViewablePlane;

@@ -1,7 +1,7 @@
 package Project.view.viewable;
 
 import Project.model.BasicSegment;
-import Project.model.GeometricSegment;
+import Project.model.geometricshapes.GeometricSegment;
 import javafx.scene.shape.StrokeLineJoin;
 
 public class ViewableSegment extends ViewableLine {

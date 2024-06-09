@@ -1,4 +1,7 @@
-package Project.model;
+package Project.model.geometricshapes;
+
+import Project.model.BasicPoint;
+import Project.model.GeometricShape;
 
 public class GeometricPoint extends GeometricShape {
     public final BasicPoint point = new BasicPoint();

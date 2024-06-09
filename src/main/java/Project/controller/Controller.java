@@ -2,7 +2,7 @@ package Project.controller;
 
 import Project.Config;
 import Project.controller.builders.points.PointBuilder;
-import Project.model.GeometricGenCircle;
+import Project.model.geometricshapes.GeometricGenCircle;
 import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import Project.view.viewable.ViewablePlane;

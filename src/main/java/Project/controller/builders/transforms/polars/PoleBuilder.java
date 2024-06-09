@@ -6,6 +6,10 @@ import Project.controller.builders.intersections.LineIntersectionBuilder;
 import Project.controller.builders.lines.PerpendicularLineBuilder;
 import Project.controller.builders.transforms.inversion.PointInversionBuilder;
 import Project.model.*;
+import Project.model.geometricshapes.GeometricCircle;
+import Project.model.geometricshapes.GeometricGenCircle;
+import Project.model.geometricshapes.GeometricLine;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 
 public class PoleBuilder implements GeometricShapeBuilder {

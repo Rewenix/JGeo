@@ -1,6 +1,6 @@
 package Project.controller;
 
-import Project.model.GeometricPoint;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 import Project.view.viewable.ViewablePoint;
 

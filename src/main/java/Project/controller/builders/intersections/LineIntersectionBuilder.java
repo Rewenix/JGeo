@@ -2,10 +2,12 @@ package Project.controller.builders.intersections;
 
 import Project.controller.builders.BuilderUtils;
 import Project.model.*;
+import Project.model.geometricshapes.GeometricGenCircle;
+import Project.model.geometricshapes.GeometricLine;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
-import java.util.Set;
 
 public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricLine a = null;

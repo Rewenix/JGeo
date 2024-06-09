@@ -1,5 +1,7 @@
 package Project.model;
 
+import Project.model.geometricshapes.GeometricGenCircle;
+import Project.model.geometricshapes.GeometricPoint;
 import Project.model.labels.LabelBank;
 
 import java.util.ArrayList;
