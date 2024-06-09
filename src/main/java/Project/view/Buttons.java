@@ -156,7 +156,7 @@ public class Buttons extends VBox {
         registerToggleButton(event -> {
                     controller.changeActor(new GeometricShapeRemover());
                 },
-                "Delete", "awesomeface.png",
+                "Delete", "delete.png",
                 "Select shpe to delete");
 
         registerLayout();
