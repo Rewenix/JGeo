@@ -61,7 +61,7 @@ public class LineInversionBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricGenCircle invertedLine = new GeometricGenCircle();
+        GeometricGenCircle invertedLine = new GeometricGenCircle(line, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricCircle pCircle = circle;

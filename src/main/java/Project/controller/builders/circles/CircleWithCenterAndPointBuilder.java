@@ -5,6 +5,9 @@ import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * A builder class for creating a circle with a center point and another point
  * on the circumference.
@@ -46,7 +49,7 @@ public class CircleWithCenterAndPointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricCircle circle = new GeometricCircle();
+        GeometricCircle circle = new GeometricCircle(center, point);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pCenter = center;
             private GeometricPoint pPoint = point;

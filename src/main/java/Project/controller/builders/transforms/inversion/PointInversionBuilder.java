@@ -50,7 +50,7 @@ public class PointInversionBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint invertedPoint = new GeometricPoint();
+        GeometricPoint invertedPoint = new GeometricPoint(point, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pPoint = point;
             private GeometricCircle pCircle = circle;

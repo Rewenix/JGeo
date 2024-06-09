@@ -1,12 +1,15 @@
 package Project.model;
 
 import Project.Config;
-import Project.controller.builders.BuilderUtils;
 import Project.controller.builders.points.PointProjectionOntoLineBuilder;
 
 public class GeometricSegment extends GeometricLine {
 
     public final BasicSegment segment = new BasicSegment();
+
+    public GeometricSegment(GeometricShape ...parents) {
+        super(parents);
+    }
 
     public void setCoordinates(BasicSegment segment) {
         this.segment.setCoordinates(segment);

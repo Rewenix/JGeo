@@ -5,6 +5,9 @@ import Project.controller.builders.BuilderUtils;
 import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
+import java.util.List;
+import java.util.Set;
+
 public class IncircleBuilder implements GeometricShapeBuilder {
     private GeometricPoint a = null;
     private GeometricPoint b = null;
@@ -48,7 +51,7 @@ public class IncircleBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricCircle incircle = new GeometricCircle();
+        GeometricCircle incircle = new GeometricCircle(a, b, c);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

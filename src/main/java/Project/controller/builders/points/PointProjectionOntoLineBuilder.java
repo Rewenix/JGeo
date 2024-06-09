@@ -56,7 +56,7 @@ public class PointProjectionOntoLineBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint projectedPoint = new GeometricPoint();
+        GeometricPoint projectedPoint = new GeometricPoint(point, line);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pPoint = point;
             private GeometricLine pLine = line;

@@ -45,7 +45,7 @@ public class LineThroughPointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricLine line = new GeometricLine();
+        GeometricLine line = new GeometricLine(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

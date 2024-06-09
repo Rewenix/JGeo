@@ -54,7 +54,7 @@ public class LineReflectionAboutLineBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricLine reflectedLine = new GeometricLine();
+        GeometricLine reflectedLine = new GeometricLine(line, reflectionLine);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricLine pReflectionLine = reflectionLine;

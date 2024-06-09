@@ -4,7 +4,8 @@ public class GeometricGenCircle extends GeometricShape {
     public final GeometricLine line;
     public final GeometricCircle circle;
 
-    public GeometricGenCircle() {
+    public GeometricGenCircle(GeometricShape ...parents) {
+        super(parents);
         this.line = new GeometricLine();
         this.circle = new GeometricCircle();
     }
@@ -28,6 +29,14 @@ public class GeometricGenCircle extends GeometricShape {
 
     public GeometricShape nowIAm() {
         return circle.isDefined() ? circle : line;
+    }
+
+    protected GeometricCircle getCircle() {
+        return circle;
+    }
+
+    protected GeometricLine getLine() {
+        return line;
     }
 
     public boolean isLine() {

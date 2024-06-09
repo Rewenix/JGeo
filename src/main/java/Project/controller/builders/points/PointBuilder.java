@@ -41,7 +41,11 @@ public class PointBuilder implements GeometricShapeBuilder {
         if (shape instanceof GeometricPoint point) {
             return null;
         }
-        GeometricPoint point = new GeometricPoint(planeX, planeY);
+        GeometricPoint point;
+        if(shape == null)
+           point = new GeometricPoint(planeX, planeY);
+        else
+            point = new GeometricPoint(planeX, planeY, shape);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             GeometricShape pShape = shape;
 

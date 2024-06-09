@@ -44,7 +44,7 @@ public class SegmentReflectionAboutPointBuilder implements GeometricShapeBuilder
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricSegment reflectedSegment = new GeometricSegment();
+        GeometricSegment reflectedSegment = new GeometricSegment(segment, reflectionPoint);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricSegment pSegment = segment;
             private GeometricPoint pReflectionPoint = reflectionPoint;

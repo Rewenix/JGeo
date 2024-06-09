@@ -49,7 +49,7 @@ public class AngleBisectorThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricLine line = new GeometricLine();
+        GeometricLine line = new GeometricLine(a, b, c);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;

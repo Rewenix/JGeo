@@ -53,7 +53,7 @@ public class PoleBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint pole = new GeometricPoint();
+        GeometricPoint pole = new GeometricPoint(line, circle);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine pLine = line;
             private GeometricCircle pCircle = circle;

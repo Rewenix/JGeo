@@ -5,6 +5,7 @@ import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
+import java.util.Set;
 
 public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricLine a = null;
@@ -53,7 +54,7 @@ public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint intersection = new GeometricPoint();
+        GeometricPoint intersection = new GeometricPoint(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine lA = a;
             private GeometricLine lB = b;
@@ -82,7 +83,7 @@ public class LineIntersectionBuilder implements GeometricIntersectionBuilder {
 
     @Override
     public List<GeometricPoint> getIntersections() {
-        GeometricPoint intersection = new GeometricPoint();
+        GeometricPoint intersection = new GeometricPoint(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricLine lA = a;
             private GeometricLine lB = b;

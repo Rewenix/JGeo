@@ -3,10 +3,13 @@ package Project.model;
 public class GeometricPoint extends GeometricShape {
     public final BasicPoint point = new BasicPoint();
 
-    public GeometricPoint(double x, double y) { point.setCoordinates(x, y); }
+    public GeometricPoint(double x, double y, GeometricShape ...parents) {
+        super(parents);
+        point.setCoordinates(x, y);
+    }
 
-    public GeometricPoint() {
-        this(0, 0);
+    public GeometricPoint(GeometricShape ...parents) {
+        this(0, 0, parents);
     }
 
     public void setCoordinates(BasicPoint point) {

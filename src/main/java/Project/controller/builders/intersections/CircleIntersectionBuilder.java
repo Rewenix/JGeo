@@ -5,6 +5,7 @@ import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
 import java.util.List;
+import java.util.Set;
 
 public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
     private GeometricCircle a = null;
@@ -43,8 +44,8 @@ public class CircleIntersectionBuilder implements GeometricIntersectionBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint i1 = new GeometricPoint();
-        GeometricPoint i2 = new GeometricPoint();
+        GeometricPoint i1 = new GeometricPoint(a, b);
+        GeometricPoint i2 = new GeometricPoint(a, b);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle cA = a;
             private GeometricCircle cB = b;

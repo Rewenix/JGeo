@@ -45,7 +45,7 @@ public class PointReflectionAboutPointBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricPoint reflectedPoint = new GeometricPoint();
+        GeometricPoint reflectedPoint = new GeometricPoint(point, reflectionPoint);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pPoint = point;
             private GeometricPoint pReflectionPoint = reflectionPoint;

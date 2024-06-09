@@ -50,7 +50,7 @@ public class CircleReflectionAboutPointBuilder implements GeometricShapeBuilder 
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricCircle reflectedCircle = new GeometricCircle();
+        GeometricCircle reflectedCircle = new GeometricCircle(circle, reflectionPoint);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricCircle pCircle = circle;
             private GeometricPoint pReflectionPoint = reflectionPoint;

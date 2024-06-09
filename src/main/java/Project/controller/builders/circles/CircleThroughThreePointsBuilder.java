@@ -6,6 +6,9 @@ import Project.controller.builders.lines.LineThroughPointsBuilder;
 import Project.model.*;
 import Project.view.viewable.ViewablePlane;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * A builder class for creating a circle through three points.
  */
@@ -50,7 +53,7 @@ public class CircleThroughThreePointsBuilder implements GeometricShapeBuilder {
 
     @Override
     public void build(ViewablePlane viewablePlane, double planeX, double planeY) {
-        GeometricGenCircle genCircle = new GeometricGenCircle();
+        GeometricGenCircle genCircle = new GeometricGenCircle(a, b, c);
         GeometricShapeUpdater updater = new GeometricShapeUpdater() {
             private GeometricPoint pA = a;
             private GeometricPoint pB = b;
