@@ -11,8 +11,10 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class TopBar extends HBox {
+    private final SceneExport export;
 
-    public TopBar() {
+    public TopBar(SceneExport export) {
+        this.export = export;
         setAlignment(Pos.CENTER_LEFT);
         setMinHeight(50);
         this.setStyle("-fx-background-color: cyan");
@@ -29,6 +31,9 @@ public class TopBar extends HBox {
                 },
                 "Clear",
                 "Clears the drawing pane.");
+        registerButton(event ->{
+            export.exportImage();
+        }, "Export image", "Exports the curently displayed scene to .png file");
     }
 
     private void registerButton(EventHandler<ActionEvent> eventHandler, String buttonName, String description) {

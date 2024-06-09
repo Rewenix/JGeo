@@ -1,6 +1,7 @@
 package Project;
 
 import Project.controller.Controller;
+import Project.view.SceneExport;
 import Project.view.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,7 +14,8 @@ public class Program extends Application {
         stage.setTitle("JGeo");
 
         Config.load();
-        View view = new View();
+        SceneExport export = new SceneExport(stage);
+        View view = new View(export);
         Controller controller = new Controller(view.drawingPane);
         view.registerController(controller);
 
