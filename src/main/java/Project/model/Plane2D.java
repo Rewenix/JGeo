@@ -3,7 +3,9 @@ package Project.model;
 import Project.model.labels.LabelBank;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -12,7 +14,7 @@ public class Plane2D {
     private final LabelBank labelBank;
 
     // Putting a default last bank shapes would be good practice
-    // The bank will treat is as default anyway, but this way it is explicit
+    // The bank will treat it as default anyway, but this way it is explicit
     public Plane2D() {
         LinkedHashMap<Predicate<GeometricShape>, Function<Character, String>> lambdaMap = new LinkedHashMap<>();
         lambdaMap.put(shape -> shape instanceof GeometricPoint, c -> Character.toString(c));
@@ -32,6 +34,18 @@ public class Plane2D {
             return shape;
         }
         return null;
+    }
+
+    public Set<GeometricShape> removeShape(GeometricShape shape) {
+        Set<GeometricShape> dropped = new HashSet<>();
+
+        for (GeometricShape currentShape : shapes)
+            if(currentShape.equals(shape) || currentShape.hasParentIn(dropped)) {
+                dropped.add(currentShape);
+                labelBank.returnLabel(currentShape);
+            }
+        shapes.removeAll(dropped);
+        return dropped;
     }
 
     public void clear() {

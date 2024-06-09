@@ -1,12 +1,14 @@
 package Project.view.viewable;
 
 import Project.controller.Transformation;
+import Project.model.GeometricShape;
 import Project.model.Plane2D;
 import Project.view.labels.LabelManager;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class ViewablePlane {
@@ -47,18 +49,32 @@ public class ViewablePlane {
             shape.unclick();
     }
 
+    private void dropShape(ViewableShape shape) {
+        shape.drop();
+        if (shape instanceof ViewablePoint point)
+            labelManager.removePointLabel(point);
+    }
+
     public void removeLastShape() {
         if (!shapes.isEmpty()) {
             ViewableShape shape = shapes.remove(shapes.size() - 1);
-            shape.drop();
-            if (shape instanceof ViewablePoint point)
-                labelManager.removePointLabel(point);
+            dropShape(shape);
         }
     }
 
     public void clear() {
         while (!shapes.isEmpty())
             removeLastShape();
+    }
+
+    public void removeShapes(Set<GeometricShape> shapesSet) {
+        shapes.removeIf(viewableShape -> {
+            if (shapesSet.contains(viewableShape.getGeometricShape())) {
+                dropShape(viewableShape);
+                return true;
+            }
+            return false;
+        });
     }
 
     public List<ViewableShape> getClickedShapesList(double screenX, double screenY) {
