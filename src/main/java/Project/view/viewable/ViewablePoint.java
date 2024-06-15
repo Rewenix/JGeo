@@ -43,9 +43,9 @@ public class ViewablePoint extends ViewableShape {
         drawableHub.setCenterX(drawableShape.getCenterX());
         drawableHub.setCenterY(drawableShape.getCenterY());
         if(geoPoint.isMovable){
-            drawableShape.setFill(Color.BLACK);
+            drawableShape.setFill(Color.BLUE);
         }else{
-            drawableShape.setFill(Color.DARKGRAY);
+            drawableShape.setFill(Color.BLACK);
         }
     }
 
